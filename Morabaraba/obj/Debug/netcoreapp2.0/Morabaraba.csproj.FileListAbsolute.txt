@@ -9,6 +9,7 @@
 \\ict.ru.ac.za\DFS\UGHomes\g15r2152\Desktop\newProject\Morabaraba\obj\Debug\netcoreapp2.0\Morabaraba.AssemblyInfo.cs
 \\ict.ru.ac.za\DFS\UGHomes\g15r2152\Desktop\newProject\Morabaraba\obj\Debug\netcoreapp2.0\Morabaraba.dll
 \\ict.ru.ac.za\DFS\UGHomes\g15r2152\Desktop\newProject\Morabaraba\obj\Debug\netcoreapp2.0\Morabaraba.pdb
+<<<<<<< HEAD
 J:\Morabaraba-9001\Morabaraba\Morabaraba\bin\Debug\netcoreapp2.0\Morabaraba.deps.json
 J:\Morabaraba-9001\Morabaraba\Morabaraba\bin\Debug\netcoreapp2.0\Morabaraba.runtimeconfig.json
 J:\Morabaraba-9001\Morabaraba\Morabaraba\bin\Debug\netcoreapp2.0\Morabaraba.runtimeconfig.dev.json
@@ -20,3 +21,16 @@ J:\Morabaraba-9001\Morabaraba\Morabaraba\obj\Debug\netcoreapp2.0\Morabaraba.Asse
 J:\Morabaraba-9001\Morabaraba\Morabaraba\obj\Debug\netcoreapp2.0\Morabaraba.AssemblyInfo.cs
 J:\Morabaraba-9001\Morabaraba\Morabaraba\obj\Debug\netcoreapp2.0\Morabaraba.dll
 J:\Morabaraba-9001\Morabaraba\Morabaraba\obj\Debug\netcoreapp2.0\Morabaraba.pdb
+=======
+\\ict.ru.ac.za\DFS\UGHomes\g16t1539\Desktop\SDP\Morabaraba\obj\Debug\netcoreapp2.0\Morabaraba.csprojResolveAssemblyReference.cache
+\\ict.ru.ac.za\DFS\UGHomes\g16t1539\Desktop\SDP\Morabaraba\obj\Debug\netcoreapp2.0\Morabaraba.csproj.CoreCompileInputs.cache
+\\ict.ru.ac.za\DFS\UGHomes\g16t1539\Desktop\SDP\Morabaraba\obj\Debug\netcoreapp2.0\Morabaraba.AssemblyInfoInputs.cache
+\\ict.ru.ac.za\DFS\UGHomes\g16t1539\Desktop\SDP\Morabaraba\obj\Debug\netcoreapp2.0\Morabaraba.AssemblyInfo.cs
+\\ict.ru.ac.za\DFS\UGHomes\g16t1539\Desktop\SDP\Morabaraba\obj\Debug\netcoreapp2.0\Morabaraba.dll
+\\ict.ru.ac.za\DFS\UGHomes\g16t1539\Desktop\SDP\Morabaraba\obj\Debug\netcoreapp2.0\Morabaraba.pdb
+\\ict.ru.ac.za\DFS\UGHomes\g16t1539\Desktop\SDP\Morabaraba\bin\Debug\netcoreapp2.0\Morabaraba.deps.json
+\\ict.ru.ac.za\DFS\UGHomes\g16t1539\Desktop\SDP\Morabaraba\bin\Debug\netcoreapp2.0\Morabaraba.runtimeconfig.json
+\\ict.ru.ac.za\DFS\UGHomes\g16t1539\Desktop\SDP\Morabaraba\bin\Debug\netcoreapp2.0\Morabaraba.runtimeconfig.dev.json
+\\ict.ru.ac.za\DFS\UGHomes\g16t1539\Desktop\SDP\Morabaraba\bin\Debug\netcoreapp2.0\Morabaraba.dll
+\\ict.ru.ac.za\DFS\UGHomes\g16t1539\Desktop\SDP\Morabaraba\bin\Debug\netcoreapp2.0\Morabaraba.pdb
+>>>>>>> 3756884f52320226c160263992faff0a8dbdf630
