@@ -10,7 +10,7 @@ namespace Morabaraba
         string symbol { get; set; }
         string Phase { get; set; }
         IEnumerable<string> getLastPosPlayer { get; set; }
-
+        IEnumerable<Piece> getPieces(IBoard board);
         IEnumerable<string> millsFormed { get; set; }
     }
 }
