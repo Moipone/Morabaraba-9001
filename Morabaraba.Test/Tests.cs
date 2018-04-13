@@ -29,5 +29,16 @@ namespace Morabaraba.Test
             }
             Assert.That(!flag);
         }
+        static public object[] neighBours =
+        {
+            //new object [] {Symbol.CB}
+        };
+
+      /*  [Test]
+        [TestCaseSource(neighBours)]
+        public void APieceKnowsItsNeighBours(string pos,string [] expected)
+        {
+
+        }*/
     }
 }
