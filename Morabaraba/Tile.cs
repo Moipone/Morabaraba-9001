@@ -11,7 +11,7 @@ namespace Morabaraba
 
         }
 
-        public string position { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public IPiece condition { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public string pos { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public IPiece cond { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
     }
 }

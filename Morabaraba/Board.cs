@@ -133,7 +133,16 @@ namespace Morabaraba
 
         public void updateBoard(Tile tile)
         {
-            throw new NotImplementedException();
+            List<Tile> board2 = board.ToList();
+            for (int i = 0; i < board.ToList().Count; i++)
+            {
+                if (board2[i].pos == tile.pos)
+                {
+                    board2.Insert(i, tile);
+                    board2.Remove(board2[i + 1]);
+                    break;
+                }
+            }
         }
     }
 }

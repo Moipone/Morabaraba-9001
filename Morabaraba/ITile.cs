@@ -6,7 +6,7 @@ namespace Morabaraba
 {
     public interface ITile
     {
-        string position { get; set; }
-        IPiece condition { get; set; }
+        string pos { get; set; }
+        IPiece cond { get; set; }
     }
 }
