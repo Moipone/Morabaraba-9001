@@ -12,9 +12,10 @@ namespace Morabaraba.Test
         public void ABoardHas12BlackAnd12WhitePieces()
         {
             // Fix this test
-            Board b = new Board();
-            int blackCount = 0, whiteCount = 0;
-            Assert.That(blackCount == 12);
+            Player p1 = new Player(Symbol.CW);
+            Player p2 = new Player(Symbol.CB);
+            int blackCount = p2.CowLives, whiteCount = p1.CowLives;
+            Assert.That(blackCount == 0);
             Assert.That(whiteCount == 12);
         }
         [Test]

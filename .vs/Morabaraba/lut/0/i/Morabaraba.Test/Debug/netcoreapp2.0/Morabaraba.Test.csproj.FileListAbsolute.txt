@@ -1,0 +1,15 @@
+J:\game\.vs\Morabaraba\lut\0\b\Morabaraba.Test\Debug\netcoreapp2.0\NUnit3.TestAdapter.dll
+J:\game\.vs\Morabaraba\lut\0\b\Morabaraba.Test\Debug\netcoreapp2.0\NUnit3.TestAdapter.pdb
+J:\game\.vs\Morabaraba\lut\0\b\Morabaraba.Test\Debug\netcoreapp2.0\nunit.engine.netstandard.dll
+J:\game\.vs\Morabaraba\lut\0\b\Morabaraba.Test\Debug\netcoreapp2.0\Mono.Cecil.dll
+J:\game\.vs\Morabaraba\lut\0\b\Morabaraba.Test\Debug\netcoreapp2.0\Morabaraba.Test.deps.json
+J:\game\.vs\Morabaraba\lut\0\b\Morabaraba.Test\Debug\netcoreapp2.0\Morabaraba.Test.runtimeconfig.json
+J:\game\.vs\Morabaraba\lut\0\b\Morabaraba.Test\Debug\netcoreapp2.0\Morabaraba.Test.runtimeconfig.dev.json
+J:\game\.vs\Morabaraba\lut\0\b\Morabaraba.Test\Debug\netcoreapp2.0\Morabaraba.Test.dll
+J:\game\.vs\Morabaraba\lut\0\b\Morabaraba.Test\Debug\netcoreapp2.0\Morabaraba.Test.pdb
+J:\game\.vs\Morabaraba\lut\0\i\Morabaraba.Test\Debug\netcoreapp2.0\Morabaraba.Test.csprojResolveAssemblyReference.cache
+J:\game\.vs\Morabaraba\lut\0\i\Morabaraba.Test\Debug\netcoreapp2.0\Morabaraba.Test.csproj.CoreCompileInputs.cache
+J:\game\.vs\Morabaraba\lut\0\i\Morabaraba.Test\Debug\netcoreapp2.0\Morabaraba.Test.AssemblyInfoInputs.cache
+J:\game\.vs\Morabaraba\lut\0\i\Morabaraba.Test\Debug\netcoreapp2.0\Morabaraba.Test.AssemblyInfo.cs
+J:\game\.vs\Morabaraba\lut\0\i\Morabaraba.Test\Debug\netcoreapp2.0\Morabaraba.Test.dll
+J:\game\.vs\Morabaraba\lut\0\i\Morabaraba.Test\Debug\netcoreapp2.0\Morabaraba.Test.pdb
