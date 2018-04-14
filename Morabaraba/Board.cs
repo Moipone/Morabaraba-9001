@@ -18,6 +18,7 @@ namespace Morabaraba
                                "g1", "g4","g7"};
         public Board()
         {
+
         }
 
         public IEnumerable<IEnumerable<string>> mills { get; set ; }
@@ -81,14 +82,15 @@ namespace Morabaraba
             return possibleMills;
         }
 
-        public void generateBoard()
+        public List<Tile> generateBoard()
         {
-            board = new List<Tile>();
+            List<Tile> board = new List<Tile>();
             for (int i = 0; i < positions.Length; i++)
             {
                 Tile t = new Tile(positions[i], new Piece());
                 board.Append(t);
             }
+            return board;
         }
 
         public IEnumerable<string> getNeighbourCells(string pos)
@@ -130,7 +132,7 @@ namespace Morabaraba
             }
             return new List<string>();
         }
-
+       
         public void updateBoard(Tile tile)
         {
             List<Tile> board2 = board.ToList();
