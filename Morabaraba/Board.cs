@@ -7,6 +7,15 @@ namespace Morabaraba
 {
     public class Board : IBoard
     {
+        private string[] positions =
+                        {"a1", "a4","a7",
+                               "b2","b4","b6",
+                               "c3", "c4", "c5",
+                               "d1", "d2", "d3",
+                               "d5", "d6","d7",
+                               "e3","e4","e5",
+                               "f2","f4", "f6",
+                               "g1", "g4","g7"};
         public Board()
         {
         }
@@ -74,7 +83,12 @@ namespace Morabaraba
 
         public void generateBoard()
         {
-            throw new NotImplementedException();
+            board = new List<Tile>();
+            for (int i = 0; i < positions.Length; i++)
+            {
+                Tile t = new Tile(positions[i], new Piece());
+                board.Append(t);
+            }
         }
 
         public IEnumerable<string> getNeighbourCells(string pos)
