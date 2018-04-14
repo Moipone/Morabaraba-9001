@@ -7,7 +7,7 @@ namespace Morabaraba
     public interface IReferee
     {
         IPlayer Winner();
-        bool IsDraw();
+        bool IsDraw(int turns);
         void Play();
 
     }
