@@ -8,10 +8,14 @@ namespace Morabaraba
     {
         public Tile(string pos, IPiece cond)
         {
-
+            this.pos = pos;
+            this.cond = cond;
         }
 
-        public string pos { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public string Pos()
+        {
+
+        }
         public IPiece cond { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
     }
 }
