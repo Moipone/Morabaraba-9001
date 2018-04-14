@@ -30,6 +30,22 @@ namespace Morabaraba.Test
             }
             Assert.That(!flag);
         }
+        [Test]
+        public void GameEndsWhenP1orP2Has2Cows()
+        {
+            //Start implementing this.
+            Board b = new Board();
+            bool flag = false;
+            Player p1 = new Player(Symbol.CW);
+            Player p2 = new Player(Symbol.CB);
+            if (p1.CowLives == 2 || p2.CowLives == 2)
+            {
+               flag = true;
+            }
+            Assert.That(flag);
+        }
+
+
         static public object[] neighBours =
         {
             //new object [] {Symbol.CB}
