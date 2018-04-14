@@ -34,12 +34,21 @@ namespace Morabaraba
             }
 
             return false;
-
         }
 
-        public void Play()
+        public void Play(string pos, Player player)
         {
-            throw new NotImplementedException();
+
+            Piece piece = new Piece();
+            Tile t = new Tile(pos, piece);
+            Board board = new Board();
+
+            if (player.CowLives > 0)
+            {
+                board.updateBoard(t);
+
+            }
+
         }
 
         public IPlayer Winner()
