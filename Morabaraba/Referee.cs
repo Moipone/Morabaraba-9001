@@ -50,10 +50,19 @@ namespace Morabaraba
             }
 
         }
-
         public IPlayer Winner()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            Board b = new Board();
+            Symbol s = new Symbol();
+            Player p1 = new Player(s);
+            Player p2 = new Player(s);
+
+            if (p1.CowLives == 2 && p2.CowLives > 2)
+            {
+                return p2;
+            }
+            else return p1;
         }
     }
 }
