@@ -15,7 +15,7 @@ namespace Morabaraba.Test
             Player p1 = new Player(Symbol.CW);
             Player p2 = new Player(Symbol.CB);
             int blackCount = p2.CowLives, whiteCount = p1.CowLives;
-            Assert.That(blackCount == 0);
+            Assert.That(blackCount == 12);
             Assert.That(whiteCount == 12);
         }
         [Test]
@@ -26,7 +26,7 @@ namespace Morabaraba.Test
             bool flag = false;
             foreach (Tile t in b.board)
             {
-                if (t.condition != null) flag = true; 
+                if (t.cond != null) flag = true; 
             }
             Assert.That(!flag);
         }

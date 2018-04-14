@@ -6,16 +6,21 @@ namespace Morabaraba
 {
     public class Player : IPlayer
     {
-        public Player()
+        public int CowLives = 12;
+        public Player(Symbol symbol)
         {
-
+            this.symbol = symbol;
+            millsFormed = new List<List<string>>();
+            LastPosPlayer = new List<string>();
+            Phase = Phase.placing;
         }
-        public string symbol { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string Phase { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public IEnumerable<string> getLastPosPlayer { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public IEnumerable<string> millsFormed { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public Symbol symbol { get; set; }
+        public Phase Phase { get; set; }
+        public IEnumerable<string> LastPosPlayer { get ; set ; }
+        public IEnumerable<IEnumerable<string>> millsFormed { get; set; }
+       
 
-        public IEnumerable<Piece> getPieces(IBoard board)
+        public IEnumerable<Piece> Pieces(IBoard board)
         {
             throw new NotImplementedException();
         }
