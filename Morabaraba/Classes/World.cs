@@ -216,6 +216,14 @@ namespace Morabaraba
                 }
                 else
                 {
+                    startPlaying(pos);
+                    isMill();
+                    if (mill) continue;
+
+                    switchPlayer();
+                    clearBoard();
+                    printBoard(play);
+                    pos = Console.ReadLine();
 
                 }
             }
