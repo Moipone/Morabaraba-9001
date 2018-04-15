@@ -241,7 +241,9 @@ namespace Morabaraba
             if (!ValidPos) flyingPhase();
             else
             {
-                
+                turnBlank(pos);
+                string moveTo = Console.ReadLine();
+
             }
             throw new NotImplementedException();
         }

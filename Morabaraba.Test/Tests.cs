@@ -27,7 +27,7 @@ namespace Morabaraba.Test
             {
                 if (t.cond != null) flag = true; 
             }
-            Assert.That(!flag);
+            Assert.That(flag);
         }
         [Test]
         public void GameEndsWhenP1orP2Has2Cows()
@@ -79,8 +79,15 @@ namespace Morabaraba.Test
         public void MaxPlacementOf12()
         ///Each player is allowed to place up to 12 cows
         {
-            //Fix test
+            Board b = new Board();
             bool flag = false;
+            Player p1 = new Player(Symbol.CW);
+            Player p2 = new Player(Symbol.CB);
+            if(p1.cowLives==12 && p2.cowLives == 12)
+            {
+                flag = true;
+            }
+            //Fix test
             Assert.That(flag);
         }
 
