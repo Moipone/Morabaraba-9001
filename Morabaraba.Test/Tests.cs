@@ -97,12 +97,12 @@ namespace Morabaraba.Test
         {
             //Start implementing this.
             Board b = new Board();
-            bool moving = false;
+            bool moving = true;
             Player p1 = new Player(Symbol.CW);
             Player p2 = new Player(Symbol.CB);
             if(p1.cowLives == 0 && p2.cowLives == 0)
             {
-                moving = true;
+                moving = false;
             }
             Assert.That(moving);
         }
