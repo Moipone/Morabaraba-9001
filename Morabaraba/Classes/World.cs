@@ -9,6 +9,7 @@ namespace Morabaraba
         Symbol currentPlayer { get; set; }
         bool ValidPos = true;
         bool mill = false;
+        bool shift = false;
         public World(IPlayer p1, IPlayer p2)
         {
             this.player1 = p1;
@@ -238,22 +239,92 @@ namespace Morabaraba
 
         private void startPlaying(string pos)
         {
-            throw new NotImplementedException();
+            if (pos.Length == 0)
+            {
+                Console.WriteLine("Please select where you'd like to play");
+                //continue;
+            }
+
+            if (currentPlayer == Symbol.CW)
+            {
+                helperCheck1(pos);
+            }
+            else
+            {
+                helperCheck2(pos);
+            }
+
+        }
+        //This method can be used for both destroying a cow, and placing a cow
+        public void Play(string pos, IPlayer player)
+        {
+            Tile t = new Tile(pos, new Piece(player.symbol, pos));
+
+            if (player.cowLives > 0)
+            {
+                board.updateTile(t);
+
+            }
         }
 
-        private void RemoveBrokenMill(string tmpPos, IPlayer player)
+        private void helperCheck1(string pos)
         {
-            throw new NotImplementedException();
+            if (board.getTile(pos).cond.Symbol != Symbol.BL && !shift)
+            {
+                Console.WriteLine("You can't play there, that's an invalid move");
+                return;
+            }
+            Play(pos, getPlayer(currentPlayer));
+            //if the last piece was destroyed, and a player plays the same pos, remove that pos from last 
+            if (getPlayer(currentPlayer).LastPosPlayed.Contains(pos))
+                getPlayer(currentPlayer).LastPosPlayed.Remove(pos);
+
+            getPlayer(currentPlayer).LastPosPlayed.Add(pos);
+            getPlayer(currentPlayer).cowLives--;
         }
 
-        private void RemovePiece(string tmpPos)
+        
+
+        private void helperCheck2(string pos)
         {
-            throw new NotImplementedException();
+            if (board.getTile(pos).cond.Symbol != Symbol.BL && !shift)
+            {
+                Console.WriteLine("You can't play there, that's an invalid move");
+                return;
+            }
+            Play(pos, getPlayer(currentPlayer));
+            //if the last piece was destroyed, and a player plays the same pos, remove that pos from last 
+            if (getPlayer(currentPlayer).LastPosPlayed.Contains(pos))
+                getPlayer(currentPlayer).LastPosPlayed.Remove(pos);
+
+            getPlayer(currentPlayer).LastPosPlayed.Add(pos);
+            getPlayer(currentPlayer).cowLives--;
+
+        }
+
+        private void RemoveBrokenMill(string pos, IPlayer player)
+        {
+            Tile t = board.getTile(pos);
+            for (int i = 0; i < player.millsFormed.Count; i++)
+            {
+                if (player.millsFormed[i].Contains(pos) && t.cond.Symbol == Symbol.BL)
+                {
+                    player.millsFormed.Remove(player.millsFormed[i]);
+
+                }
+            }
+        }
+
+        private void RemovePiece(string pos)
+        {
+            Tile t = new Tile(pos, new Piece(Symbol.BL, pos));
+            board.updateTile(t);
         }
 
         private void switchPlayer()
         {
-            throw new NotImplementedException();
+            if (currentPlayer == Symbol.CW) currentPlayer = Symbol.CB;
+            else currentPlayer = Symbol.CW;
         }
 
         private void movingPhase()
@@ -261,8 +332,8 @@ namespace Morabaraba
             clearBoard();
             string pos = Console.ReadLine();
             validatePos(pos);
-            if (!ValidPos);
-            throw new NotImplementedException();
+            if (!ValidPos) return;
+            
         }
 
         private void flyingPhase()
@@ -277,7 +348,7 @@ namespace Morabaraba
                 string moveTo = Console.ReadLine();
 
             }
-            throw new NotImplementedException();
+           
         }
 
         public void printBoard(string message)
