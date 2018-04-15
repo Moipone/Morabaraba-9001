@@ -178,5 +178,6 @@ namespace Morabaraba
         {
             return positions.ToList();
         }
+      
     }
 }

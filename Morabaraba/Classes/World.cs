@@ -109,11 +109,17 @@ namespace Morabaraba
             else millP2();
          
         }
+        public IPlayer getPlayer(Symbol symbol)
+        {
+            if (symbol == Symbol.CW) return player1;
+
+            return player2;
+        }
         ///<summary> 
         ///Given a list of mills and a position, check if that position exists in that mill.
         /// </summary>
         //A Method to check if a piece is currently in a mill
-        public bool isInMillPos(string pos, Player player)
+        public bool isInMillPos(string pos, IPlayer player)
         {
             for (int i = 0; i < player.millsFormed.Count; i++)
             {
@@ -121,7 +127,7 @@ namespace Morabaraba
             }
             return false;
         }
-        public List<string> getPlayerPieces(Player player)
+        public List<string> getPlayerPieces(IPlayer player)
         {
             List<string> positions = new List<string>();
             for (int i = 0; i < board.board.Count; i++)
@@ -134,7 +140,7 @@ namespace Morabaraba
         }  //This method checks whether there's any pieces that's not in a mill
 
         //This method checks whether there's any pieces that's not in a mill
-        public bool isNotAvailablePieces(Player player)
+        public bool isNotAvailablePieces(IPlayer player)
         {
             List<string> list = getPlayerPieces(player);
             bool isNotAvailable = false;
@@ -173,13 +179,35 @@ namespace Morabaraba
             printBoard(" Where would you like to play? :");
             string pos = Console.ReadLine();
             validatePos(pos);
-            if (!ValidPos) return;
+            if (!ValidPos) placingPhase();
+
             //If either of the players still have cows to place, place them
             while(player1.cowLives > 0 || player2.cowLives > 0)
             {
                 Symbol enemy = board.getTile(pos).cond.Symbol;
                 if (mill)
                 {
+                    clearBoard();
+                    printBoard("Which enemy would you like to destroy? :");
+                    string tmpPos = Console.ReadLine();
+                    validatePos(tmpPos);
+                    //If the position played re-try 
+                    if (!ValidPos) continue;
+
+                    if(enemy == currentPlayer && enemy != Symbol.BL)
+                    {
+                        Console.WriteLine("You can't destroy your own player!!!"+ "  Please choose an enemy piece!");
+                    }
+                    if (!isNotAvailablePieces(getPlayer(enemy)))
+                    {
+                        if (isInMillPos(tmpPos, getPlayer(enemy)))
+                        {
+                            Console.WriteLine("You can't shoot a piece in a mill.\n There are still available pieces to shoot");
+                            continue;
+                        }
+                    }
+                    mill = false;
+                  
 
                 }
                 else
