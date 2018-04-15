@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 
 namespace Morabaraba
 {
@@ -188,15 +189,16 @@ namespace Morabaraba
         private void placingPhase()
         {
 
-            string play = " Where would you like to play? :";
+
+            string play = $@"Where would you like to play  {currentPlayer} Player? :";
             clearBoard();
             printBoard(play);
-            string pos = Console.ReadLine();
-            runPlay();
+            string pos = "";
+            //runPlay();
             //If either of the players still have cows to place, place them
             while (player1.cowLives > 0 || player2.cowLives > 0)
             {
-
+                if (!mill) pos = Console.ReadLine();
                 if (board.getTile(pos) == null)
                 {
                     Console.WriteLine("Invalid move!");
@@ -210,28 +212,39 @@ namespace Morabaraba
                     printBoard("Which enemy would you like to destroy? :");
                     string tmpPos = Console.ReadLine();
 
-                    validatePos(pos);
+                    validatePos(tmpPos);
                     //If the position played re-try 
                     if (!ValidPos) continue;
-                    enemy = board.getTile(pos).cond.Symbol;
+                    enemy = board.getTile(tmpPos).cond.Symbol;
+                    if (enemy == Symbol.BL)
+                    {
+                        Console.WriteLine("You can't destroy an empty piece");
+                        Thread.Sleep(1500);
+                        continue;
+                    }
                     if (enemy == currentPlayer && enemy != Symbol.BL)
                     {
                         Console.WriteLine("You can't destroy your own player!!!" + "  Please choose an enemy piece!");
+                        Thread.Sleep(1500);
+                        continue;
                     }
                     if (!isNotAvailablePieces(getPlayer(enemy)))
                     {
                         if (isInMillPos(tmpPos, getPlayer(enemy)))
                         {
-                            Console.WriteLine("You can't shoot a piece in a mill.\n There are still available pieces to shoot");
+                            Console.WriteLine("You can't shoot a piece in a mill. There are still available pieces to shoot");
+                            Thread.Sleep(1500);
                             continue;
                         }
                     }
                     mill = false;
-                    RemovePiece(pos);
+                    RemovePiece(tmpPos);
                     RemoveBrokenMill(tmpPos, getPlayer(currentPlayer));
                     clearBoard();
                     printBoard(play);
+
                     switchPlayer();
+                    play = $@"Where would you like to play  {currentPlayer} Player? :";
                 }
                 else
                 {
@@ -240,9 +253,10 @@ namespace Morabaraba
                     if (mill) continue;
 
                     switchPlayer();
+                    play = $@"Where would you like to play  {currentPlayer} Player? :";
                     clearBoard();
                     printBoard(play);
-                    pos = Console.ReadLine();
+
 
                 }
 
@@ -285,10 +299,13 @@ namespace Morabaraba
 
         private void helperCheck1(string pos)
         {
-            if (board.getTile(pos).cond.Symbol != Symbol.BL && !shift)
+
+            if (board.getTile(pos).cond.Symbol != Symbol.BL && board.getTile(pos).cond.Symbol == currentPlayer && !shift)
             {
                 Console.WriteLine("You can't play there, that's an invalid move");
-                return;
+                Console.WriteLine("Where would you like to play");
+                pos = Console.ReadLine();
+
             }
             Play(pos, getPlayer(currentPlayer));
             //if the last piece was destroyed, and a player plays the same pos, remove that pos from last 
@@ -303,10 +320,11 @@ namespace Morabaraba
 
         private void helperCheck2(string pos)
         {
-            if (board.getTile(pos).cond.Symbol != Symbol.BL && !shift)
+            if (board.getTile(pos).cond.Symbol != Symbol.BL && board.getTile(pos).cond.Symbol == currentPlayer && !shift)
             {
                 Console.WriteLine("You can't play there, that's an invalid move");
-                return;
+                Console.WriteLine("Where would you like to play");
+                pos = Console.ReadLine();
             }
             Play(pos, getPlayer(currentPlayer));
             //if the last piece was destroyed, and a player plays the same pos, remove that pos from last 
