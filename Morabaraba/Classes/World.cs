@@ -180,7 +180,7 @@ namespace Morabaraba
         {
             
             clearBoard();
-            printBoard(" Where would you like to play? :");
+            string play = " Where would you like to play? :";
             string pos = Console.ReadLine();
             validatePos(pos);
             if (!ValidPos) placingPhase();
@@ -211,7 +211,11 @@ namespace Morabaraba
                         }
                     }
                     mill = false;
-                  
+                    RemovePiece(tmpPos);
+                    RemoveBrokenMill(tmpPos, getPlayer(currentPlayer));
+                    clearBoard();
+                    printBoard(play);
+                    switchPlayer();
 
                 }
                 else
@@ -229,6 +233,26 @@ namespace Morabaraba
             }
 
 
+           
+        }
+
+        private void startPlaying(string pos)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void RemoveBrokenMill(string tmpPos, IPlayer player)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void RemovePiece(string tmpPos)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void switchPlayer()
+        {
             throw new NotImplementedException();
         }
 
