@@ -177,31 +177,46 @@ namespace Morabaraba
         {
             Console.Clear();
         }
+        private void runPlay()
+        {
+            string play = " Where would you like to play? :";
+            clearBoard();
+            printBoard(play);
+
+
+        }
         private void placingPhase()
         {
-            
-            clearBoard();
-            string play = " Where would you like to play? :";
-            string pos = Console.ReadLine();
-            validatePos(pos);
-            if (!ValidPos) placingPhase();
 
+            string play = " Where would you like to play? :";
+            clearBoard();
+            printBoard(play);
+            string pos = Console.ReadLine();
+            runPlay();
             //If either of the players still have cows to place, place them
-            while(player1.cowLives > 0 || player2.cowLives > 0)
+            while (player1.cowLives > 0 || player2.cowLives > 0)
             {
+
+                if (board.getTile(pos) == null)
+                {
+                    Console.WriteLine("Invalid move!");
+                    runPlay();
+                    placingPhase();
+                }
                 Symbol enemy = board.getTile(pos).cond.Symbol;
                 if (mill)
                 {
                     clearBoard();
                     printBoard("Which enemy would you like to destroy? :");
                     string tmpPos = Console.ReadLine();
-                    validatePos(tmpPos);
+
+                    validatePos(pos);
                     //If the position played re-try 
                     if (!ValidPos) continue;
-
-                    if(enemy == currentPlayer && enemy != Symbol.BL)
+                    enemy = board.getTile(pos).cond.Symbol;
+                    if (enemy == currentPlayer && enemy != Symbol.BL)
                     {
-                        Console.WriteLine("You can't destroy your own player!!!"+ "  Please choose an enemy piece!");
+                        Console.WriteLine("You can't destroy your own player!!!" + "  Please choose an enemy piece!");
                     }
                     if (!isNotAvailablePieces(getPlayer(enemy)))
                     {
@@ -212,12 +227,11 @@ namespace Morabaraba
                         }
                     }
                     mill = false;
-                    RemovePiece(tmpPos);
+                    RemovePiece(pos);
                     RemoveBrokenMill(tmpPos, getPlayer(currentPlayer));
                     clearBoard();
                     printBoard(play);
                     switchPlayer();
-
                 }
                 else
                 {
@@ -231,10 +245,12 @@ namespace Morabaraba
                     pos = Console.ReadLine();
 
                 }
+
             }
 
 
-           
+
+
         }
 
         private void startPlaying(string pos)
