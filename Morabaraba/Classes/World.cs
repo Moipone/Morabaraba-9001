@@ -24,10 +24,14 @@ namespace Morabaraba
         public string mapSym(int ind)
         {
             if (ind > board.board.Count || ind < 0) return "";
-            Symbol symbol = board.board[0].cond.Symbol;
+            Symbol symbol = board.board[ind].cond.Symbol;
             if (symbol == Symbol.BL) return "O";
             if (symbol == Symbol.CW) return "W";
             return "B";
+        }
+        public void turnBlank(string pos)
+        {
+            board.updateTile(new Tile(pos, new Piece(Symbol.BL, pos)));
         }
         // Fix the broken mill
         // Fix the a
@@ -225,7 +229,7 @@ namespace Morabaraba
             clearBoard();
             string pos = Console.ReadLine();
             validatePos(pos);
-            if (!ValidPos) return;
+            if (!ValidPos);
             throw new NotImplementedException();
         }
 
@@ -234,7 +238,11 @@ namespace Morabaraba
             clearBoard();
             string pos = Console.ReadLine();
             validatePos(pos);
-            if (!ValidPos) return;
+            if (!ValidPos) flyingPhase();
+            else
+            {
+                
+            }
             throw new NotImplementedException();
         }
 
