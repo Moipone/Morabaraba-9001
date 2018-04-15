@@ -13,7 +13,7 @@ namespace Morabaraba.Test
         {
             Player p1 = new Player(Symbol.CW);
             Player p2 = new Player(Symbol.CB);
-            int blackCount = p2.CowLives, whiteCount = p1.CowLives;
+            int blackCount = p2.cowLives, whiteCount = p1.cowLives;
             Assert.That(blackCount == 12);
             Assert.That(whiteCount == 12);
         }
@@ -37,7 +37,7 @@ namespace Morabaraba.Test
             bool flag = false;
             Player p1 = new Player(Symbol.CW);
             Player p2 = new Player(Symbol.CB);
-            if (p1.CowLives == 2 || p2.CowLives == 2)
+            if (p1.cowLives == 2 || p2.cowLives == 2)
             {
                flag = true;
             }
@@ -93,7 +93,7 @@ namespace Morabaraba.Test
             bool moving = false;
             Player p1 = new Player(Symbol.CW);
             Player p2 = new Player(Symbol.CB);
-            if(p1.CowLives == 0 && p2.CowLives == 0)
+            if(p1.cowLives == 0 && p2.cowLives == 0)
             {
                 moving = true;
             }

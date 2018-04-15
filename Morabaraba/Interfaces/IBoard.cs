@@ -16,6 +16,7 @@ namespace Morabaraba
 
         Tile getTile(string pos);
 
+        List<string> allPositions();
         List<string> getNeighbourCells(string pos);
     }
 }

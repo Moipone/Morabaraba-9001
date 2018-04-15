@@ -10,8 +10,10 @@ namespace Morabaraba
     {
         Symbol symbol { get; set; }
         Phase Phase { get; set; }
-        List<string> LastPosPlayer { get; set; }
+        List<string> LastPosPlayed { get; set; }
         List<Piece> Pieces(IBoard board);
         List<List<string>> millsFormed { get; set; }
+        
+        int cowLives { get; set; }
     }
 }

@@ -173,5 +173,10 @@ namespace Morabaraba
             return build.ToString().Substring(0, build.Length - 1);
             //return base.ToString();
         }
+
+        public List<string> allPositions()
+        {
+            return positions.ToList();
+        }
     }
 }
