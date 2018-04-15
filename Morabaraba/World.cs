@@ -10,6 +10,7 @@ namespace Morabaraba
         {
             this.player1 = p1;
             this.player2 = p2;
+            board = new Board();
         }
 
         public IBoard board { get ; set ; }
@@ -24,6 +25,22 @@ namespace Morabaraba
             if (symbol == Symbol.BL) return "O";
             if (symbol == Symbol.CW) return "W";
             return "B";
+        }
+        // Fix the broken mill
+        // Fix the a
+        // This method removes a piece, it was in a mill and was either shot or eliminated
+        public void RemoveBrokenMill(string pos, Player player)
+        {
+            Tile t = board.
+            for (int i = 0; i < player.millsFormed.Count; i++)
+            {
+                if (player.millsFormed[i].Contains(pos) && t.cond == "blank")
+                {
+                    player.millsFormed.Remove(player.millsFormed[i]);
+
+                }
+            }
+
         }
     }
 }

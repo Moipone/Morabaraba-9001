@@ -11,8 +11,10 @@ namespace Morabaraba
 
         List<Tile> generateBoard();
 
-        void updateBoard(Tile tile);
+        void updateTile(Tile tile);
         List<List<string>> allPossibleMills();
+
+        Tile getTile(string pos);
 
         List<string> getNeighbourCells(string pos);
     }

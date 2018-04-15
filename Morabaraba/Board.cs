@@ -141,7 +141,7 @@ namespace Morabaraba
             return new List<string>();
         }
        
-        public void updateBoard(Tile tile)
+        public void updateTile(Tile tile)
         {
             List<Tile> board2 = board.ToList();
             for (int i = 0; i < board.ToList().Count; i++)
@@ -153,6 +153,17 @@ namespace Morabaraba
                     break;
                 }
             }
+        }
+        public override string ToString()
+        {
+            StringBuilder build = new StringBuilder();
+            for (int i = 0; i < board.Count; i++)
+            {
+                build.Append(board[i].cond + " ");
+            }
+            // Return a string of the board to make it easier to print out the board
+            return build.ToString().Substring(0, build.Length - 1);
+            //return base.ToString();
         }
     }
 }
