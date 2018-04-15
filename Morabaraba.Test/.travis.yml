@@ -1,5 +1,5 @@
 language: csharp
-solution: Checkers.sln
+solution: Morabaraba.sln
 dotnet: 2.1.4
 script:
  - dotnet test Morabaraba.Test

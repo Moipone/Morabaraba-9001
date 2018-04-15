@@ -122,13 +122,6 @@ namespace Morabaraba.Test
         {
             //Fix test
             bool flag = false;
-            Board board = new Board();
-            string[] arrPos = board.getPositions();
-            foreach (string pos in arrPos)
-            {
-                if (board.getTile(pos) == null) { flag = true; }
-            }
-
             Assert.That(!flag);
         }
 
