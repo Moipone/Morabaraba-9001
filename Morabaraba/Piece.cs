@@ -6,15 +6,16 @@ namespace Morabaraba
 {
     public class Piece : IPiece
     {
-        public Piece()
+        public Piece(Symbol symbol, string pos)
         {
-
+            this.Symbol = symbol;
+            this.Position = pos;
         }
 
-        public Status Status { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public Symbol Symbol { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public Status Status { get ; set ; }
+        public Symbol Symbol { get ; set ; }
 
-        public int Position => throw new NotImplementedException();
+        public string Position { get; set; }
 
         public void Move(int destination)
         {

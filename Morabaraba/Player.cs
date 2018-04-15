@@ -17,11 +17,11 @@ namespace Morabaraba
         }
         public Symbol symbol { get; set; }
         public Phase Phase { get; set; }
-        public IEnumerable<string> LastPosPlayer { get ; set ; }
-        public IEnumerable<IEnumerable<string>> millsFormed { get; set; }
+        public List<string> LastPosPlayer { get ; set ; }
+        public List<List<string>> millsFormed { get; set; }
       
 
-        public IEnumerable<Piece> Pieces(IBoard board)
+        public List<Piece> Pieces(IBoard board)
         {
             throw new NotImplementedException();
         }

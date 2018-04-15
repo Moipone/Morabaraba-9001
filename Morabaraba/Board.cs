@@ -21,10 +21,10 @@ namespace Morabaraba
 
         }
 
-        public IEnumerable<IEnumerable<string>> mills { get; set ; }
-        public IEnumerable<Tile> board { get ; set; }
+        public List<List<string>> mills { get; set ; }
+        public List<Tile> board { get ; set; }
 
-        public IEnumerable<IEnumerable<string>> allPossibleMills()
+        public List<List<string>> allPossibleMills()
         {
             List<List<string>> possibleMills = new List<List<string>>();
 
@@ -87,13 +87,13 @@ namespace Morabaraba
             List<Tile> board = new List<Tile>();
             for (int i = 0; i < positions.Length; i++)
             {
-                Tile t = new Tile(positions[i], new Piece());
-                board.Append(t);
+                Tile t = new Tile(positions[i], new Piece(Symbol.BL,positions[i]));
+                board.Add(t);
             }
             return board;
         }
 
-        public IEnumerable<string> getNeighbourCells(string pos)
+        public List<string> getNeighbourCells(string pos)
         {
 
             switch (pos)

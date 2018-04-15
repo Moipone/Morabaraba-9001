@@ -4,13 +4,13 @@ using System.Text;
 
 namespace Morabaraba
 {
-    public enum Symbol { CB, CW }
+    public enum Symbol { CB, CW,BL }
     public interface IPiece
     {
 
         Status Status { get; set; }
         Symbol Symbol { get; set; }
-        int Position { get; }
+        string Position { get; set; }
        
     }
 }

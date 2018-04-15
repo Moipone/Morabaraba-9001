@@ -6,14 +6,14 @@ namespace Morabaraba
 {
     public interface IBoard
     {
-        IEnumerable<IEnumerable<string>> mills { get; set; }
-        IEnumerable<Tile> board { get; set; }
+        List<List<string>> mills { get; set; }
+        List<Tile> board { get; set; }
 
         List<Tile> generateBoard();
 
         void updateBoard(Tile tile);
-        IEnumerable<IEnumerable<string>> allPossibleMills();
+        List<List<string>> allPossibleMills();
 
-        IEnumerable<string> getNeighbourCells(string pos);
+        List<string> getNeighbourCells(string pos);
     }
 }

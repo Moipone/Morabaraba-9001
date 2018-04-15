@@ -10,8 +10,8 @@ namespace Morabaraba
     {
         Symbol symbol { get; set; }
         Phase Phase { get; set; }
-        IEnumerable<string> LastPosPlayer { get; set; }
-        IEnumerable<Piece> Pieces(IBoard board);
-        IEnumerable<IEnumerable<string>> millsFormed { get; set; }
+        List<string> LastPosPlayer { get; set; }
+        List<Piece> Pieces(IBoard board);
+        List<List<string>> millsFormed { get; set; }
     }
 }
