@@ -78,7 +78,30 @@ namespace Morabaraba
             }
             return true;
         }
-        public void printBoard()
+        public void PlayAllPhases()
+        {
+            printBoard(" Where would you like to play?");
+            placingPhase();
+            movingPhase();
+            flyingPhase();
+        }
+
+        private void flyingPhase()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void movingPhase()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void placingPhase()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void printBoard(string message)
         {
             Console.Clear();
             Tile[] cells = board.board.ToArray();
@@ -99,8 +122,8 @@ namespace Morabaraba
   |   |.'        |       '. |
   G   {mapSym(21)}----------{mapSym(22)}----------{mapSym(23)} ";
 
-           // Console.WriteLine(extraDisplay);
             Console.WriteLine(dis);
+            Console.WriteLine("\n"+message);
         }
     }
 }
