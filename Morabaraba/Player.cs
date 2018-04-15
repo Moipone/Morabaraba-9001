@@ -7,6 +7,7 @@ namespace Morabaraba
     public class Player : IPlayer
     {
         public int CowLives = 12;
+
         public Player(Symbol symbol)
         {
             this.symbol = symbol;

@@ -9,7 +9,7 @@ namespace Morabaraba
         IEnumerable<IEnumerable<string>> mills { get; set; }
         IEnumerable<Tile> board { get; set; }
 
-        void generateBoard();
+        List<Tile> generateBoard();
 
         void updateBoard(Tile tile);
         IEnumerable<IEnumerable<string>> allPossibleMills();
