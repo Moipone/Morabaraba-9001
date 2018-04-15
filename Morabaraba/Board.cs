@@ -94,6 +94,10 @@ namespace Morabaraba
             }
             return null;
         }
+        public List<Tile> getBoard()
+        {
+            return this.board;
+        }
         public List<Tile> generateBoard()
         {
             List<Tile> board = new List<Tile>();

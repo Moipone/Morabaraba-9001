@@ -11,7 +11,6 @@ namespace Morabaraba.Test
         [Test]
         public void ABoardHas12BlackAnd12WhitePieces()
         {
-            // Fix this test
             Player p1 = new Player(Symbol.CW);
             Player p2 = new Player(Symbol.CB);
             int blackCount = p2.CowLives, whiteCount = p1.CowLives;
@@ -49,7 +48,9 @@ namespace Morabaraba.Test
         public void DarkCowsGoFirst ()
         ///The player with the dark cows is always given a chance to go first
         {
-
+            //Fix test
+            bool flag = false;
+            Assert.That(flag);
         }
 
         [Test]
@@ -78,7 +79,9 @@ namespace Morabaraba.Test
         public void MaxPlacementOf12()
         ///Each player is allowed to place up to 12 cows
         {
-
+            //Fix test
+            bool flag = false;
+            Assert.That(flag);
         }
 
         [Test]
@@ -101,91 +104,117 @@ namespace Morabaraba.Test
         public void OnlyMoveToNeighbour()
         ///A cow can only move to a position which is adjecent to its current position 
         {
-
+            //Fix test
+            bool flag = false;
+            Assert.That(flag);
         }
 
         [Test]
         public void MoveIsToEmptyspace()
         ///Player show only be able to move cow to an unoccupied tile
         {
-
+            //Fix test
+            bool flag = false;
+            Assert.That(flag);
         }
 
         [Test]
         public void MovedoesnotChangeCowAmount()
         ///Moving cow from one position to another is not the same as adding or removing a cow from the board 
         {
-
+            //Fix test
+            bool flag = false;
+            Assert.That(flag);
         }
 
         [Test]
         public void ThreeCowsFlyAnywhere ()
         ///A player with three cows on the board can move the cows to any position
         {
-
+            //Fix test
+            bool flag = false;
+            Assert.That(flag);
         }
 
         [Test]
         public void MillIsLineOfSameThreeCows()
         ///A mills is formed by three of the same colour cows in a line (Horizontal, vertical and diagonal)
         {
-
+            //Fix test
+            bool flag = false;
+            Assert.That(flag);
         }
 
         [Test]
         public void MillIsNotLineOfThreeDiffCows()
         ///A mills is not formed by three different colour cows in a line (Horizontal, vertical and diagonal)
         {
-
+            //Fix test
+            bool flag = false;
+            Assert.That(flag);
         }
 
         [Test]
         public void ConnectedSpaceNoInLine()
         ///its not a mill if Connected Spaces that cows occupy do not form a line
         {
-
+            //Fix test
+            bool flag = false;
+            Assert.That(flag);
         }
 
         [Test]
         public void OnlyShootonMillCompletion()
-        ///Shootong is only possible as soon as the mill is completed (in the same turn) 
+        ///Shooting is only possible as soon as the mill is completed (in the same turn) 
         {
-
+            //Fix test
+            bool flag = false;
+            Assert.That(flag);
         }
 
         [Test]
         public void CantShootCowsInMillunlessNoneElse()
         ///Player cannot shoot a cow in a mill unless all cows are in a mill
         {
-
+            //Fix test
+            bool flag = false;
+            Assert.That(flag);
         }
 
         [Test]
         public void ShootCowsInMillIfAllAre()
         ///Player can only shoot a cow in a mill if all cows are in a mill
         {
-
+            //Fix test
+            bool flag = false;
+            Assert.That(flag);
         }
 
         [Test]
         public void CantShootOwnCow()
         ///Player is not allowed to shoot their own cow
         {
-
+            //Fix test
+            bool flag = false;
+            Assert.That(flag);
         }
 
         [Test]
         public void CantShootEmptySpace ()
         ///Player can only shoot at a Tile that is occupied by enemy's cow
         {
-
+            //Fix test
+            bool flag = false;
+            Assert.That(flag);
         }
 
         [Test]
         public void ShotCowsRemoved()
         ///If A player shoots a cow, cow must come off board
         {
-
+            //Fix test
+            bool flag = false;
+            Assert.That(flag);
         }
 
 
@@ -194,7 +223,9 @@ namespace Morabaraba.Test
         public void YouwonIfenemyCantMove()
         ///If one player cant move on their turn
         {
-
+            //Fix test
+            bool flag = false;
+            Assert.That(flag);
         }
 
 
