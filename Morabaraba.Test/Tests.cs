@@ -70,7 +70,16 @@ namespace Morabaraba.Test
         public void NoMovingWhenPlacing()
         ///The moving phases of the game is locked, until the player has completed the placing phase
         {
-
+            //Start implementing this.
+            Board b = new Board();
+            bool moving = false;
+            Player p1 = new Player(Symbol.CW);
+            Player p2 = new Player(Symbol.CB);
+            if(p1.CowLives == 0 && p2.CowLives == 0)
+            {
+                moving = true;
+            }
+            Assert.That(moving);
         }
 
         [Test]

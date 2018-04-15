@@ -20,7 +20,7 @@ namespace Morabaraba
         {
             throw new NotImplementedException();
         }
-
+        
         public IEnumerable<int> NormalMoves(IBoard board)
         {
             throw new NotImplementedException();

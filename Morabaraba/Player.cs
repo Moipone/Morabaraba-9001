@@ -19,7 +19,7 @@ namespace Morabaraba
         public Phase Phase { get; set; }
         public IEnumerable<string> LastPosPlayer { get ; set ; }
         public IEnumerable<IEnumerable<string>> millsFormed { get; set; }
-       
+      
 
         public IEnumerable<Piece> Pieces(IBoard board)
         {

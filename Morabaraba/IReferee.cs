@@ -8,7 +8,7 @@ namespace Morabaraba
     {
         IPlayer Winner();
         bool IsDraw(int turns);
-        void Play();
+        void Play(string pos, Player player);
 
     }
 }
