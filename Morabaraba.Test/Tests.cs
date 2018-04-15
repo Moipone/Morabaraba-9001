@@ -56,7 +56,22 @@ namespace Morabaraba.Test
         public void CowIsOnlyPlacedOnEmptySpace()
         ///Player should not be able to place piece on an occupied tile
         {
-
+            //This test still has to be fixed.
+            Board board = new Board();
+            board.updateTile(new Tile("a1", new Piece(Symbol.CB, "a1")));
+            bool occupied = false;
+            Tile t = null;
+            foreach (string pos in board.getPositions())
+            {
+                // Run a loop with all positions to check if all positions can be placed on a blank
+                t = board.getTile(pos);
+                if (t.cond.Symbol != Symbol.BL)
+                {
+                    occupied = true;
+                    break;
+                }
+            }
+            Assert.That(!occupied);
         }
 
         [Test]

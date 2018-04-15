@@ -21,6 +21,10 @@ namespace Morabaraba
             board = generateBoard();
             mills = allPossibleMills();
         }
+        public string [] getPositions()
+        {
+            return this.positions;
+        }
 
         public List<List<string>> mills { get; set ; }
         public List<Tile> board { get ; set; }
@@ -143,13 +147,13 @@ namespace Morabaraba
        
         public void updateTile(Tile tile)
         {
-            List<Tile> board2 = board.ToList();
-            for (int i = 0; i < board.ToList().Count; i++)
+          
+            for (int i = 0; i < board.Count; i++)
             {
-                if (board2[i].pos == tile.pos)
+                if (board[i].pos == tile.pos)
                 {
-                    board2.Insert(i, tile);
-                    board2.Remove(board2[i + 1]);
+                    board.Insert(i, tile);
+                    board.Remove(board[i + 1]);
                     break;
                 }
             }

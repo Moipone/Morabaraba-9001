@@ -6,14 +6,16 @@ namespace Morabaraba
 {
     public class Referee : IReferee
     {
-        public Referee()
+        World world;
+        public Referee(World world)
         {
+            this.world = world;
         }
 
         public bool IsDraw(int turns)
         {
             //throw new NotImplementedException();
-            Board b = new Board();
+            //Board b = new Board();
             bool occupied = true;
             Symbol s = new Symbol();
             Player p1 = new Player(s);
@@ -23,7 +25,7 @@ namespace Morabaraba
             if (p1.CowLives == 3 && p2.CowLives == 3 && turns == 20) { return true; }
 
             ///2. The game ends in the placing phase, none of the players made a mill. Board is fully occupied s none of the players can move
-            foreach (Tile t in b.board)
+            foreach (Tile t in world.board.board)
             {
                 if (t.cond == null) occupied = false;
             }
@@ -39,13 +41,13 @@ namespace Morabaraba
         public void Play(string pos, Player player)
         {
 
-            Piece piece = new Piece();
+            Piece piece = new Piece(player.symbol,pos);
             Tile t = new Tile(pos, piece);
-            Board board = new Board();
+            
 
             if (player.CowLives > 0)
             {
-                board.updateBoard(t);
+                world.board.updateTile(t);
 
             }
 
