@@ -78,5 +78,30 @@ namespace Morabaraba
             }
             return true;
         }
+        public void printBoard()
+        {
+            Console.Clear();
+            Tile[] cells = board.board.ToArray();
+            string dis =
+  $@"
+      1   2  3   4   5  6   7
+  A   {mapSym(0)}----------{mapSym(1)}----------{mapSym(2)}
+  |   | '.       |        .'|
+  B   |   {mapSym(3)}------{mapSym(4)}------{mapSym(5)}   |
+  |   |   |'.    |    .'|   |
+  C   |   |  {mapSym(6)}---{mapSym(7)}---{mapSym(8)}  |   |
+  |   |   |  |       |  |   |
+  D   {mapSym(9)}---{mapSym(10)}--{mapSym(11)}       {mapSym(12)}--{mapSym(13)}---{mapSym(14)}
+  |   |   |  |       |  |   |
+  E   |   |  {mapSym(15)}---{mapSym(16)}---{mapSym(17)}  |   |
+  |   |   |.'    |    '.|   |
+  F   |   {mapSym(18)}------{mapSym(19)}------{mapSym(20)}   |
+  |   |.'        |       '. |
+  G   {mapSym(21)}----------{mapSym(22)}----------{mapSym(23)} ";
+
+           // Console.WriteLine(extraDisplay);
+            Console.WriteLine(dis);
+        }
     }
 }
+
