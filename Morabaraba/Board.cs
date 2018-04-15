@@ -82,7 +82,7 @@ namespace Morabaraba
 
             return possibleMills;
         }
-        public Tile GetTile(string pos)
+        public Tile getTile(string pos)
         {
             for (int i = 0; i < board.Count; i++)
             {
