@@ -18,7 +18,8 @@ namespace Morabaraba
                                "g1", "g4","g7"};
         public Board()
         {
-
+            board = generateBoard();
+            mills = allPossibleMills();
         }
 
         public List<List<string>> mills { get; set ; }
@@ -81,7 +82,14 @@ namespace Morabaraba
 
             return possibleMills;
         }
-
+        public Tile GetTile(string pos)
+        {
+            for (int i = 0; i < board.Count; i++)
+            {
+                if (board[i].pos == pos) return board[i];
+            }
+            return null;
+        }
         public List<Tile> generateBoard()
         {
             List<Tile> board = new List<Tile>();
