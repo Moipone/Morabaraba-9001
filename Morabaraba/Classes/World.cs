@@ -395,10 +395,9 @@ namespace Morabaraba
         /// Moving Assist methods 
         /// </summary>
 
-        public void ControlMills()
+        public void ControlMills(string play)
         /// Allows the player to destroy an enemy while in the movingPhase
-        {
-            string play = $@"Where would you like to play  {currentPlayer} Player? :";
+        {  
             if (mill)
             {
                 tmpFlag = true;
@@ -418,11 +417,77 @@ namespace Morabaraba
 
         }
 
-        public void RunMoving()
+        public void RunMoving(string play)
         /// This is the backbone of the mivingPhase, it essentially implements the phase 
         {
+            //Go through neighbour cells to see if there's an available position  
+            bool flag = false;
+            List <string> neighbours = board.getNeighbourCells(play);
+            if (neighbours.Contains(play))
+            {
 
+                for (int i = 0; i<neighbours.Count; i++)
+                {
+                    Tile tl = board.getTile(neighbours[i]);
+                    Tile two =board.getTile(tmpPos);
+                    if (two.cond == null)
+                    {
+                        Console.WriteLine("You can't move an empty piece");
+                        flag = true;
+                        return;
+                    }
+                    if (two.cond != board.getTile(play))
+                    {
+                        Console.WriteLine("You can't move your oponents piece\nPlease move your own piece!");
+                        flag = true;
+                        return;
+                    }
+
+                    if (tl.cond == null && play == neighbours[i] && two.cond != null)
+                    {
+
+
+                        //Remove the old piece from the board
+                        RemovePiece(tmpPos);
+                        //Remove the broken mill of the old piece
+                        RemoveBrokenMill(tmpPos, getPlayer(currentPlayer));
+                        //Update board
+                        clearBoard();
+                        printBoard(tmpPos);
+                        if (currentPlayer == player1.symbol)
+                        {
+                            printBoard(play);
+                            //UpdateGUI();
+                        }
+                        else
+                        {
+                            printBoard(play);
+                            //UpdateGUI();
+                        }
+                        //addPiece(play, getPlayer(currentPlayer));
+                        //if the last piece was destroyed, and a player plays the same pos, remove that pos from last 
+                        if (getPlayer(currentPlayer).LastPosPlayed.Contains(play))
+                            getPlayer(currentPlayer).LastPosPlayed.Remove(play);
+                        //Add the new position to player
+                        getPlayer(currentPlayer).LastPosPlayed.Add(play);
+                        //Check if a new mill has been formed.
+                        isMill();
+
+                        ControlMills(play);
+                        return;
+                    }
+                }
+
+            }
+            else
+            {
+                int indx = getPlayer(currentPlayer).LastPosPlayed.Count - 1;
+                Console.WriteLine(string.Format("To which adjacent, free space would you like to move {0} ? ",getPlayer(currentPlayer).LastPosPlayed[indx]));
+
+                return;
+            }
         }
+
 
         public void SwithControl()
         /// Validates the player's choices, and provides and proper flow of the game 
@@ -433,7 +498,7 @@ namespace Morabaraba
         public void MovingPhase()
         ///calls on the above assist methods to run the phase
         {
-
+            string play = $@"Where would you like to play  {currentPlayer} Player? :";
         }
 
 
