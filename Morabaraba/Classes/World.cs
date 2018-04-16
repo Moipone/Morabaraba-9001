@@ -11,6 +11,12 @@ namespace Morabaraba
         bool ValidPos = true;
         bool mill = false;
         bool shift = false;
+        string tmpPos = "";
+        bool tmpFlag = false;  //controls the flow of the game
+        bool switchFlag = false;
+        int k = 0, z = 0;
+        int t = 0;
+        // Fix re-forming of mills 
         public World(IPlayer p1, IPlayer p2)
         {
             this.player1 = p1;
@@ -361,7 +367,7 @@ namespace Morabaraba
             else currentPlayer = Symbol.CW;
         }
 
-        private void movingPhase()
+        private void movingPhase() 
         {
             clearBoard();
             string pos = Console.ReadLine();
@@ -384,6 +390,12 @@ namespace Morabaraba
             }
            
         }
+
+        /// <summary>
+        /// Moving Assist methods 
+        /// </summary>
+   
+ 
 
         public void printBoard(string message)
         {
