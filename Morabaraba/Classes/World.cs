@@ -367,14 +367,14 @@ namespace Morabaraba
             else currentPlayer = Symbol.CW;
         }
 
-        private void movingPhase() 
-        {
-            clearBoard();
-            string pos = Console.ReadLine();
-            validatePos(pos);
-            if (!ValidPos) return;
+        //private void movingPhase() 
+        //{
+        //    clearBoard();
+        //    string pos = Console.ReadLine();
+        //    validatePos(pos);
+        //    if (!ValidPos) return;
             
-        }
+        //}
 
         private void flyingPhase()
         {
@@ -519,10 +519,48 @@ namespace Morabaraba
         RunMoving(tmpPos);
     }
 
-        public void MovingPhase()
-        ///calls on the above assist methods to run the phase
+       public void movingPhase()
         {
+            ///calls on the above assist methods to run the phase
+            clearBoard();
+            string pos = Console.ReadLine();
+            validatePos(pos);
+            if (!ValidPos) return;
             string play = $@"Where would you like to play  {currentPlayer} Player? :";
+            //if (phase = Phase.flying) return; 
+            // Check if it's time to shoot a piece
+            if (tmpFlag)
+            {
+                //The bools here control the flow of the shifting phase
+                shift = false;
+                tmpFlag = false;
+                clearBoard();
+                printBoard(pos);
+                //Flag is used a a check within to see if a player wasn't removed, then it must come back and try again
+                if (tmpFlag)
+                {
+                    Console.WriteLine("That's invalid move, please shoot another enemy piece");
+                    shift = true;
+                    tmpFlag = true;
+                    return;
+                }
+                shift = true;
+                tmpFlag = false;
+                return;
+            }
+            if (t == 0)
+            {
+                Console.WriteLine("No more cows to place, please select the cow you'd like to move");
+                t++;
+                movingPhase();
+                
+                shift = true;
+                return;
+            }
+            SwitchControl(pos);
+
+
+
         }
 
 
