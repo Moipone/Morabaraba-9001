@@ -487,13 +487,37 @@ namespace Morabaraba
                 return;
             }
         }
-
-
-        public void SwithControl()
+      
+    public void SwitchControl(string play)
         /// Validates the player's choices, and provides and proper flow of the game 
-        {
-
-        }
+    {
+            //This check controls the moving, once a piece has been selected, jump out of this method and when you come back that'll be your move to pos
+            bool flag = false;
+            List<string> neighbours = board.getNeighbourCells(play);
+            if (!switchFlag)
+           {
+            Tile tile = board.getTile(tmpPos);
+            if (tile.cond == null)
+            {
+                Console.WriteLine("You can't move a blank spot");
+                flag = true;
+                return;
+            }
+            if (tile.cond.Symbol == currentPlayer)
+            {
+                Console.WriteLine("You can't move your opponents piece!!!");
+                flag = true;
+                return;
+            }
+                Console.WriteLine(string.Format("Where would you like to move {0}?", tmpPos));
+            switchFlag = true;
+            neighbours = board.getNeighbourCells(tmpPos);
+            tmpPos = play;
+            return;
+           }
+        if (t == 100) t = 1;
+        RunMoving(tmpPos);
+    }
 
         public void MovingPhase()
         ///calls on the above assist methods to run the phase
