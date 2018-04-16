@@ -398,6 +398,23 @@ namespace Morabaraba
         public void ControlMills()
         /// Allows the player to destroy an enemy while in the movingPhase
         {
+            string play = $@"Where would you like to play  {currentPlayer} Player? :";
+            if (mill)
+            {
+                tmpFlag = true;
+                if (tmpFlag)
+                {
+                    Console.WriteLine("Which enemy would you like to destroy");
+                    shift = true;
+                    return;
+                }
+
+            }
+            switchPlayer();
+            clearBoard();
+            printBoard(play);
+            t++;
+            switchFlag = false;
 
         }
 
