@@ -394,8 +394,36 @@ namespace Morabaraba
         /// <summary>
         /// Moving Assist methods 
         /// </summary>
-   
- 
+
+        public void ControlMills()
+        /// Allows the player to destroy an enemy while in the movingPhase
+        {
+
+        }
+
+        public void RunMoving()
+        /// This is the backbone of the mivingPhase, it essentially implements the phase 
+        {
+
+        }
+
+        public void SwithControl()
+        /// Validates the player's choices, and provides and proper flow of the game 
+        {
+
+        }
+
+        public void MovingPhase()
+        ///calls on the above assist methods to run the phase
+        {
+
+        }
+
+
+
+
+
+
 
         public void printBoard(string message)
         {
