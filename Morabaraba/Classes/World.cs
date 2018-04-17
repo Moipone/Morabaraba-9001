@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 
 namespace Morabaraba
 {
@@ -10,6 +11,11 @@ namespace Morabaraba
         bool ValidPos = true;
         bool mill = false;
         bool shift = false;
+        int z = 0;
+        int k = 0;
+        
+        private int draw;
+
         public World(IPlayer p1, IPlayer p2)
         {
             this.player1 = p1;
@@ -194,7 +200,7 @@ namespace Morabaraba
             string pos = Console.ReadLine();
             runPlay();
             //If either of the players still have cows to place, place them
-            while (player1.cowLives > 0 || player2.cowLives > 0)
+            while (player1.cowLives > 0 || player2.cowLives > 0 || mill)
             {
 
                 if (board.getTile(pos) == null)
@@ -227,7 +233,7 @@ namespace Morabaraba
                         }
                     }
                     mill = false;
-                    RemovePiece(pos);
+                    turnBlank(pos);
                     RemoveBrokenMill(tmpPos, getPlayer(currentPlayer));
                     clearBoard();
                     printBoard(play);
@@ -331,18 +337,9 @@ namespace Morabaraba
             }
         }
 
-        private void RemovePiece(string pos)
-        {
-            Tile t = new Tile(pos, new Piece(Symbol.BL, pos));
-            board.updateTile(t);
-        }
+      
 
-        private void switchPlayer()
-        {
-            if (currentPlayer == Symbol.CW) currentPlayer = Symbol.CB;
-            else currentPlayer = Symbol.CW;
-        }
-
+       
         private void movingPhase()
         {
             clearBoard();
@@ -351,20 +348,37 @@ namespace Morabaraba
             if (!ValidPos) return;
             
         }
-
-        private void flyingPhase()
+        public void flyingHelper()
         {
-            clearBoard();
-            string pos = Console.ReadLine();
-            validatePos(pos);
-            if (!ValidPos) flyingPhase();
-            else
+         
+            if (k == 0 && currentPlayer == Symbol.CB && getPlayer(Symbol.CB).Phase == Phase.flying)
             {
-                turnBlank(pos);
-                string moveTo = Console.ReadLine();
-
+                Console.WriteLine("{0} Cows can now fly!, please select the cow you'd like to move", currentPlayer);
+                Thread.Sleep(1500);
+                shift = true;
+                k++;
+                return;
             }
-           
+            if (z == 0 && currentPlayer == Symbol.CW && getPlayer(Symbol.CW).Phase == Phase.flying)
+            {
+               Console.WriteLine ("{0} Cows can now fly!, please select the cow you'd like to move", currentPlayer);
+                shift = true;
+                Thread.Sleep(1500);
+                z++;
+                //fly = true;
+                return;
+            }
+            if (getPlayer(Symbol.CW).Phase == Phase.flying && getPlayer(Symbol.CB).Phase == Phase.flying)
+            {
+                shift = true;
+            }
+
+        }
+       
+ 
+        private void addPiece(string moveTo, object p)
+        {
+            throw new NotImplementedException();
         }
 
         public void printBoard(string message)
