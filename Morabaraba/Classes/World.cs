@@ -16,6 +16,7 @@ namespace Morabaraba
         bool switchFlag = false;
         int k = 0, z = 0;
         int t = 0;
+        int draw = 0;
         // Fix re-forming of mills 
         public World(IPlayer p1, IPlayer p2)
         {
@@ -225,13 +226,13 @@ namespace Morabaraba
                     if (enemy == Symbol.BL)
                     {
                         Console.WriteLine("You can't destroy an empty piece");
-                        Thread.Sleep(1500);
+                        //Thread.Sleep(1500);
                         continue;
                     }
                     if (enemy == currentPlayer && enemy != Symbol.BL)
                     {
                         Console.WriteLine("You can't destroy your own player!!!" + "  Please choose an enemy piece!");
-                        Thread.Sleep(1500);
+                        //Thread.Sleep(1500);
                         continue;
                     }
                     if (!isNotAvailablePieces(getPlayer(enemy)))
@@ -239,7 +240,7 @@ namespace Morabaraba
                         if (isInMillPos(tmpPos, getPlayer(enemy)))
                         {
                             Console.WriteLine("You can't shoot a piece in a mill. There are still available pieces to shoot");
-                            Thread.Sleep(1500);
+                            //Thread.Sleep(1500);
                             continue;
                         }
                     }
@@ -388,8 +389,84 @@ namespace Morabaraba
                 string moveTo = Console.ReadLine();
 
             }
-           
+
         }
+
+        public void startShifting(string pos)
+        /// Provides control between flying and moving for each player
+        {
+            string moveTo;
+            moveTo = pos;
+            //Check if there's no cows left to place, check if there's still more than 3 cows on each side to be on moving phase
+            int whitePieces = getPlayerPieces(getPlayer(player1.symbol)).Count;
+            int blackPieces = getPlayerPieces(getPlayer(player2.symbol)).Count;
+        
+            if ((player1.cowLives == 0 && player2.cowLives == 0) && (whitePieces > 3) && (blackPieces > 3))
+            {
+                if (currentPlayer == Symbol.CW) movingPhase();
+        
+                else movingPhase();
+        
+            }
+            //Flying phase.
+            if ((player1.cowLives == 0 && player2.cowLives == 0) && (whitePieces == 3) && (blackPieces > 3))
+            {
+                player1.Phase = Phase.flying;
+                if (currentPlayer == Symbol.CW) flyingPhase();
+                else movingPhase();
+        
+            }
+            if ((player1.cowLives == 0 && player2.cowLives == 0) && (whitePieces > 3) && (blackPieces == 3))
+            {
+                player2.Phase = Phase.flying;
+                if (currentPlayer == Symbol.CW) movingPhase();
+                else flyingPhase();
+        
+            }
+            //Both players are now flying
+            if ((player1.cowLives == 0 && player2.cowLives == 0) && (whitePieces == 3) && (blackPieces == 3))
+            {
+                player1.Phase = Phase.flying;
+                player2.Phase = Phase.flying;
+        
+                if (currentPlayer == Symbol.CW) flyingPhase(); 
+                else flyingPhase();
+                // If no mill has been formed within 20 moves issa draw.
+                if (!mill) draw++;
+                if (draw >= 20)
+                {
+                    Console.WriteLine("Draw! both players lose!\n\nWould you like to play again!");
+                }
+        
+            }
+            //Re-Calculate number of pieces on the board, to see who now 
+            whitePieces = getPlayerPieces(getPlayer(player1.symbol)).Count;
+            blackPieces = getPlayerPieces(getPlayer(player2.symbol)).Count;
+        
+            if ((player1.cowLives == 0 && player2.cowLives == 0) && (whitePieces< 3))
+            {
+                // White loses
+                Console.WriteLine("White loses!, would you like to play again ?");
+                //world = new World(new Player("CW"), new Player("CB"));
+                clearBoard();
+                currentPlayer = Symbol.CW;
+                //UpdateGUI();
+                return;
+            }
+            if ((player1.cowLives == 0 && player2.cowLives == 0) && (blackPieces< 3))
+            {
+                // Black loses
+                Console.WriteLine("Black loses!, would you like to play again ?");
+                //world = new World(new Player("CW"), new Player("CB"));
+                currentPlayer = Symbol.CW;
+        
+                clearBoard();
+                //UpdateGUI();
+                return;
+        
+            }
+        }
+
 
         /// <summary>
         /// Moving Assist methods 
