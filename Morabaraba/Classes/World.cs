@@ -266,30 +266,6 @@ namespace Morabaraba
             getPlayer(currentPlayer).LastPosPlayed.Add(moveTo);
 
         }
-
-        private void flyingPhase()
-        {
-
-        }
-        
-        private void startPlaying(string pos)
-        {
-            if (pos.Length == 0)
-            {
-                Console.WriteLine("Please select where you'd like to play");
-                //continue;
-            }
-
-            if (currentPlayer == Symbol.CW)
-            {
-                helperCheck1(pos);
-            }
-            else
-            {
-                helperCheck2(pos);
-            }
-
-        }
         private void flyMoves(string pos, string moveTo)
         {
             turnBlank(pos);
@@ -341,19 +317,69 @@ namespace Morabaraba
                 return;
             }
         }
-
-//This method can be used for both destroying a cow, and placing a cow
-public void Play(string pos, IPlayer player)
+        private void flyingPhase()
         {
-            Tile t = new Tile(pos, new Piece(player.symbol, pos));
-
-            if (player.cowLives > 0)
+            string play = "Which piece would you like to move ?";
+            while (true)
             {
-                board.updateTile(t);
 
+                flyingHelper();
+                clearBoard();
+                printBoard(play);
+
+                string pos = Console.ReadLine();
+
+                validatePos(pos);
+                if (!ValidPos) flyingPhase();
+
+                checkPhases(getPlayer(Symbol.CB), getPlayer(Symbol.CW));
+                if (currentPlayer == Symbol.CW && getPlayer(Symbol.CW).Phase == Phase.moving)
+                {
+                    switchPlayer();
+                    continue;
+                }
+
+                if (currentPlayer == Symbol.CB && getPlayer(Symbol.CB).Phase == Phase.moving)
+                {
+                    switchPlayer();
+                    continue;
+                }
+
+                Console.WriteLine("Where you would you like to move ? {0}", currentPlayer);
+                string moveTo = Console.ReadLine();
+
+                validatePos(moveTo);
+                if (!ValidPos) flyingPhase();
+
+                flyMoves(pos, moveTo);
+
+                playerLoses(Symbol.CB);
+                if (getPlayer(Symbol.CB).loses) return;
+                playerLoses(Symbol.CW);
+                if (getPlayer(Symbol.CW).loses) return;
             }
+
         }
 
+        private void startPlaying(string pos)
+        {
+            if (pos.Length == 0)
+            {
+                Console.WriteLine("Please select where you'd like to play");
+                //continue;
+            }
+
+            if (currentPlayer == Symbol.CW)
+            {
+                helperCheck1(pos);
+            }
+            else
+            {
+                helperCheck2(pos);
+            }
+
+        }
+       
         private void helperCheck1(string pos)
         {
             if (board.getTile(pos).cond.Symbol != Symbol.BL && !shift)
