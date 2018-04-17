@@ -267,7 +267,7 @@ namespace Morabaraba
 
         }
 
-        private void placingPhase()
+        private void flyingPhase()
         {
 
         }
@@ -290,8 +290,60 @@ namespace Morabaraba
             }
 
         }
-        //This method can be used for both destroying a cow, and placing a cow
-        public void Play(string pos, IPlayer player)
+        private void flyMoves(string pos, string moveTo)
+        {
+            turnBlank(pos);
+            Tile tl = board.getTile(pos);
+            Tile two = board.getTile(moveTo);
+            if (tl.cond.Symbol == Symbol.BL)
+            {
+                Console.WriteLine("You can't move a blank spot");
+                Thread.Sleep(1500);
+                return;
+            }
+            if (two.cond.Symbol != currentPlayer)
+            {
+                Console.WriteLine("You can't move your oponents piece\nPlease move your own piece!");
+                Thread.Sleep(1500);
+                return;
+            }
+            if (two.cond.Symbol == Symbol.BL && moveTo == two.pos)
+            {
+                // Update the board and game 
+                updateFlying(pos, moveTo);
+                isMill();
+                if (mill)
+                {
+                    string read = Console.ReadLine();
+                    validatePos(read);
+                    if (!ValidPos) flyMoves(pos, moveTo);
+
+                    Tile t = board.getTile(read);
+                    if (getPlayer(currentPlayer).symbol == t.cond.Symbol)
+                    {
+                        Console.WriteLine("You can't shoot your own player");
+                        Thread.Sleep(1500);
+                        flyMoves(pos, moveTo);
+                    }
+                    //Remove piece
+                    turnBlank(read);
+                    clearBoard();
+                    switchPlayer();
+                    printBoard(string.Format("Which peace would you like to move {0}", currentPlayer));
+                    return;
+                }
+            }
+            else
+            {
+
+                Console.WriteLine(string.Format("To which free space would you like to move {0} ? ", currentPlayer));
+                Thread.Sleep(1500);
+                return;
+            }
+        }
+
+//This method can be used for both destroying a cow, and placing a cow
+public void Play(string pos, IPlayer player)
         {
             Tile t = new Tile(pos, new Piece(player.symbol, pos));
 
