@@ -234,6 +234,7 @@ namespace Morabaraba
                 if (currentPlayer == Symbol.CB) return;
                 else movingPhase();
             }
+
             //Both players are now flying.......................................................
             if ((player1.cowLives == 0 && player2.cowLives == 0) && (whitePieces == 3) && (blackPieces == 3))
             {
@@ -242,6 +243,21 @@ namespace Morabaraba
                 return;
 
             }
+        }
+        private void updateFlying(string pos, string moveTo)
+        {
+            //Remove the old piece from the board
+            turnBlank(pos);
+            //Remove the broken mill of the old piece
+            RemoveBrokenMill(pos, getPlayer(currentPlayer));
+            //Update board
+            addPiece(moveTo, getPlayer(currentPlayer));
+            //if the last piece was destroyed, and a player plays the same pos, remove that pos from last 
+            if (getPlayer(currentPlayer).LastPosPlayed.Contains(moveTo))
+                getPlayer(currentPlayer).LastPosPlayed.Remove(moveTo);
+            //Add the new position to player
+            getPlayer(currentPlayer).LastPosPlayed.Add(moveTo);
+
         }
         private void placingPhase()
         {
