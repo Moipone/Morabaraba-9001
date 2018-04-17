@@ -573,22 +573,22 @@ namespace Morabaraba
             List<string> neighbours = board.getNeighbourCells(play);
             if (!switchFlag)
            {
-            Tile tile = board.getTile(tmpPos);
+            Tile tile = board.getTile(play);
             if (tile.cond == null)
             {
                 Console.WriteLine("You can't move a blank spot");
                 flag = true;
                 return;
             }
-            if (tile.cond.Symbol == currentPlayer)
+            if (tile.cond.Symbol!= currentPlayer)
             {
                 Console.WriteLine("You can't move your opponents piece!!!");
                 flag = true;
                 return;
             }
-                Console.WriteLine(string.Format("Where would you like to move {0}?", tmpPos));
+                Console.WriteLine(string.Format("Where would you like to move {0}?", currentPlayer));
             switchFlag = true;
-            neighbours = board.getNeighbourCells(tmpPos);
+            neighbours = board.getNeighbourCells(play);
             tmpPos = play;
             return;
            }
@@ -599,12 +599,14 @@ namespace Morabaraba
        public void movingPhase()
         {
             ///calls on the above assist methods to run the phase
-            clearBoard();
+            //clearBoard();
+            Phase phase = Phase.moving;
+            
             string pos = Console.ReadLine();
             validatePos(pos);
             if (!ValidPos) return;
-            string play = $@"Where would you like to play  {currentPlayer} Player? :";
-            //if (phase = Phase.flying) return; 
+            string play = $@"Where would you like to play  {currentPlayer} Player? :"; //place
+            if (phase == Phase.flying) return; 
             // Check if it's time to shoot a piece
             if (tmpFlag)
             {
