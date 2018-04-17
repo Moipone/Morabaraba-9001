@@ -211,6 +211,38 @@ namespace Morabaraba
 
             }
         }
+        private void checkPhases(IPlayer player1, IPlayer player2)
+        {
+            //Check if there's no cows left to place, check if there's still more than 3 cows on each side to be on moving phase
+            int whitePieces = getPlayerPieces(player1).Count;
+            int blackPieces = getPlayerPieces(player2).Count;
+
+            if ((player1.cowLives == 0 && player2.cowLives == 0) && (whitePieces > 3) && (blackPieces > 3))
+            {
+                if (currentPlayer == Symbol.CW) movingPhase();
+                else movingPhase();
+            }
+            if ((player1.cowLives == 0 && player2.cowLives == 0) && (whitePieces == 3) && (blackPieces > 3))
+            {
+                player2.Phase = Phase.flying;
+                if (currentPlayer == Symbol.CW) return;
+                else movingPhase();
+            }
+            if ((player1.cowLives == 0 && player2.cowLives == 0) && (blackPieces == 3) && (whitePieces > 3))
+            {
+                player1.Phase = Phase.flying;
+                if (currentPlayer == Symbol.CB) return;
+                else movingPhase();
+            }
+            //Both players are now flying.......................................................
+            if ((player1.cowLives == 0 && player2.cowLives == 0) && (whitePieces == 3) && (blackPieces == 3))
+            {
+                player1.Phase = Phase.flying;
+                player2.Phase = Phase.flying;
+                return;
+
+            }
+        }
         private void placingPhase()
         {
 
