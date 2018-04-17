@@ -168,7 +168,7 @@ namespace Morabaraba
          
             placingPhase();
             movingPhase();
-            flyingPhase();
+           // flyingPhase();
         }
 
         private void validatePos(string pos)
@@ -191,74 +191,31 @@ namespace Morabaraba
 
 
         }
-        private void placingPhase()
+
+        public void playerLoses(Symbol sym)
         {
 
-            string play = " Where would you like to play? :";
-            clearBoard();
-            printBoard(play);
-            string pos = Console.ReadLine();
-            runPlay();
-            //If either of the players still have cows to place, place them
-            while (player1.cowLives > 0 || player2.cowLives > 0 || mill)
+            if (getPlayer(sym).Pieces(board).Count < 3)
             {
-
-                if (board.getTile(pos) == null)
-                {
-                    Console.WriteLine("Invalid move!");
-                    runPlay();
-                    placingPhase();
-                }
-                Symbol enemy = board.getTile(pos).cond.Symbol;
-                if (mill)
+                Console.WriteLine("Black player won!, would you like to play again ? Y/N");
+                string ans = Console.ReadLine();
+                if (ans == "Y")
                 {
                     clearBoard();
-                    printBoard("Which enemy would you like to destroy? :");
-                    string tmpPos = Console.ReadLine();
-
-                    validatePos(pos);
-                    //If the position played re-try 
-                    if (!ValidPos) continue;
-                    enemy = board.getTile(pos).cond.Symbol;
-                    if (enemy == currentPlayer && enemy != Symbol.BL)
-                    {
-                        Console.WriteLine("You can't destroy your own player!!!" + "  Please choose an enemy piece!");
-                    }
-                    if (!isNotAvailablePieces(getPlayer(enemy)))
-                    {
-                        if (isInMillPos(tmpPos, getPlayer(enemy)))
-                        {
-                            Console.WriteLine("You can't shoot a piece in a mill.\n There are still available pieces to shoot");
-                            continue;
-                        }
-                    }
-                    mill = false;
-                    turnBlank(pos);
-                    RemoveBrokenMill(tmpPos, getPlayer(currentPlayer));
-                    clearBoard();
-                    printBoard(play);
-                    switchPlayer();
-                }
-                else
-                {
-                    startPlaying(pos);
-                    isMill();
-                    if (mill) continue;
-
-                    switchPlayer();
-                    clearBoard();
-                    printBoard(play);
-                    pos = Console.ReadLine();
-
+                    board = new Board();
+                    World world = new World(new Player(Symbol.CW), new Player(Symbol.CB));
+                    printBoard(string.Format("Where would you like to play {0}", currentPlayer));
+                    getPlayer(sym).loses = true;
+                    return;
                 }
 
             }
-
-
-
+        }
+        private void placingPhase()
+        {
 
         }
-
+        
         private void startPlaying(string pos)
         {
             if (pos.Length == 0)
