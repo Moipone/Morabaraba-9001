@@ -13,9 +13,7 @@ namespace Morabaraba
         bool shift = false;
         int z = 0;
         int k = 0;
-        
-        private int draw;
-
+ 
         public World(IPlayer p1, IPlayer p2)
         {
             this.player1 = p1;
@@ -174,7 +172,7 @@ namespace Morabaraba
          
             placingPhase();
             movingPhase();
-           // flyingPhase();
+            flyingPhase();
         }
 
         private void validatePos(string pos)
@@ -197,10 +195,21 @@ namespace Morabaraba
 
 
         }
-
-        public void playerLoses(Symbol sym)
+        private void placingPhase()
         {
 
+        }
+        public void Play(string pos, IPlayer player)
+        {
+            Tile t = new Tile(pos, new Piece(player.symbol, pos));
+
+            if (player.cowLives > 0)
+            {
+                board.updateTile(t);
+            }
+        }
+        public void playerLoses(Symbol sym)
+        {
             if (getPlayer(sym).Pieces(board).Count < 3)
             {
                 Console.WriteLine("Black player won!, would you like to play again ? Y/N");
@@ -214,7 +223,6 @@ namespace Morabaraba
                     getPlayer(sym).loses = true;
                     return;
                 }
-
             }
         }
 
@@ -427,11 +435,7 @@ namespace Morabaraba
                 }
             }
         }
-
-      
-
-       
-        private void movingPhase()
+   private void movingPhase()
         {
             clearBoard();
             string pos = Console.ReadLine();
