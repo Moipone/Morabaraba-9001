@@ -40,6 +40,12 @@ namespace Morabaraba
         {
             board.updateTile(new Tile(pos, new Piece(Symbol.BL, pos)));
         }
+        private void switchPlayer()
+        {
+            if (currentPlayer == Symbol.CW) currentPlayer = Symbol.CB;
+            else currentPlayer = Symbol.CW;
+        }
+
         // Fix the broken mill
         // Fix the a
         // This method removes a piece, it was in a mill and was either shot or eliminated
@@ -211,6 +217,7 @@ namespace Morabaraba
 
             }
         }
+
         private void checkPhases(IPlayer player1, IPlayer player2)
         {
             //Check if there's no cows left to place, check if there's still more than 3 cows on each side to be on moving phase
@@ -259,6 +266,7 @@ namespace Morabaraba
             getPlayer(currentPlayer).LastPosPlayed.Add(moveTo);
 
         }
+
         private void placingPhase()
         {
 
