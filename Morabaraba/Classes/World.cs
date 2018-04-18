@@ -723,7 +723,24 @@ namespace Morabaraba
 
         private void checkValidMove(string pos)
         {
-            throw new NotImplementedException();
+            Symbol enemy = board.getTile(pos).cond.Symbol;
+            if (enemy == Symbol.BL)
+            {
+                Console.WriteLine("You can't move a blank spot");
+                Thread.Sleep(1500);
+                flag = true;
+                return;
+            }
+            if (enemy != currentPlayer && enemy != Symbol.BL)
+            {
+                Console.WriteLine("You can't move your own player!!!  Please choose an enemy piece!");
+                Thread.Sleep(1500);
+                //Something went wrong, redo by attempting again
+                flag = true;
+                return;
+            }
+            flag = false;
+
         }
 
         private void movingHelper()
