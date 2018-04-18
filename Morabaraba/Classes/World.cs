@@ -293,7 +293,7 @@ namespace Morabaraba
 
         }
 
-        private void startPlaying(string pos)
+        public void startPlaying(string pos)
         {
             if (pos.Length == 0)
             {
@@ -395,7 +395,7 @@ namespace Morabaraba
             board.updateTile(t);
         }
 
-        private void switchPlayer()
+        public void switchPlayer()
         {
             if (currentPlayer == Symbol.CW) currentPlayer = Symbol.CB;
             else currentPlayer = Symbol.CW;

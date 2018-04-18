@@ -144,6 +144,30 @@ namespace Morabaraba.Test
         {
             //Fix test
             bool flag = false;
+            Board b = new Board();
+            Player p1 = new Player(Symbol.CB);
+            Player p2 = new Player(Symbol.CW);
+            Player current = new Player(Symbol.CB);
+            World world = new World(p1, p2);
+            p1.Phase = Phase.placing;
+            p2.Phase = Phase.placing;
+            string[] arrInputsP = { "a1", "a4", "a7", "c3", "c4" };
+            foreach (string play in arrInputsP)
+            {
+
+                world.startPlaying(play);
+                
+            } //continue to play in the moving phase
+            int p1OnB = world.getPlayerPieces(p1).Count;
+            int p2OnB = world.getPlayerPieces(p1).Count;
+
+            p1.Phase = Phase.moving;
+            p2.Phase = Phase.moving;
+            string[] arrInputsM = { "b2", "b4", "b6", "d1", "d7" };
+            foreach (string play in arrInputsM) { world.startPlaying(play); } //continue to play in the moving phase
+            int p1OnBMove = world.getPlayerPieces(p1).Count;
+            int p2OnBMove = world.getPlayerPieces(p1).Count;
+            if ((p1OnB == p1OnBMove) && (p2OnB == p2OnBMove)) flag = true;
             Assert.That(flag);
         }
 
