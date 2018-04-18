@@ -66,9 +66,9 @@ namespace Morabaraba.Test
             {
                 // Run a loop with all positions to check if all positions can be placed on a blank
                 t = board.getTile(pos);
-                if (t.cond.Symbol != Symbol.BL)
+                if (t.cond == null)
                 {
-                    occupied = true;
+                    occupied = false;
                     break;
                 }
             }
