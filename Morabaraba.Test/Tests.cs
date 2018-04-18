@@ -262,9 +262,15 @@ namespace Morabaraba.Test
         public void ShotCowsRemoved()
         ///If A player shoots a cow, cow must come off board
         {
-            //Fix test
-            bool flag = false;
-            Assert.That(flag);
+            string pos = "a1";
+            Player p1 = new Player(Symbol.CW);
+            Player p2 = new Player(Symbol.CB);
+            World world = new World(p1, p2);
+            Board b = new Board();
+            world.startPlaying(pos);
+            world.turnBlank(pos);
+            Assert.That((b.getTile(pos).cond.Symbol == Symbol.BL));
+
         }
 
 
