@@ -111,11 +111,24 @@ namespace Morabaraba.Test
         public void OnlyMoveToNeighbour()
         ///A cow can only move to a position which is adjecent to its current position 
         {
-            //Fix test
-            bool flag = false;
-            Assert.That(flag);
-        }
+            IBoard b = new Board();
+            IPlayer p1 = new Player(Symbol.CB);
+            IPlayer p2 = new Player(Symbol.CW);
+            IWorld world = new World(p1, p2);
+            bool isN(string from, string to)
+            {
+                List<string> N = b.getNeighbourCells(from);
+                if (N.Contains(to)) return true; else return false; //to must be aneighbour of from     
+            }
 
+            //string toPos = "";
+            //string fromPos = ""; 
+            //if ((toPos == "a1") && fromPos == "a4")
+            Assert.That(isN("a1", "a4") == true);
+            Assert.That(isN("a1", "g1") == false);
+
+
+        }
         [Test]
         public void MoveIsToEmptyspace()
         ///Player show only be able to move cow to an unoccupied tile
