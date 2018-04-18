@@ -745,7 +745,31 @@ namespace Morabaraba
 
         private void movingHelper()
         {
-            throw new NotImplementedException();
+            if (b == 0 && currentPlayer == Symbol.CB)
+            {
+                Console.WriteLine("{0} has no more cows to place!, please select the cow you'd like to move", currentPlayer);
+                Thread.Sleep(1500);
+                getPlayer(currentPlayer).Phase = Phase.moving;
+                shift = true;
+                b++;
+                return;
+            }
+            if (w == 0 && currentPlayer == Symbol.CW)
+            {
+                Console.WriteLine("{0} has no more cows to place!, please select the cow you'd like to move", currentPlayer);
+                getPlayer(currentPlayer).Phase = Phase.moving;
+                shift = true;
+                Thread.Sleep(1500);
+                w++;
+                //fly = true;
+                return;
+            }
+            if (getPlayer(Symbol.CW).Phase == Phase.moving && getPlayer(Symbol.CB).Phase == Phase.moving)
+            {
+                shift = true;
+                return;
+            }
+
         }
 
         private void addPiece(string moveTo, IPlayer player)
