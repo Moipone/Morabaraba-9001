@@ -15,5 +15,6 @@ namespace Morabaraba
         List<List<string>> millsFormed { get; set; }
         
         int cowLives { get; set; }
+        bool loses { get; set; }
     }
 }
