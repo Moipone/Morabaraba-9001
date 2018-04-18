@@ -11,8 +11,8 @@ namespace Morabaraba.Test
         [Test]
         public void ABoardHas12BlackAnd12WhitePieces()
         {
-            Player p1 = new Player(Symbol.CW);
-            Player p2 = new Player(Symbol.CB);
+            Player p1 = new Player(Symbol.CB);
+            Player p2 = new Player(Symbol.CW);
             int blackCount = p2.cowLives, whiteCount = p1.cowLives;
             Assert.That(blackCount == 12);
             Assert.That(whiteCount == 12);
@@ -50,6 +50,12 @@ namespace Morabaraba.Test
         {
             //Fix test
             bool flag = false;
+           
+            Player p1 = new Player(Symbol.CW);
+            Player p2 = new Player(Symbol.CB);
+            Board b = new Board();
+            World world = new World(p1,p2);
+
             Assert.That(flag);
         }
 
