@@ -224,6 +224,7 @@ namespace Morabaraba
                     continue;
                 }
                 Symbol enemy = board.getTile(pos).cond.Symbol;
+
                 if (enemy != currentPlayer && enemy != Symbol.BL)
                 {
                     Console.WriteLine("Invalid move");
@@ -277,7 +278,7 @@ namespace Morabaraba
                     if (flag) continue;
                     isMill();
                     if (mill) continue;
-
+                   
                     switchPlayer();
                     play = $@"Where would you like to play  {currentPlayer} Player? :";
                     clearBoard();
@@ -287,7 +288,7 @@ namespace Morabaraba
                 }
 
             }
-
+            
 
 
 
@@ -344,8 +345,6 @@ namespace Morabaraba
             getPlayer(currentPlayer).cowLives--;
             flag = false;
         }
-
-
 
         private void placingCheck2(string pos)
         {
@@ -431,6 +430,7 @@ namespace Morabaraba
             if (getPlayerPieces(getPlayer(sym)).Count < 3)
             {
                 switchPlayer();
+
                 Console.WriteLine("{0} won!, would you like to play again ? Y/N", currentPlayer);
                 string ans = Console.ReadLine();
                 if (ans == "Y")
@@ -776,9 +776,6 @@ namespace Morabaraba
         {
             board.updateTile(new Tile(moveTo, new Piece(player.symbol, moveTo)));
         }
-
-
-
 
         public void printBoard(string message)
         {

@@ -8,6 +8,7 @@ namespace Morabaraba
     {
         private int CowLives = 12;
         private bool Loses = false;
+
         public Player(Symbol symbol)
         {
             this.symbol = symbol;
@@ -22,6 +23,7 @@ namespace Morabaraba
         public List<List<string>> millsFormed { get; set; }
         public int cowLives { get => CowLives; set => CowLives = value; }
         public bool loses { get; set; }
+
         public List<Piece> Pieces(IBoard board)
         {
             throw new NotImplementedException();
