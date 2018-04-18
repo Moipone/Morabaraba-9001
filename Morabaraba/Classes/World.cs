@@ -639,7 +639,86 @@ namespace Morabaraba
 
         private void shiftMoves(string pos, string moveTo)
         {
-            throw new NotImplementedException();
+            Tile tl = board.getTile(pos);
+            Tile two = board.getTile(moveTo);
+            if (tl.cond.Symbol == Symbol.BL)
+            {
+                Console.WriteLine("You can't move a blank spot");
+                flag = true;
+                Thread.Sleep(1500);
+                return;
+            }
+            if (tl.cond.Symbol != currentPlayer)
+            {
+                Console.WriteLine("You can't move your oponents piece");
+                flag = true;
+                Thread.Sleep(1500);
+                return;
+            }
+            if (two.cond.Symbol != Symbol.BL)
+            {
+                Console.WriteLine("You can't move your oponents piece\nPlease move your own piece!");
+                flag = true;
+                Thread.Sleep(1500);
+                return;
+            }
+            List<string> neighBours = board.getNeighbourCells(pos);
+            if (neighBours.Contains(moveTo))
+            {
+                if (two.cond.Symbol == Symbol.BL && moveTo == two.pos && tl.cond.Symbol != Symbol.BL)
+                {
+                    //Remove the old piece from the board
+                    turnBlank(pos);
+                    //Remove the broken mill of the old piece
+                    RemoveBrokenMill(pos, getPlayer(currentPlayer));
+                    //Update board
+
+                    addPiece(moveTo, getPlayer(currentPlayer));
+                    //if the last piece was destroyed, and a player plays the same pos, remove that pos from last 
+                    if (getPlayer(currentPlayer).LastPosPlayed.Contains(moveTo))
+                        getPlayer(currentPlayer).LastPosPlayed.Remove(moveTo);
+                    //Add the new position to player
+                    getPlayer(currentPlayer).LastPosPlayed.Add(moveTo);
+                    isMill();
+                    if (mill)
+                    {
+                        Console.WriteLine("Where you would you like to move ? {0}", currentPlayer);
+                        string read = Console.ReadLine();
+                        validatePos(read);
+                        if (!ValidPos) shiftMoves(pos, moveTo);
+
+                        Tile t = board.getTile(read);
+                        if (getPlayer(currentPlayer).symbol == t.cond.Symbol)
+                        {
+                            Console.WriteLine("You can't shoot your own player");
+                            Thread.Sleep(1500);
+                            shiftMoves(pos, moveTo);
+                        }
+                        //Remove piece
+                        turnBlank(read);
+                        clearBoard();
+                        switchPlayer();
+                        printBoard(string.Format("Which peace would you like to move {0}", currentPlayer));
+                        flag = false;
+                        return;
+                    }
+                    else
+                    {
+                        clearBoard();
+                        switchPlayer();
+                        printBoard(string.Format("Which peace would you like to move {0}", currentPlayer));
+                    }
+                    return;
+                }
+            }
+            else
+            {
+                int indx = getPlayer(currentPlayer).LastPosPlayed.Count - 1;
+                Console.WriteLine(string.Format("To which adjacent, free space would you like to move {0} ? ", getPlayer(currentPlayer).LastPosPlayed[indx]));
+                flag = true;
+                return;
+            }
+
         }
 
         private void checkValidMove(string pos)
