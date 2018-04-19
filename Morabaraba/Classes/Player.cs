@@ -16,7 +16,9 @@ namespace Morabaraba
             LastPosPlayed = new List<string>();
             Phase = Phase.placing;
             loses = Loses;
+          
         }
+        
         public Symbol symbol { get; set; }
         public Phase Phase { get; set; }
         public List<string> LastPosPlayed { get; set; }

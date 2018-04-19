@@ -13,7 +13,7 @@ namespace Morabaraba
         List<string> LastPosPlayed { get; set; }
         List<Piece> Pieces(IBoard board);
         List<List<string>> millsFormed { get; set; }
-        
+
         bool loses { get; set; }
         int cowLives { get; set; }
         ///bool loses { get; set; }
