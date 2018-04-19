@@ -7,6 +7,8 @@ namespace Morabaraba
     public class Referee : IReferee
     {
         World world;
+
+
         public Referee(World world)
         {
             this.world = world;
@@ -38,12 +40,32 @@ namespace Morabaraba
             return false;
         }
 
+        public bool isvalidenemy(Player player, string pos)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool isValidFly(string to, string from) //new
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool isValidMove(string to, string from)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool isValidPlace(string position)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Play(string pos, Player player)
         {
 
-            Piece piece = new Piece(player.symbol,pos);
+            Piece piece = new Piece(player.symbol, pos);
             Tile t = new Tile(pos, piece);
-            
+
 
             if (player.cowLives > 0)
             {
