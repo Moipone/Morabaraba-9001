@@ -683,6 +683,7 @@ namespace Morabaraba
                     isMill();
                     if (mill)
                     {
+                        switchPlayer();
                         Console.WriteLine("Where you would you like to move ? {0}", currentPlayer);
                         string read = Console.ReadLine();
                         validatePos(read);
