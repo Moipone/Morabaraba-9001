@@ -11,8 +11,11 @@ namespace Morabaraba
         bool ValidPos = true;
         bool mill = false;
         bool shift = false;
-
+        string tmpPos = "";
+        bool tmpFlag = false;  //controls the flow of the game
+        bool switchFlag = false;
         int k = 0, z = 0;
+        int t = 0;
         int draw = 0;
         int b = 0, w = 0;
         bool flag = false;
@@ -216,14 +219,14 @@ namespace Morabaraba
                 }
                 if (board.getTile(pos) == null)
                 {
-                    Console.WriteLine("Invalid move! {0} player", currentPlayer);
+                    Console.WriteLine("Invalid move!");
                     runPlay();
                     continue;
                 }
                 Symbol enemy = board.getTile(pos).cond.Symbol;
                 if (enemy != currentPlayer && enemy != Symbol.BL)
                 {
-                    Console.WriteLine("Invalid move! {0} player", currentPlayer);
+                    Console.WriteLine("Invalid move");
                     Thread.Sleep(1500);
                     runPlay();
                     continue;
@@ -231,7 +234,7 @@ namespace Morabaraba
                 if (mill)
                 {
                     clearBoard();
-                    printBoard($@"Which enemy would you like to destroy? {currentPlayer} :");
+                    printBoard("Which enemy would you like to destroy? :");
                     string tmpPos = Console.ReadLine();
 
                     validatePos(tmpPos);
@@ -290,7 +293,7 @@ namespace Morabaraba
 
         }
 
-        public void startPlaying(string pos)
+        private void startPlaying(string pos)
         {
             if (pos.Length == 0)
             {
@@ -325,8 +328,8 @@ namespace Morabaraba
 
             if (board.getTile(pos).cond.Symbol != Symbol.BL && board.getTile(pos).cond.Symbol != currentPlayer && !shift)
             {
-                Console.WriteLine("You can't play there, that's an invalid move {0}", currentPlayer);
-                Console.WriteLine("Where would you like to play ? {0}", currentPlayer);
+                Console.WriteLine("You can't play there, that's an invalid move");
+                Console.WriteLine("Where would you like to play");
                 Thread.Sleep(1500);
                 flag = true;
                 return;
@@ -437,7 +440,6 @@ namespace Morabaraba
                     World world = new World(new Player(Symbol.CW), new Player(Symbol.CB));
                     printBoard(string.Format("Where would you like to play {0}", currentPlayer));
                     getPlayer(sym).loses = true;
-                    world.PlayAllPhases();
                     return;
                 }
             }
@@ -498,21 +500,21 @@ namespace Morabaraba
             Tile two = board.getTile(moveTo);
             if (tl.cond.Symbol == Symbol.BL)
             {
-                Console.WriteLine("You can't move a blank spot {0}", currentPlayer);
+                Console.WriteLine("You can't move a blank spot");
                 flag = true;
                 Thread.Sleep(1500);
                 return;
             }
             if (tl.cond.Symbol != currentPlayer)
             {
-                Console.WriteLine("You can't move your oponents piece {0}", currentPlayer);
+                Console.WriteLine("You can't move your oponents piece");
                 flag = true;
                 Thread.Sleep(1500);
                 return;
             }
             if (two.cond.Symbol != Symbol.BL)
             {
-                Console.WriteLine("You can't move your oponents piece\nPlease move your own piece! {0}", currentPlayer);
+                Console.WriteLine("You can't move your oponents piece\nPlease move your own piece!");
                 flag = true;
                 Thread.Sleep(1500);
                 return;
@@ -526,36 +528,16 @@ namespace Morabaraba
                 isMill();
                 if (mill)
                 {
-                    clearBoard();
-                    printBoard("");
-                    Console.WriteLine("Which piece would you like to destroy {0}", currentPlayer);
                     string read = Console.ReadLine();
                     validatePos(read);
                     if (!ValidPos) flyMoves(pos, moveTo);
 
                     Tile t = board.getTile(read);
-                    if (t.cond.Symbol == Symbol.BL)
-                    {
-                        Console.WriteLine("You can't shoot your a blank piece {0} player", currentPlayer);
-                        Thread.Sleep(1500);
-                        flyMoves(pos, moveTo);
-                    }
-                    if (currentPlayer == t.cond.Symbol)
+                    if (getPlayer(currentPlayer).symbol == t.cond.Symbol)
                     {
                         Console.WriteLine("You can't shoot your own player");
                         Thread.Sleep(1500);
                         flyMoves(pos, moveTo);
-                    }
-                    //Naming of this wasn't great, it basically checks whether there is still pieces that's not in a mill
-                    if (!isNotAvailablePieces(getPlayer(t.cond.Symbol)))
-                    {
-                        if (isInMillPos(t.pos, getPlayer(t.cond.Symbol)))
-                        {
-                            Console.WriteLine("You can't shoot a piece in a mill.\n There are still available pieces to shoot");
-                            //Something went wrong, redo by attempting to shoot another piece
-                            shiftMoves(pos, moveTo);
-                        }
-                        //If there's only pieces in mills, then you can shoot those pieces, and it would fall through this clause
                     }
                     //Remove piece
                     turnBlank(read);
@@ -575,7 +557,7 @@ namespace Morabaraba
         }
         private void flyingPhase()
         {
-            string play = $@"Which piece would you like to move ? {currentPlayer}";
+            string play = "Which piece would you like to move ?";
             int bP = getPlayerPieces(player1).Count;
             int wP = getPlayerPieces(player2).Count;
             if (wP == 3) player1.Phase = Phase.flying;
@@ -634,17 +616,17 @@ namespace Morabaraba
 
                 string pos = Console.ReadLine();
                 validatePos(pos);
-                if (!ValidPos) continue;
-
+                if (!ValidPos) movingPhase();
 
                 checkValidMove(pos);
-                if (flag) continue;
+                if (flag) movingPhase();
 
                 Console.WriteLine("Where you would you like to move ? {0}", currentPlayer);
+                switchPlayer();
                 string moveTo = Console.ReadLine();
 
                 validatePos(moveTo);
-                if (!ValidPos) continue;
+                if (!ValidPos) movingPhase();
 
                 shiftMoves(pos, moveTo);
                 int bPieces = getPlayerPieces(player1).Count;
@@ -701,36 +683,17 @@ namespace Morabaraba
                     isMill();
                     if (mill)
                     {
-                        clearBoard();
-                        printBoard("");
-                        Console.WriteLine("Which piece would you like to destroy ? {0}", currentPlayer);
+                        Console.WriteLine("Where you would you like to move ? {0}", currentPlayer);
                         string read = Console.ReadLine();
                         validatePos(read);
                         if (!ValidPos) shiftMoves(pos, moveTo);
 
                         Tile t = board.getTile(read);
-                        if (t.cond.Symbol == Symbol.BL)
-                        {
-                            Console.WriteLine("You can't shoot your a blank piece {0} player", currentPlayer);
-                            Thread.Sleep(1500);
-                            shiftMoves(pos, moveTo);
-                        }
                         if (getPlayer(currentPlayer).symbol == t.cond.Symbol)
                         {
-                            Console.WriteLine("You can't shoot your own player {0}", currentPlayer);
+                            Console.WriteLine("You can't shoot your own player");
                             Thread.Sleep(1500);
                             shiftMoves(pos, moveTo);
-                        }
-                        //Naming of this wasn't great, it basically checks whether there is still pieces that's not in a mill
-                        if (!isNotAvailablePieces(getPlayer(t.cond.Symbol)))
-                        {
-                            if (isInMillPos(t.pos, getPlayer(t.cond.Symbol)))
-                            {
-                                Console.WriteLine("You can't shoot a piece in a mill.\n There are still available pieces to shoot {0} player", currentPlayer);
-                                //Something went wrong, redo by attempting to shoot another piece
-                                shiftMoves(pos, moveTo);
-                            }
-                            //If there's only pieces in mills, then you can shoot those pieces, and it would fall through this clause
                         }
                         //Remove piece
                         turnBlank(read);
@@ -761,9 +724,6 @@ namespace Morabaraba
 
         private void checkValidMove(string pos)
         {
-            validatePos(pos);
-            if (!ValidPos) return;
-
             Symbol enemy = board.getTile(pos).cond.Symbol;
             if (enemy == Symbol.BL)
             {
