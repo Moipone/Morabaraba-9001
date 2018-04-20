@@ -6,14 +6,7 @@ namespace Morabaraba
 {
     public class Tile : ITile
     {
-        public Tile(string pos, IPiece cond)
-        {
-            this.pos = pos;
-            this.cond = cond;
-           
-        }
-      
-        public string pos { get ; set ; }
+        public string pos { get ; set; }
         public IPiece cond { get ; set ; }
     }
 }

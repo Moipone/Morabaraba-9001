@@ -6,12 +6,13 @@ namespace Morabaraba
 {
     public interface IBoard
     {
-        List<List<string>> mills { get; set; }
-        List<Tile> board { get; set; }
+        List<List<string>> mills { get; }
+        List<Tile> board { get; }
 
+        bool isValid(string pos); 
         List<Tile> generateBoard();
 
-        void updateTile(Tile tile);
+        void updateTile(Tile tile);// Places a tile and checks does the necessary checks
         List<List<string>> allPossibleMills();
 
         Tile getTile(string pos);

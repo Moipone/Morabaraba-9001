@@ -7,7 +7,7 @@ namespace Morabaraba
     public interface IReferee
     {
         IPlayer Winner();
-        bool IsDraw(int turns);
+        bool IsDraw(IBoard board, ICowBox cow);
         void Play(string pos, Player player);
         bool isValidPlace(string position);
         bool isValidMove(string to, string from);
