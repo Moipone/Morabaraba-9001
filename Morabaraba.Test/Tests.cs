@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using System.Linq;
 using System.Collections.Generic;
+using NSubstitute;
 
 namespace Morabaraba.Test
 {
@@ -283,7 +284,22 @@ namespace Morabaraba.Test
             bool flag = false;
             Assert.That(flag);
         }
-
+        [Test]
+        public void APlayerHas_N_PiecesRemaingToPlace()
+        ///If one player cant move on their turn
+        {
+            //Fix test
+            bool flag = false;
+            Assert.That(flag);
+        }
+        [Test]
+        public void APlayerHas_N_PiecesOnTheBoard()
+        ///If one player cant move on their turn
+        {
+            //Fix test
+            bool flag = false;
+            Assert.That(flag);
+        }
 
 
         static public object[] neighBours =
@@ -318,14 +334,17 @@ namespace Morabaraba.Test
                                
             new object [] {"g1", new string[] { "d1", "g4", "f2"       }    },
             new object [] {"g4", new string[] { "g1", "f4", "g7"       }    },
-            new object [] {"g7", new string[] { "g4", "f6", "d7"       }    }
+            new object [] {"g7", new string[] { "g4", "f6", "d7"       }    },
 
+            new object [] {"", new string [] {}}
         };
 
         [Test]
         [TestCaseSource(nameof(neighBours))]
         public void APieceKnowsItsNeighBours(string pos,string [] expected)
         {
+           // IBoard b = Substitute.For<IBoard>();
+            //b.getNeighbourCells(Arg.Is<string>(x => x != pos)).Returns(new List<string>());
             IBoard board = new Board();
             string[] neighb = board.getNeighbourCells(pos).ToArray();
 
