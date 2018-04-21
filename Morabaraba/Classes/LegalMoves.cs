@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 
+
 namespace Morabaraba.Classes
 {
-    class LegalMoves : Interfaces.ILegalMoves
+    class LegalMoves : ILegalMoves
     {
         public bool isValidPlace(string pos, IBoard board)
         {
@@ -76,6 +77,16 @@ namespace Morabaraba.Classes
                 return true;
             }
             return false;
+        }
+
+        public bool isValidMove(string currPos, string posMoveTo, IBoard board)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool isValidFly(string currPos, string posMoveTo, IBoard board)
+        {
+            throw new NotImplementedException();
         }
     }
 }

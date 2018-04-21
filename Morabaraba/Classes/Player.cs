@@ -50,5 +50,15 @@ namespace Morabaraba
             return referee.isValidFly( from, to, player);
 
         }
+
+        public bool move(string from, string to, IBoard board, IReferee referee)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool fly(string from, string to, IBoard board, IReferee referee)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

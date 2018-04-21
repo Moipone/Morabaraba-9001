@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Morabaraba.Interfaces
+namespace Morabaraba
 {
     public interface ILegalMoves
     {

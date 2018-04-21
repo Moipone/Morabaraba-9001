@@ -126,5 +126,20 @@ namespace Morabaraba
 
             return null;
         }
+
+        public void Play(string pos, IPlayer player)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool isValidPlace(string position)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool canShoot(IPlayer player)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
