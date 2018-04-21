@@ -7,13 +7,11 @@ namespace Morabaraba.Classes
     class CowBox : ICowBox
     {
         IBoard board;
-        IPlayer player1;
-        IPlayer player2;
-        public CowBox(IBoard board, IPlayer player1, IPlayer player2)
+  
+        public CowBox(IBoard board)
         {
             this.board = board;
-            this.player1 = player1;
-            this.player2 = player2;
+            
 
         }
         public int cowsRemainingOnBoard(Symbol sym)
@@ -29,19 +27,20 @@ namespace Morabaraba.Classes
             }
             return cows;
         }
-
-        public int remainingCows(Symbol sym)
+        public List<string> playerPiecesPositions(IPlayer player)
         {
-            if (sym == Symbol.BL) return 0;
+            List<string> positions = new List<string>();
+            for (int i = 0; i < board.board.Count; i++)
+            {
+                Tile t = board.board[i];
+                if (t.cond.Symbol == player.symbol) positions.Add(t.pos);
 
-            if(sym == player1.symbol)
-            {
-                return player1.cowLives;
             }
-            else
-            {
-                return player2.cowLives;
-            }
+            return positions;
+        }  //This method checks whether there's any pieces that's not in a mill
+        public int remainingCows(IPlayer player)
+        {
+            return player.cowLives;
         }
 
         public ITile takeCow(Symbol sym)

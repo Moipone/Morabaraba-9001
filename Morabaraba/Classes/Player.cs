@@ -39,15 +39,15 @@ namespace Morabaraba
 
         }
 
-        public bool move(string from, string to, IBoard board, IReferee referee)
+        public bool move(string from, string to, IBoard board, IReferee referee, IPlayer player)
         {
-            return referee.isValidMove(from, to );
+            return referee.isValidMove(from, to, player);
 
         }
 
-        public bool fly(string from, string to, IBoard board, IReferee referee)
+        public bool fly(string from, string to, IBoard board, IReferee referee, IPlayer player)
         {
-            return referee.isValidFly( from, to);
+            return referee.isValidFly( from, to, player);
 
         }
     }

@@ -397,8 +397,7 @@ namespace Morabaraba.Test
         [TestCaseSource(nameof(neighBours))]
         public void APieceKnowsItsNeighBours(string pos,string [] expected)
         {
-           // IBoard b = Substitute.For<IBoard>();
-            //b.getNeighbourCells(Arg.Is<string>(x => x != pos)).Returns(new List<string>());
+          
             IBoard board = new Board();
             string[] neighb = board.getNeighbourCells(pos).ToArray();
 
