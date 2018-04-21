@@ -6,6 +6,7 @@ namespace Morabaraba
 {
     public interface IReferee
     {
+        bool mill { get; set; }
         IPlayer Winner(IPlayer p1, IPlayer p2);
         bool IsDraw(IBoard board);
         void Play(string pos, IPlayer player);

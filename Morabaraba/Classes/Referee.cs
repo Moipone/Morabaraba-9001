@@ -8,17 +8,66 @@ namespace Morabaraba
     public class Referee : IReferee
     {
         IBoard board;
-      
+        
         ICowBox cowBox;
+
+        public bool mill { get ; set ; }
+
         public Referee (IBoard board)
         {
             this.board = board;
-         
+            mill = false;
             cowBox = new CowBox(board);
         }
         public bool IsDraw(IBoard board)
         {
             return false;
+        }
+        // Fix the broken mill
+        // Fix the a
+        // This method removes a piece, it was in a mill and was either shot or eliminated
+        public void RemoveBrokenMill(string pos, Player player)
+        {
+            Tile t = board.getTile(pos);
+            for (int i = 0; i < player.millsFormed.Count; i++)
+            {
+                if (player.millsFormed[i].Contains(pos) && t.cond.Symbol == Symbol.BL)
+                {
+                    player.millsFormed.Remove(player.millsFormed[i]);
+
+                }
+            }
+
+        }
+        public bool isMill(IPlayer player)
+        {
+            for (int i = 0; i < board.mills.Count; i++)
+            {
+                int millCount = 0;
+                for (int j = 0; j < player.LastPosPlayed.Count; j++)
+                {
+                    Tile one = board.getTile(player.LastPosPlayed[j]);
+
+                    if (board.mills[i].Contains(player.LastPosPlayed[j]) && one.cond.Symbol == Symbol.CW)
+                    {
+                        millCount++;
+                        if (millCount == 3 && !player.millsFormed.Contains(board.mills[i]))
+                        {
+                           // player1.millsFormed.Add(board.mills[i]);
+                            mill = true;
+                            return mill;
+                        }
+                    }
+                }
+                if (millCount == 3 && !player.millsFormed.Contains(board.mills[i]))
+                {
+                    player.millsFormed.Add(board.mills[i]);
+                    mill = true;
+                    return mill;
+                }
+            }
+            return false;
+            
         }
 
         public bool isvalidenemy(IPlayer player, string pos)
@@ -51,7 +100,12 @@ namespace Morabaraba
 
         public void playPlace(string pos, IPlayer player)
         {
-            throw new NotImplementedException();
+            if (isValidPlace(pos, player))
+            {
+                Tile t = new Tile(pos, new Piece(player.symbol, pos));
+                board.updateTile(t);
+            }
+            else Console.WriteLine("Invalid move, please make a valid move"); 
         }
         public void playMove(string to, string from, ILegalMoves move, IBoard board,IPlayer player)
         {
