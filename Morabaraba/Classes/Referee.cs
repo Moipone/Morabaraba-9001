@@ -34,27 +34,9 @@ namespace Morabaraba
             return false;
         }
 
-        public bool isValidFly(string to, string from, IPlayer player)
+        public bool isValidFly(string to, string from, IPlayer player, ILegalMoves move, IBoard board)
         {
-            bool flagTo = board.allPositions().Contains(to);
-            bool flagFrom = board.allPositions().Contains(from);
-
-            if(flagTo && flagFrom && player.Phase == Phase.flying)
-            {
-                
-                int cowPieces = cowBox.playerPiecesPositions(player).Count;
-                if(cowPieces == 3)
-                {
-                    Tile tTo = board.getTile(to);
-                    Tile tFrom = board.getTile(from);
-                    // The position you going to must be blank and the position going to must say its the current player
-                    if(tTo.cond.Symbol == Symbol.BL && tFrom.cond.Symbol == player.symbol)
-                    {
-                        return true;
-                    }
-                }
-            }
-            return false;
+            return move.isValidFly(from, to, board);
             
         }
 
@@ -117,6 +99,16 @@ namespace Morabaraba
         }
 
         public bool canShoot(IPlayer player)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool isValidMove(string to, string from, IPlayer player)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool isValidFly(string to, string from, IPlayer player)
         {
             throw new NotImplementedException();
         }
