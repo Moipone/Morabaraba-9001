@@ -18,12 +18,49 @@ namespace Morabaraba.Test
         //                       "f2","f4", "f6",
         //                       "g1", "g4","g7"};
 
-        static public object[] mill =
+        static public object[] lineOfThree =
         {
-            new object [] {"", new string[] { "d1", "" } },
+            new object [] { new string[] { "a1", "a4", "a7" } },
+            new object [] { new string[] { "a1", "d1", "g1" } },
+            new object [] { new string[] { "a7", "b6", "c5" } },
+            new object [] { new string[] { "c3", "c4", "c5" } },
+            new object [] { new string[] { "b2", "d2", "f2" } },
+            new object [] { new string[] { "c3", "d3", "e3" } },
+            new object [] { new string[] { "e4", "f4", "g4" } },
+            new object [] { new string[] { "e5", "f6", "g7" } },
+            new object [] { new string[] { "e3", "f2", "g1" } },
+            new object [] { new string[] { "b2", "b4", "b6" } },
+            new object [] { new string[] { "a1", "b2", "c3" } },
+            new object [] { new string[] { "a4", "b4", "c4" } },
+            new object [] { new string[] { "a7", "d7", "g7" } },
+            new object [] { new string[] { "d1", "d2", "d3" } },
+            new object [] { new string[] { "d5", "d6", "d7" } },
+            new object [] { new string[] { "b6", "d6", "f6" } },
+            new object [] { new string[] { "f2", "f4", "f6" } },
+            new object [] { new string[] { "g1", "g4", "g7" } },
+            new object [] { new string[] { "e3", "e4", "e5" } },
+            new object [] { new string[] { "c5", "d5", "e5" } },
         };
 
-    [Test]
+        [Test]
+        [TestCaseSource(nameof(lineOfThree))]
+        public void AMillIsLineOfSameThree(string pos, string[] MillOfPos)
+        {
+            //Arrange
+            IBoard board = new Board();
+            IPlayer currentPayer = new Player (Symbol.CB);
+            List<List <string>> allmills = board.allPossibleMills();
+            //ITile tile = new Tile();
+
+            //Act 
+            
+            //Assert
+            Assert.AreEqual(MillOfPos, lineOfThree);
+
+
+        }
+
+        [Test]
         public void ABoardHas12BlackAnd12WhitePieces()
         {
             Player p1 = new Player(Symbol.CB);
@@ -156,7 +193,9 @@ namespace Morabaraba.Test
         {
             //Fix test
             bool flag = false;
-            Assert.That(!flag);
+
+            Assert.That(flag);
+
         }
 
         [Test]
