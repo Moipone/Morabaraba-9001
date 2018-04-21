@@ -7,12 +7,12 @@ namespace Morabaraba
     public interface IReferee
     {
         IPlayer Winner();
-        bool IsDraw(IBoard board, ICowBox cow);
-        void Play(string pos, Player player);
+        bool IsDraw(IBoard board);
+        void Play(string pos, IPlayer player);
         bool isValidPlace(string position);
-        bool isValidMove(string to, string from);
-        bool isValidFly(string to, string from);
-        bool isvalidenemy(Player player, string pos);
+        bool isValidMove(string to, string from, IPlayer player);
+        bool isValidFly(string to, string from, IPlayer player);
+        bool isvalidenemy(IPlayer player, string pos);
 
 
     }
