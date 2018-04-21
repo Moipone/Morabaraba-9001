@@ -23,6 +23,22 @@ namespace Morabaraba
         {
             return false;
         }
+        // Fix the broken mill
+        // Fix the a
+        // This method removes a piece, it was in a mill and was either shot or eliminated
+        public void RemoveBrokenMill(string pos, Player player)
+        {
+            Tile t = board.getTile(pos);
+            for (int i = 0; i < player.millsFormed.Count; i++)
+            {
+                if (player.millsFormed[i].Contains(pos) && t.cond.Symbol == Symbol.BL)
+                {
+                    player.millsFormed.Remove(player.millsFormed[i]);
+
+                }
+            }
+
+        }
         public bool isMill(IPlayer player)
         {
             for (int i = 0; i < board.mills.Count; i++)
