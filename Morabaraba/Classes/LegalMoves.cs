@@ -19,32 +19,40 @@ namespace Morabaraba.Classes
             return false;
         }
 
-        public bool isValidMove(string currPos, string posMoveTo, IBoard board)
+        public bool isValidMove(string currPos, string posMoveTo, IBoard board, IPlayer player)
         {
             //throw new NotImplementedException();
             if (isValidPos(currPos, board) && isValidPos(posMoveTo, board))
             {
-                if (board.getNeighbourCells(currPos).Contains(posMoveTo))
+                if (isOwnTile(currPos,player, board.getTile(currPos) ))
+                {
+                    if (board.getNeighbourCells(currPos).Contains(posMoveTo))
+                    {
+                        if (board.getTile(posMoveTo).cond == null)
+                        {
+                            return true;
+                        }
+                    }
+                }
+                
+            }
+            return false;
+        }
+
+        public bool isValidFly(string currPos, string posMoveTo, IBoard board, IPlayer player)
+        {
+            //throw new NotImplementedException();
+            if (isValidPos(currPos, board) && isValidPos(posMoveTo,board))
+            {
+                if (isOwnTile(currPos, player, board.getTile(currPos)))
                 {
                     if (board.getTile(posMoveTo).cond == null)
                     {
                         return true;
                     }
                 }
-            }
-            return false;
-        }
-
-        public bool isValidFly(string currPos, string posMoveTo, IBoard board)
-        {
-            //throw new NotImplementedException();
-            if (isValidPos(currPos, board) && isValidPos(posMoveTo,board))
-            {
-                if (board.getTile(posMoveTo).cond == null)
-                {
-                    return true;
-                }
-            }
+            }   
+            
             return false;
         }
 
@@ -58,6 +66,16 @@ namespace Morabaraba.Classes
             }
             else return true;
 
+        }
+
+        public bool isOwnTile(string pos, IPlayer player, ITile tile)
+        {
+            //throw new NotImplementedException();
+            if (tile.cond.Symbol == player.symbol)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

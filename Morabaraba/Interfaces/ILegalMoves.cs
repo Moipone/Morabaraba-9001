@@ -10,5 +10,6 @@ namespace Morabaraba.Interfaces
         bool isValidMove(string currPos, string posMoveTo, IBoard board);
         bool isValidFly(string currPos, string posMoveTo, IBoard board);
         bool isValidPos(string pos, IBoard board);
+        bool isOwnTile(string pos, IPlayer player, ITile tile);
     }
 }
