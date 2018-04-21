@@ -58,27 +58,9 @@ namespace Morabaraba
             
         }
 
-        public bool isValidMove(string to, string from, IPlayer player)
+        public bool isValidMove(string to, string from, ILegalMoves move, IBoard board)
         {
-            bool flagTo = board.allPositions().Contains(to);
-            bool flagFrom = board.allPositions().Contains(from);
-
-            if (flagTo && flagFrom && player.Phase == Phase.moving)
-            {
-
-                int cowPieces = cowBox.playerPiecesPositions(player).Count;
-                if (cowPieces > 3 && player.cowLives == 0)
-                {
-                    Tile tTo = board.getTile(to);
-                    Tile tFrom = board.getTile(from);
-                    List<string> neighBours = board.getNeighbourCells(from);
-                    // The position you going to must be blank and the position going to must say its the current player
-                    if (neighBours.Contains(tTo.pos))
-                        if (tTo.cond.Symbol == Symbol.BL && tFrom.cond.Symbol == player.symbol)
-                            return true;
-                }
-            }
-            return false;
+            return move.isValidMove(from, to, board);
         }
         public bool isValidPlace(string position, ILegalMoves move, IBoard board)
         {
@@ -89,9 +71,9 @@ namespace Morabaraba
         {
             throw new NotImplementedException();
         }
-        public void playMove(string to, string from, IPlayer player)
+        public void playMove(string to, string from, ILegalMoves move, IBoard board,IPlayer player)
         {
-            if (isValidMove(to, from, player))
+            if (isValidMove(to, from,move, board))
             {
                 Tile tileTo = new Tile(to, new Piece(player.symbol, to));
                 Tile tileFrom = new Tile(from, new Piece(Symbol.BL, from));
