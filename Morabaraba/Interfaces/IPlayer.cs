@@ -11,10 +11,12 @@ namespace Morabaraba
         Symbol symbol { get; set; }
         Phase Phase { get; set; }
         List<string> LastPosPlayed { get; set; }
-        List<IPiece> Pieces(IBoard board, Symbol sym);
+        List<IPiece> Pieces(IBoard board, Symbol sym, ITile tile);
         List<List<string>> millsFormed { get; set; }
 
-        bool place(string pos, IBoard board);
+        bool place(string pos, IBoard board, IReferee referee);
+        bool move(string from, string to, IBoard board, IReferee referee);
+        bool fly(string from, string to, IBoard board, IReferee referee);
         bool loses { get; set; }
         int cowLives { get; set; }
         
