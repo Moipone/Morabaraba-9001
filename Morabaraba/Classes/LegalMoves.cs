@@ -88,5 +88,10 @@ namespace Morabaraba.Classes
         {
             throw new NotImplementedException();
         }
+
+        public bool canShoot(IPlayer player, IBoard booard)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

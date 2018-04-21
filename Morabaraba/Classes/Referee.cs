@@ -98,11 +98,6 @@ namespace Morabaraba
             throw new NotImplementedException();
         }
 
-        public bool canShoot(IPlayer player)
-        {
-            throw new NotImplementedException();
-        }
-
         public bool isValidMove(string to, string from, IPlayer player)
         {
             throw new NotImplementedException();
@@ -111,6 +106,11 @@ namespace Morabaraba
         public bool isValidFly(string to, string from, IPlayer player)
         {
             throw new NotImplementedException();
+        }
+
+        public bool canShoot(IPlayer player, ILegalMoves move, IBoard board)
+        {
+            return move.canShoot(player, board);
         }
     }
 }
