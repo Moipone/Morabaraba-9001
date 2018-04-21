@@ -22,7 +22,7 @@ namespace Morabaraba
 
         public List<string> allPositions()
         {
-            throw new NotImplementedException();
+            return positions.ToList();
         }
 
         public List<List<string>> allPossibleMills()
@@ -135,15 +135,39 @@ namespace Morabaraba
 
         public Tile getTile(string pos)
         {
-            throw new NotImplementedException();
+            if (isValid(pos))
+            {
+                for (int i = 0; i < board.Count; i++)
+                {
+                    if (board[i].pos == pos) return board[i];
+                }
+            }
+            return null;
         }
 
-        public bool isValid(string pos)
+        private bool isValid(string pos)
         {
-            throw new NotImplementedException();
+            if (allPositions().Contains(pos)) return true;
+
+            return false;
         }
 
         public void updateTile(Tile tile)
+        {
+            if (isValid(tile.pos))
+                for (int i = 0; i < board.Count; i++)
+                {
+                    if (board[i].pos == tile.pos)
+                    {
+                        board.Insert(i, tile);
+                        board.Remove(board[i + 1]);
+                        break;
+                    }
+                }
+            else throw new Exception("Invalid tile cannot be added");
+        }
+
+        bool IBoard.isValid(string pos)
         {
             throw new NotImplementedException();
         }

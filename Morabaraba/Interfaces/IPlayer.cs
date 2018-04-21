@@ -17,6 +17,6 @@ namespace Morabaraba
         bool place(string pos, IBoard board);
         bool loses { get; set; }
         int cowLives { get; set; }
-        ///bool loses { get; set; }
+        
     }
 }

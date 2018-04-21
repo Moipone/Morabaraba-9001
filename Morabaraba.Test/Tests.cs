@@ -68,7 +68,7 @@ namespace Morabaraba.Test
             board.updateTile(new Tile("a1", new Piece(Symbol.CB, "a1")));
             bool occupied = false;
             Tile t = null;
-            foreach (string pos in board.getPositions())
+            foreach (string pos in board.allPositions())
             {
                 // Run a loop with all positions to check if all positions can be placed on a blank
                 t = board.getTile(pos);
