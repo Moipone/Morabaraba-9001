@@ -7,7 +7,6 @@ namespace Morabaraba
     public enum Symbol { CB, CW,BL }
     public interface IPiece
     {
-        Status Status { get; set; }
         Symbol Symbol { get; set; }
         string Position { get; set; }
        

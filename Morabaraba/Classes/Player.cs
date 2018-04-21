@@ -13,14 +13,21 @@ namespace Morabaraba
         public bool loses { get; set ; }
         public int cowLives { get ; set ; }
 
-        public List<Piece> Pieces(IBoard board)
+        public List<IPiece> Pieces(IBoard board, Symbol sym)
         {
-            throw new NotImplementedException();
+            List<IPiece> pieces = new List<IPiece>();
+             for( int i = 0; i < board.allPositions().Count; i++)
+            {
+               Tile t =  board.board[i];
+                if (t.cond != null && t.cond.Symbol == sym)
+                    pieces.Add(t.cond);
+            }
+            return pieces;
         }
 
         public bool place(string pos, IBoard board)
         {
-            throw new NotImplementedException();
+            return false;
         }
     }
 }

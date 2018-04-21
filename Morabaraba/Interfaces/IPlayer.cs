@@ -11,7 +11,7 @@ namespace Morabaraba
         Symbol symbol { get; set; }
         Phase Phase { get; set; }
         List<string> LastPosPlayed { get; set; }
-        List<Piece> Pieces(IBoard board);
+        List<IPiece> Pieces(IBoard board, Symbol sym);
         List<List<string>> millsFormed { get; set; }
 
         bool place(string pos, IBoard board);
