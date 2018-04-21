@@ -98,37 +98,37 @@ namespace Morabaraba
         {
             switch (pos)
             {
-                case "a1": return new string[] { "d1", "b2", "a4" }.ToList();
-                case "a4": return new string[] { "a1", "a7", "b4" }.ToList();
-                case "a7": return new string[] { "d7", "a4", "b6" }.ToList();
+                case "a1": return new string[] { "d1", "b2", "a4"       }.ToList();
+                case "a4": return new string[] { "a1", "a7", "b4"       }.ToList();
+                case "a7": return new string[] { "d7", "a4", "b6"       }.ToList();
 
                 case "b2": return new string[] { "a1", "b4", "c3", "d2" }.ToList();
                 case "b4": return new string[] { "b2", "b6", "a4", "c4" }.ToList();
                 case "b6": return new string[] { "b4", "c5", "d6", "a7" }.ToList();
 
-                case "c3": return new string[] { "b2", "c4", "d3" }.ToList();
-                case "c4": return new string[] { "c3", "b4", "c5" }.ToList();
-                case "c5": return new string[] { "c4", "d5", "b6" }.ToList();
+                case "c3": return new string[] { "b2", "c4", "d3"       }.ToList();
+                case "c4": return new string[] { "c3", "b4", "c5"       }.ToList();
+                case "c5": return new string[] { "c4", "d5", "b6"       }.ToList();
 
-                case "d1": return new string[] { "a1", "g1", "d2" }.ToList();
+                case "d1": return new string[] { "a1", "g1", "d2"       }.ToList();
                 case "d2": return new string[] { "d1", "f2", "d3", "b2" }.ToList();
-                case "d3": return new string[] { "d2", "e3", "c3" }.ToList();
+                case "d3": return new string[] { "d2", "e3", "c3"       }.ToList();
 
-                case "d5": return new string[] { "e5", "d6", "c5" }.ToList();
+                case "d5": return new string[] { "e5", "d6", "c5"       }.ToList();
                 case "d6": return new string[] { "d5", "f6", "b6", "d7" }.ToList();
-                case "d7": return new string[] { "d6", "g7", "a7" }.ToList();
+                case "d7": return new string[] { "d6", "g7", "a7"       }.ToList();
 
-                case "e3": return new string[] { "d3", "f2", "e4" }.ToList();
-                case "e4": return new string[] { "e3", "f4", "e5" }.ToList();
-                case "e5": return new string[] { "e4", "f6", "d5" }.ToList();
+                case "e3": return new string[] { "d3", "f2", "e4"       }.ToList();
+                case "e4": return new string[] { "e3", "f4", "e5"       }.ToList();
+                case "e5": return new string[] { "e4", "f6", "d5"       }.ToList();
 
                 case "f2": return new string[] { "g1", "f4", "e3", "d2" }.ToList();
                 case "f4": return new string[] { "f2", "g4", "f6", "e4" }.ToList();
                 case "f6": return new string[] { "f4", "g7", "d6", "e5" }.ToList();
 
-                case "g1": return new string[] { "d1", "g4", "f2" }.ToList();
-                case "g4": return new string[] { "g1", "f4", "g7" }.ToList();
-                case "g7": return new string[] { "g4", "f6", "d7" }.ToList();
+                case "g1": return new string[] { "d1", "g4", "f2"       }.ToList();
+                case "g4": return new string[] { "g1", "f4", "g7"       }.ToList();
+                case "g7": return new string[] { "g4", "f6", "d7"       }.ToList();
             }
             return new List<string>();
         }
