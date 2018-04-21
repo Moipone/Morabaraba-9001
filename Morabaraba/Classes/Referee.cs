@@ -80,12 +80,9 @@ namespace Morabaraba
             }
             return false;
         }
-        public bool isValidPlace(string position, IPlayer player)
+        public bool isValidPlace(string position, ILegalMoves move, IBoard board)
         {
-            Tile tile = board.getTile(position);
-            if (tile.cond.Symbol == Symbol.BL && cowBox.remainingCows(player) > 0) return true;
-
-            return false;
+            return move.isValidPlace(position, board);
         }
 
         public void playPlace(string pos, IPlayer player)
