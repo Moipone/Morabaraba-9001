@@ -9,7 +9,21 @@ namespace Morabaraba.Test
     [TestFixture]
     public class Class1
     {
-        [Test]
+        //"a1", "a4","a7",
+        //                       "b2","b4","b6",
+        //                       "c3", "c4", "c5",
+        //                       "d1", "d2", "d3",
+        //                       "d5", "d6","d7",
+        //                       "e3","e4","e5",
+        //                       "f2","f4", "f6",
+        //                       "g1", "g4","g7"};
+
+        static public object[] mill =
+        {
+            new object [] {"", new string[] { "d1", "" } },
+        };
+
+    [Test]
         public void ABoardHas12BlackAnd12WhitePieces()
         {
             Player p1 = new Player(Symbol.CB);
@@ -300,6 +314,7 @@ namespace Morabaraba.Test
             bool flag = false;
             Assert.That(flag);
         }
+
 
 
         static public object[] neighBours =
