@@ -249,28 +249,44 @@ namespace Morabaraba.Test
             Assert.That(!flag2);
         }
 
-        [Test]
-        public void OnlyMoveToNeighbour()
-        ///A cow can only move to a position which is adjecent to its current position 
-        {
-            IBoard b = new Board();
-            IPlayer p1 = new Player(Symbol.CB);
-            IPlayer p2 = new Player(Symbol.CW);
-            //IWorld world = new World(p1, p2);
-            bool isN(string from, string to)
-            {
-                List<string> N = b.getNeighbourCells(from);
-                if (N.Contains(to)) return true; else return false; //to must be aneighbour of from     
-            }
+        //[Test]
+        //public void OnlyMoveToNeighbour()
+        /////A cow can only move to a position which is adjecent to its current position 
+        //{
+        //    IBoard b = new Board();
+        //    IPlayer p1 = new Player(Symbol.CB);
+        //    IPlayer p2 = new Player(Symbol.CW);
+        //    //IWorld world = new World(p1, p2);
+        //    bool isN(string from, string to)
+        //    {
+        //        List<string> N = b.getNeighbourCells(from);
+        //        if (N.Contains(to)) return true; else return false; //to must be aneighbour of from     
+        //    }
 
-            //string toPos = "";
-            //string fromPos = ""; 
-            //if ((toPos == "a1") && fromPos == "a4")
-            Assert.That(isN("a1", "a4") == true);
-            Assert.That(isN("a1", "g1") == false);
+        //    //string toPos = "";
+        //    //string fromPos = ""; 
+        //    //if ((toPos == "a1") && fromPos == "a4")
+        //    Assert.That(isN("a1", "a4") == true);
+        //    Assert.That(isN("a1", "g1") == false);
 
 
-        }
+        //}
+        //[TestCaseSource(nameof(userInput))]
+        //public void OnlymovetoNeighbour( string[] input)
+        //{
+
+        //    IBoard board = new Board();
+
+        //    foreach (string pos in input)
+        //    {
+        //        string[] neighb = board.getNeighbourCells(pos).ToArray();
+
+        //    }
+
+        //    Assert.AreEqual(expected, neighb);
+
+        //}
+
         [Test]
         public void MoveIsToEmptyspace()
         ///Player show only be able to move cow to an unoccupied tile
