@@ -21,6 +21,7 @@ namespace Morabaraba
         void playPlace(string pos, IPlayer player, IReferee referee);
         void playMove(string to, string from, IPlayer player, IReferee referee);
         void playFly(string to, string from, IPlayer player, IReferee referee);
+        void setCowBox(ICowBox box);
         bool loses { get; set; }
         int cowLives { get; set; }
         void Shoot(IPlayer player, IReferee referee, string position);

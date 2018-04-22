@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Morabaraba.Classes;
+using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 
 namespace Morabaraba
 {
@@ -24,11 +26,17 @@ namespace Morabaraba
             this.LastPosPlayed = new List<string>();
             this.millsFormed = new List<List<string>>();
             flag = false;
+   
 
         }
         public void setBoard(IBoard board)
         {
             this.board = board;
+      
+        }
+        public void setCowBox(ICowBox box)
+        {
+            this.cowBox = box;
         }
 
         public Symbol symbol { get ; set; }
@@ -89,6 +97,7 @@ namespace Morabaraba
 
                 player.LastPosPlayed.Add(pos);
                 board.updateTile(t);
+                cowBox.takeCow(player.symbol);
             }
             else Console.WriteLine("Invalid move, please make a valid move");
         }
@@ -117,21 +126,66 @@ namespace Morabaraba
             }
             else Console.WriteLine("Invalid move, please make a valid move");
         }
+        private Symbol switchPlayer (Symbol player)
+        {
+            if (player == Symbol.CW) return Symbol.CB;
+            if (player == Symbol.CB) return Symbol.CW;
+            return Symbol.BL;
+
+        }
+        //private List<string> getPieces(Symbol sym)
+        //{
+        //    List<string> ps = new List<string>();
+        //    for(int i = 0; i < board.allPositions().Count; i++)
+        //    {
+        //        Tile t = board.getTile(board.allPositions()[i]);
+        //        if (t.cond.Symbol == sym) ps.Add(t.pos);
+        //    }
+        //    return ps;
+        //}
+        //private bool availPieces(Symbol sym)
+        //{
+        //    List<string> list = getPieces(sym);
+        //    bool isNotAvailable = false;
+        //    foreach (string str in list)
+        //    {
+        //        isNotAvailable = isInMillPos(str, player);
+        //        if (!isNotAvailable) return false;
+        //    }
+        //    return true;
+        //}
         public void Shoot(IPlayer player, IReferee referee, string position)
         {
+
+
             if (referee.isValidDestroy(player, position))
+
             {
+                
                 if (!referee.isAvailablePieces(player))
                 {
-                    if (referee.isInMillPos(position, player)){
+                    if (referee.isInMillPos(position, player))
+                    {
                         Console.WriteLine("You can't shoot a piece in a mill. There are still available pieces to shoot");
+                        Thread.Sleep(1500);
                         flag = true;
                     }
 
                 }
-                else board.updateTile(new Tile(position, new Piece(Symbol.BL, position)));
+                else
+                {
+                    board.updateTile(new Tile(position, new Piece(Symbol.BL, position)));
+                    cowBox.placeCow(switchPlayer(player.symbol));
+                    flag = false;
+                }
             }
-            else Console.WriteLine("You can't remove your own player or shoot a blank spot!!!");
+            else
+            {
+                Console.WriteLine("You can't remove your own player or shoot a blank spot!!!");
+                flag = true;
+                Thread.Sleep(1500);
+            }
+
          
         }
 
