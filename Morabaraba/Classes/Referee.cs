@@ -55,9 +55,9 @@ namespace Morabaraba
         }
         
 
-        public bool isvalidenemy(IPlayer player, string pos)
+        public bool isvalidenemy(IPlayer player, string pos, Tile tile)
         {
-            throw new NotImplementedException();
+            return legalMoves.isvalidenemy(player,pos, tile, board);
         }
         private bool isInMillPos(string pos, IPlayer player)
         {
@@ -74,7 +74,9 @@ namespace Morabaraba
         }
         public bool isValidPlace(string position, IPlayer player)
         {
+
             return legalMoves.isValidPlace(position, player); 
+
         }
 
         public IPlayer Winner(IPlayer p1, IPlayer p2)
@@ -101,6 +103,11 @@ namespace Morabaraba
         public bool canShoot(IPlayer player, ILegalMoves move, IBoard board)
         {
             return move.ismill(board, player);
+        }
+
+        public bool isvalidenemy(IPlayer player, string pos)
+        {
+            throw new NotImplementedException();
         }
     }
 }
