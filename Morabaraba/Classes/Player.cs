@@ -120,7 +120,7 @@ namespace Morabaraba
         public void Shoot(IPlayer player, IReferee referee, string position)
         {
 
-            if(referee.canShoot(player, board, position))
+            if(referee.canShoot(player, position))
 
             if (referee.isValidDestroy(player, position))
 
