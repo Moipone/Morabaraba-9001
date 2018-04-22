@@ -104,24 +104,23 @@ namespace Morabaraba
             throw new NotImplementedException();
         }
 
-        public bool canShoot(IPlayer player, IBoard board, string position)
+        public bool canShoot(IPlayer player,  string position)
         {
-            if(legalMoves.ismill(board, player) && legalMoves.isnotEmpty(player, position))
+            if(legalMoves.ismill(board, player))
              {
                 return true;
-
              }
             return false;
         }
-
+        public bool isValidDestroy(IPlayer player, string pos)
+        {
+            return legalMoves.isValidDestroy(player, pos);
+        }
         public bool isvalidenemy(IPlayer player, string pos)
         {
             throw new NotImplementedException();
         }
 
-        public bool canShoot(IPlayer player, IBoard board)
-        {
-            throw new NotImplementedException();
-        }
+    
     }
 }

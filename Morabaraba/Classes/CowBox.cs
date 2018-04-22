@@ -7,7 +7,7 @@ namespace Morabaraba.Classes
     class CowBox : ICowBox
     {
         IBoard board;
-  
+      
         public CowBox(IBoard board)
         {
             this.board = board;

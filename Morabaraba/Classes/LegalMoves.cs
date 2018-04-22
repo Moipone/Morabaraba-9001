@@ -24,7 +24,14 @@ namespace Morabaraba.Classes
 
             return false;
         }
+        public bool isValidDestroy(IPlayer player, string pos)
+        {
+            Tile tile = board.getTile(pos);
+            if (tile.cond.Symbol != player.symbol && tile.cond.Symbol != Symbol.BL)
+                return true;
 
+            return false;
+        }
         public bool isValidMove(string to, string from, IPlayer player)
         {
             bool flagTo = isValidPos(to);
@@ -111,7 +118,7 @@ namespace Morabaraba.Classes
                 {
                     Tile one = board.getTile(player.LastPosPlayed[j]);
 
-                    if (board.mills[i].Contains(player.LastPosPlayed[j]) && one.cond.Symbol == Symbol.CW)
+                    if (board.mills[i].Contains(player.LastPosPlayed[j]) && one.cond.Symbol == player.symbol)
                     {
                         millCount++;
                         if (millCount == 3 && !player.millsFormed.Contains(board.mills[i]))

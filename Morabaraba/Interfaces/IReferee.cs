@@ -19,8 +19,8 @@ namespace Morabaraba
       
         void switchPlayer();
 
-        bool canShoot(IPlayer player, IBoard board);
-
+        bool canShoot(IPlayer player, string pos);
+        bool isValidDestroy(IPlayer player, string pos);
 
     }
 }
