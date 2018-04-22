@@ -139,9 +139,12 @@ namespace Morabaraba.Test
             Player p1 = new Player(Symbol.CB);
             Player p2 = new Player(Symbol.CW);
             ICowBox cowBox = Substitute.For<ICowBox>();
+            World world = new World(p1,p2);
+            int cowB = world.cowBox.getcowsInBox(p1.symbol);
+            int cowW = world.cowBox.getcowsInBox(p2.symbol);
             //int blackCount = b., whiteCount = p1.cowLives;
-            Assert.That(cowBox.getcowsInBox(p1.symbol) == 12);
-            Assert.That(cowBox.getcowsInBox(p2.symbol) == 12);
+            Assert.That(cowB == 12);
+            Assert.That(cowW == 12);
         }
         [Test]
         public void ABoardAlwaysStartsBlank()
