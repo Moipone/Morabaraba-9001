@@ -291,8 +291,10 @@ namespace Morabaraba.Test
         public void MoveIsToEmptyspace()
         {
             IPlayer p1 = new Player(Symbol.CB);
+            IPlayer p2 = new Player(Symbol.CB);
             IBoard board = Substitute.For<IBoard>();
             IReferee referee = new Referee(board, p1.symbol);
+            IWorld game = new World(p1, p2);
             string[] userin = board.allPositions().ToArray();
             foreach (string c in userin)
             {
