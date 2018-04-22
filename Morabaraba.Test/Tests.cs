@@ -229,15 +229,24 @@ namespace Morabaraba.Test
         ///The moving phases of the game is locked, until the player has completed the placing phase
         {
             //Start implementing this.
+            bool flag1 = false;
+            bool flag2 = false;
             Board b = new Board();
-            bool moving = true;
             Player p1 = new Player(Symbol.CW);
             Player p2 = new Player(Symbol.CB);
-            if (p1.cowLives == 0 && p2.cowLives == 0)
+            if (p1.Phase == Phase.flying)
             {
-                moving = false;
+               flag1 =  p1.Phase != Phase.moving;
             }
-            Assert.That(moving);
+
+            if (p2.Phase == Phase.flying)
+            {
+                flag2 = p2.Phase != Phase.moving;
+            }
+
+            
+            Assert.That(!flag1);
+            Assert.That(!flag2);
         }
 
         [Test]
