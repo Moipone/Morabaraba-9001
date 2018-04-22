@@ -4,7 +4,8 @@ namespace Morabaraba
 {
     public interface ICowBox
     {
-        ITile takeCow(Symbol sym);
+        void takeCow(Symbol sym);
+        void placeCow(Symbol sym);
         int remainingCows(IPlayer sym);
         List<string> playerPiecesPositions(IPlayer player);
         int cowsRemainingOnBoard(Symbol sym);

@@ -7,7 +7,10 @@ namespace Morabaraba.Classes
     class CowBox : ICowBox
     {
         IBoard board;
-  
+        private int blackcowsBox = 12;
+        private int whitecowsBox = 12;
+        private int blackcowsBoard = 0;
+        private int whitecowsBoard = 0;
         public CowBox(IBoard board)
         {
             this.board = board;
@@ -43,9 +46,18 @@ namespace Morabaraba.Classes
             return player.cowLives;
         }
 
-        public ITile takeCow(Symbol sym)
+        public void takeCow(Symbol sym)
         {
-            throw new NotImplementedException();
+            if (sym == Symbol.CB) { blackcowsBox--; }
+            else if (sym == Symbol.CW) { whitecowsBox--; }
+            //throw new NotImplementedException();
+        }
+
+        public void placeCow(Symbol sym)
+        {
+            if (sym == Symbol.CB) { blackcowsBoard++; }
+            else if (sym == Symbol.CW) { whitecowsBoard++; }
+            //throw new NotImplementedException();
         }
     }
 }
