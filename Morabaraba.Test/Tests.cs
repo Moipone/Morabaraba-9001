@@ -119,6 +119,7 @@ namespace Morabaraba.Test
             //IBoard board = new Board();
             IBoard b = Substitute.For<IBoard>();
             IPlayer currentPayer = Substitute.For<IPlayer>();
+            ICowBox cows = Substitute.For<ICowBox>();
             //if ((b.getTile().cond.Symbol == currentPayer.symbol)) { };
             List<List<string>> allmills = b.allPossibleMills();
 
@@ -133,39 +134,41 @@ namespace Morabaraba.Test
         }
 
         [Test]
-        public void ABoardHas12BlackAnd12WhitePieces()
+        public void ABoardHas12BlackAnd12WhitePiecesAtStart()
         {
             Player p1 = new Player(Symbol.CB);
             Player p2 = new Player(Symbol.CW);
-            int blackCount = p2.cowLives, whiteCount = p1.cowLives;
-            Assert.That(blackCount == 12);
-            Assert.That(whiteCount == 12);
+            ICowBox cowBox = Substitute.For<ICowBox>();
+            //int blackCount = b., whiteCount = p1.cowLives;
+            Assert.That(cowBox.getcowsInBox(p1.symbol) == 12);
+            Assert.That(cowBox.getcowsInBox(p2.symbol) == 12);
         }
         [Test]
         public void ABoardAlwaysStartsBlank()
         {
             //Start implementing this.
-            Board b = new Board();
-            bool flag = false;
-            foreach (Tile t in b.board)
-            {
-                if (t.cond != null) flag = true;
-            }
-            Assert.That(flag);
+            Player p1 = new Player(Symbol.CB);
+            Player p2 = new Player(Symbol.CW);
+            ICowBox cowBox = Substitute.For<ICowBox>();
+            //int blackCount = b., whiteCount = p1.cowLives;
+            Assert.That(cowBox.getcowsOnBoard(p1.symbol) == 0);
+            Assert.That(cowBox.getcowsOnBoard(p2.symbol) == 0);
         }
         [Test]
         public void GameEndsWhenP1orP2Has2Cows()
         {
             //Start implementing this.
             Board b = new Board();
-            bool flag = false;
+            bool flag1 = false;
+            bool flag2 = false;
             Player p1 = new Player(Symbol.CW);
             Player p2 = new Player(Symbol.CB);
-            if (p1.cowLives == 2 || p2.cowLives == 2)
-            {
-                flag = true;
-            }
-            Assert.That(flag);
+            ICowBox cowBox = Substitute.For<ICowBox>();
+            //int blackCount = b., whiteCount = p1.cowLives;
+            flag1 = ((cowBox.getcowsOnBoard(p1.symbol) < 3) && (((cowBox.getcowsOnBoard(p2.symbol) > 3))));
+            flag2 = ((cowBox.getcowsOnBoard(p2.symbol) < 3) && (((cowBox.getcowsOnBoard(p1.symbol) > 3))));
+            Assert.That(flag1);
+            Assert.That(flag2);
         }
 
         [Test]
@@ -175,11 +178,12 @@ namespace Morabaraba.Test
             //Fix test
             bool flag = false;
 
-            Player p1 = new Player(Symbol.CW);
-            Player p2 = new Player(Symbol.CB);
+            Player p1 = new Player(Symbol.CB);
+            Player p2 = new Player(Symbol.CW);
             Board b = new Board();
             World world = new World(p1, p2);
-
+            //play once 
+            //check taken tile
             Assert.That(flag);
         }
 
@@ -215,13 +219,8 @@ namespace Morabaraba.Test
             Board b = new Board();
 
             bool flag = false;
-            Player p1 = new Player(Symbol.CW);
-            Player p2 = new Player(Symbol.CB);
-            if (p1.cowLives == 12 && p2.cowLives == 12)
-            {
-                flag = true;
-            }
-            //Fix test
+
+            
             Assert.That(flag);
         }
 
@@ -230,39 +229,64 @@ namespace Morabaraba.Test
         ///The moving phases of the game is locked, until the player has completed the placing phase
         {
             //Start implementing this.
+            bool flag1 = false;
+            bool flag2 = false;
             Board b = new Board();
-            bool moving = true;
             Player p1 = new Player(Symbol.CW);
             Player p2 = new Player(Symbol.CB);
-            if (p1.cowLives == 0 && p2.cowLives == 0)
+            if (p1.Phase == Phase.flying)
             {
-                moving = false;
-            }
-            Assert.That(moving);
-        }
-
-        [Test]
-        public void OnlyMoveToNeighbour()
-        ///A cow can only move to a position which is adjecent to its current position 
-        {
-            IBoard b = new Board();
-            IPlayer p1 = new Player(Symbol.CB);
-            IPlayer p2 = new Player(Symbol.CW);
-            //IWorld world = new World(p1, p2);
-            bool isN(string from, string to)
-            {
-                List<string> N = b.getNeighbourCells(from);
-                if (N.Contains(to)) return true; else return false; //to must be aneighbour of from     
+               flag1 =  p1.Phase != Phase.moving;
             }
 
-            //string toPos = "";
-            //string fromPos = ""; 
-            //if ((toPos == "a1") && fromPos == "a4")
-            Assert.That(isN("a1", "a4") == true);
-            Assert.That(isN("a1", "g1") == false);
+            if (p2.Phase == Phase.flying)
+            {
+                flag2 = p2.Phase != Phase.moving;
+            }
 
-
+            
+            Assert.That(!flag1);
+            Assert.That(!flag2);
         }
+
+        //[Test]
+        //public void OnlyMoveToNeighbour()
+        /////A cow can only move to a position which is adjecent to its current position 
+        //{
+        //    IBoard b = new Board();
+        //    IPlayer p1 = new Player(Symbol.CB);
+        //    IPlayer p2 = new Player(Symbol.CW);
+        //    //IWorld world = new World(p1, p2);
+        //    bool isN(string from, string to)
+        //    {
+        //        List<string> N = b.getNeighbourCells(from);
+        //        if (N.Contains(to)) return true; else return false; //to must be aneighbour of from     
+        //    }
+
+        //    //string toPos = "";
+        //    //string fromPos = ""; 
+        //    //if ((toPos == "a1") && fromPos == "a4")
+        //    Assert.That(isN("a1", "a4") == true);
+        //    Assert.That(isN("a1", "g1") == false);
+
+
+        //}
+        //[TestCaseSource(nameof(userInput))]
+        //public void OnlymovetoNeighbour( string[] input)
+        //{
+
+        //    IBoard board = new Board();
+
+        //    foreach (string pos in input)
+        //    {
+        //        string[] neighb = board.getNeighbourCells(pos).ToArray();
+
+        //    }
+
+        //    Assert.AreEqual(expected, neighb);
+
+        //}
+
         [Test]
         public void MoveIsToEmptyspace()
         {

@@ -12,13 +12,18 @@ namespace Morabaraba
         public Player(Symbol sym, IBoard board)
         {
             this.symbol = sym;
-           // this.board = board;
+            // this.board = board;
+            this.LastPosPlayed = new List<string>();
+            this.millsFormed = new List<List<string>>();
 
         }
         public Player(Symbol sym)
         {
             this.symbol = sym;
-
+            cowLives = 12;
+            this.LastPosPlayed = new List<string>();
+            this.millsFormed = new List<List<string>>();
+            flag = false;
 
         }
         public void setBoard(IBoard board)
@@ -33,6 +38,7 @@ namespace Morabaraba
         //public List<IPiece> Pieces { get; }
         public bool loses { get; set ; }
         public int cowLives { get ;  set ; }
+        public bool flag { get ; set ; }
 
         public List<IPiece> Pieces(IBoard board, Symbol sym, ITile tile)
         {
@@ -48,7 +54,7 @@ namespace Morabaraba
 
         public bool place(string pos, IBoard board, IReferee referee)
         {
-            return referee.isValidPlace(pos);
+            return referee.isValidPlace(pos,this);
 
         }
 
@@ -76,13 +82,17 @@ namespace Morabaraba
 
         public void playPlace(string pos, IPlayer player, IReferee referee)
         {
-            if (referee.isValidPlace(pos))
+            if (referee.isValidPlace(pos,this))
             {
                 Tile t = new Tile(pos, new Piece(player.symbol, pos));
+                if (player.LastPosPlayed.Contains(pos)) player.LastPosPlayed.Remove(pos);
+
+                player.LastPosPlayed.Add(pos);
                 board.updateTile(t);
             }
             else Console.WriteLine("Invalid move, please make a valid move");
         }
+        
         public void playMove(string to, string from, IPlayer player, IReferee referee)
         {
             if (referee.isValidMove(to, from, player))
@@ -109,10 +119,24 @@ namespace Morabaraba
         }
         public void Shoot(IPlayer player, IReferee referee, string position)
         {
+<<<<<<< HEAD
             if(referee.canShoot(player, board, position))
+=======
+            if (referee.isValidDestroy(player, position))
+>>>>>>> c8516901157ffab8d4cbced90b212c157ad9941f
             {
-                board.updateTile(new Tile(position, new Piece(Symbol.BL, position)));
+                if (!referee.isAvailablePieces(player))
+                {
+                    if (referee.isInMillPos(position, player)){
+                        Console.WriteLine("You can't shoot a piece in a mill. There are still available pieces to shoot");
+                        flag = true;
+                    }
+
+                }
+                else board.updateTile(new Tile(position, new Piece(Symbol.BL, position)));
             }
+            else Console.WriteLine("You can't remove your own player or shoot a blank spot!!!");
+         
         }
 
         public bool move(string from, string to, IBoard board, IReferee referee)

@@ -9,8 +9,12 @@ namespace Morabaraba
     {
         IBoard board;
 
+
+        public Symbol currentPlayer { get; set; }
+
+
         public ICowBox cowBox { get; set; }
-        Symbol currentPlayer;
+    
         ILegalMoves legalMoves;
         public bool mill { get; set; }
 
@@ -55,9 +59,9 @@ namespace Morabaraba
         }
         
 
-        public bool isvalidenemy(IPlayer player, string pos, Tile tile)
+        public bool isvalidenemy(IPlayer player, string pos, IBoard board)
         {
-            return legalMoves.isvalidenemy(player,pos, tile, board);
+            return legalMoves.isvalidenemy(player,pos);
         }
         private bool isInMillPos(string pos, IPlayer player)
         {
@@ -100,24 +104,31 @@ namespace Morabaraba
             throw new NotImplementedException();
         }
 
-        public bool canShoot(IPlayer player, IBoard board, string position)
+        public bool canShoot(IPlayer player,  string position)
         {
-            if(legalMoves.ismill(board, player) && legalMoves.isnotEmpty(player, position))
+            if(legalMoves.ismill(board, player))
              {
                 return true;
-
              }
             return false;
         }
-
+        public bool isValidDestroy(IPlayer player, string pos)
+        {
+            return legalMoves.isValidDestroy(player, pos);
+        }
         public bool isvalidenemy(IPlayer player, string pos)
         {
             throw new NotImplementedException();
         }
 
-        public bool canShoot(IPlayer player, IBoard board)
+        public bool isAvailablePieces(IPlayer player)
         {
-            throw new NotImplementedException();
+            return legalMoves.isNotAvailablePieces(player);
+        }
+
+        bool IReferee.isInMillPos(string pos, IPlayer player)
+        {
+            return legalMoves.isInMillPos(pos, player);
         }
     }
 }
