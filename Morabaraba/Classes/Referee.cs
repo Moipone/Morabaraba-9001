@@ -74,42 +74,9 @@ namespace Morabaraba
         }
         public bool isValidPlace(string position, IPlayer player)
         {
-          return legalMoves.isValidPlace(position,)
+            return legalMoves.isValidPlace(position, player); 
         }
 
-        public void playPlace(string pos, IPlayer player)
-        {
-            if (isValidPlace(pos, player))
-            {
-                Tile t = new Tile(pos, new Piece(player.symbol, pos));
-                board.updateTile(t);
-            }
-            else Console.WriteLine("Invalid move, please make a valid move");
-        }
-        public void playMove(string to, string from, IPlayer player)
-        {
-            if (isValidMove(to, from, player))
-            {
-                Tile tileTo = new Tile(to, new Piece(player.symbol, to));
-                Tile tileFrom = new Tile(from, new Piece(Symbol.BL, from));
-
-                board.updateTile(tileTo);
-                board.updateTile(tileFrom);
-            }
-            else Console.WriteLine("Invalid move, please make a valid move");
-        }
-        public void playFly(string to, string from, IPlayer player)
-        {
-            if (isValidFly(to, from, player))
-            {
-                Tile tileTo = new Tile(to, new Piece(player.symbol, to));
-                Tile tileFrom = new Tile(from, new Piece(Symbol.BL, from));
-
-                board.updateTile(tileTo);
-                board.updateTile(tileFrom);
-            }
-            else Console.WriteLine("Invalid move, please make a valid move");
-        }
         public IPlayer Winner(IPlayer p1, IPlayer p2)
         {
             int bP = cowBox.playerPiecesPositions(p1).Count;
@@ -121,10 +88,10 @@ namespace Morabaraba
             return null;
         }
 
-        public void Play(string pos, IPlayer player)
-        {
-            throw new NotImplementedException();
-        }
+        //public void Play(string pos, IPlayer player)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         public bool isValidPlace(string position)
         {

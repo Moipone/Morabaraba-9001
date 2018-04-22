@@ -156,7 +156,7 @@ namespace Morabaraba.Classes
         public bool isvalidenemy(IPlayer player, string pos, ITile tile, IBoard board)
         {
             //throw new NotImplementedException();
-            if (!isValidPlace(pos, board)) //takes in player not enemy
+            if (!isValidPlace(pos, player)) //takes in player not enemy
             {
                 if (player.symbol != tile.cond.Symbol) return true; else return false;
             }
