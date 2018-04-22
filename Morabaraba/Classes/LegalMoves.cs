@@ -153,8 +153,9 @@ namespace Morabaraba.Classes
             throw new NotImplementedException();
         }
 
-        public bool isvalidenemy(IPlayer player, string pos, ITile tile, IBoard board)
+        public bool isvalidenemy(IPlayer player, string pos)
         {
+            Tile tile = board.getTile(pos);
             //throw new NotImplementedException();
             if (!isValidPlace(pos, player)) //takes in player not enemy
             {

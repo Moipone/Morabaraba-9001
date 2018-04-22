@@ -59,9 +59,9 @@ namespace Morabaraba
         }
         
 
-        public bool isvalidenemy(IPlayer player, string pos, Tile tile)
+        public bool isvalidenemy(IPlayer player, string pos, IBoard board)
         {
-            return legalMoves.isvalidenemy(player,pos, tile, board);
+            return legalMoves.isvalidenemy(player,pos);
         }
         private bool isInMillPos(string pos, IPlayer player)
         {

@@ -113,7 +113,11 @@ namespace Morabaraba
         {
             if(referee.canShoot(player, board))
             {
-                board.updateTile(new Tile(position, new Piece(Symbol.BL, position)));
+                Tile tile = board.getTile(position);
+                if (tile.cond.Symbol != this.symbol && tile.cond.Symbol != Symbol.BL)
+                    board.updateTile(new Tile(position, new Piece(Symbol.BL, position)));
+
+                else Console.WriteLine("You can't remove your own player or shoot a blank spot!!!");
             }
         }
 
