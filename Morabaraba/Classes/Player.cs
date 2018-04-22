@@ -158,6 +158,9 @@ namespace Morabaraba
         {
 
 
+            if(referee.canShoot(player, position))
+
+
             if (referee.isValidDestroy(player, position))
 
             {

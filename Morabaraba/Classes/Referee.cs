@@ -130,5 +130,6 @@ namespace Morabaraba
         {
             return legalMoves.isInMillPos(pos, player);
         }
+
     }
 }
