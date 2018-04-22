@@ -193,10 +193,35 @@ namespace Morabaraba.Test
         }
 
         [Test]
-        public void CowIsOnlyPlacedOnEmptySpace()
+        [TestCaseSource(nameof(userInput))]
+        public void EachCowIsOnlyPlacedOnEmptySpace(int position, string [] inputs)
         ///Player should not be able to place piece on an occupied tile
         {
             //This test still has to be fixed.
+            IBoard board = Substitute.For<IBoard>();
+            IReferee referee = Substitute.For<IReferee>();
+            Player p1 = new Player(Symbol.CB);
+            Player p2 = new Player(Symbol.CW);
+            board = new Board();
+            IWorld world = Substitute.For<IWorld>();
+            world = new World(p1, p2);
+            bool occupied = true;
+            foreach (string pos in inputs)
+            {
+                Tile tile = world.board.getTile(pos);
+                if (tile.cond.Symbol == Symbol.BL)
+                {
+                    occupied = true;
+                    Assert.That(!occupied);
+                }
+            }
+            //Assert.That(!occupied);
+        }
+
+        [Test]
+       
+        public void CowIsOnlyPlacedOnEmptySpace()
+        {
             Board board = new Board();
             board.updateTile(new Tile("a1", new Piece(Symbol.CB, "a1")));
             bool occupied = false;
@@ -219,14 +244,19 @@ namespace Morabaraba.Test
         ///Each player is allowed to place up to 12 cows
         {
 
-            //Board b = new Board();
+            Player p1 = new Player(Symbol.CB);
+            Player p2 = new Player(Symbol.CW);
+            ICowBox cowBox = Substitute.For<ICowBox>();
+            bool flag1 = false;
+            bool flag2 = true;
+            IBoard board = Substitute.For<IBoard>();
+            IWorld world = Substitute.For<IWorld>();
+            world = new World(p1, p2);
+            int blackcows = cowBox.getcowsInBox(p1.symbol);
+            int whitecows = cowBox.getcowsInBox(p2.symbol);
+            if  (p1.Phase == Phase.moving) { if (blackcows == 0) Assert.That(false); }
+            if (p2.Phase == Phase.moving) { if (blackcows == 0) Assert.That(false); }
 
-            Board b = new Board();
-
-            bool flag = false;
-
-            
-            Assert.That(flag);
         }
 
         [Test]
@@ -253,212 +283,6 @@ namespace Morabaraba.Test
             Assert.That(!flag1);
             Assert.That(!flag2);
         }
-
-        //[Test]
-        //public void OnlyMoveToNeighbour()
-        /////A cow can only move to a position which is adjecent to its current position 
-        //{
-        //    IBoard b = new Board();
-        //    IPlayer p1 = new Player(Symbol.CB);
-        //    IPlayer p2 = new Player(Symbol.CW);
-        //    //IWorld world = new World(p1, p2);
-        //    bool isN(string from, string to)
-        //    {
-        //        List<string> N = b.getNeighbourCells(from);
-        //        if (N.Contains(to)) return true; else return false; //to must be aneighbour of from     
-        //    }
-
-        //    //string toPos = "";
-        //    //string fromPos = ""; 
-        //    //if ((toPos == "a1") && fromPos == "a4")
-        //    Assert.That(isN("a1", "a4") == true);
-        //    Assert.That(isN("a1", "g1") == false);
-
-
-        //}
-        //[TestCaseSource(nameof(userInput))]
-        //public void OnlymovetoNeighbour( string[] input)
-        //{
-
-        //    IBoard board = new Board();
-
-        //    foreach (string pos in input)
-        //    {
-        //        string[] neighb = board.getNeighbourCells(pos).ToArray();
-
-        //    }
-
-        //    Assert.AreEqual(expected, neighb);
-
-        //}
-
-        [Test]
-        public void MoveIsToEmptyspace()
-        ///Player show only be able to move cow to an unoccupied tile
-        {
-            //Fix test
-            bool flag = false;
-
-            Assert.That(flag);
-
-        }
-
-        [Test]
-        public void MovedoesnotChangeCowAmount()
-        ///Moving cow from one position to another is not the same as adding or removing a cow from the board 
-        {
-            /*  //Fix test
-              bool flag = false;
-              Board b = new Board();
-              Player p1 = new Player(Symbol.CB);
-              Player p2 = new Player(Symbol.CW);
-              Player current = new Player(Symbol.CB);
-              World world = new World(p1, p2);
-              p1.Phase = Phase.placing;
-              p2.Phase = Phase.placing;
-              string[] arrInputsP = { "a1", "a4", "a7", "c3", "c4" };
-              foreach (string play in arrInputsP)
-              {
-
-                  world.startPlaying(play);
-
-              } //continue to play in the moving phase
-              int p1OnB = world.getPlayerPieces(p1).Count;
-              int p2OnB = world.getPlayerPieces(p1).Count;
-
-              p1.Phase = Phase.moving;
-              p2.Phase = Phase.moving;
-              string[] arrInputsM = { "b2", "b4", "b6", "d1", "d7" };
-              foreach (string play in arrInputsM) { world.startPlaying(play); } //continue to play in the moving phase
-              int p1OnBMove = world.getPlayerPieces(p1).Count;
-              int p2OnBMove = world.getPlayerPieces(p1).Count;
-              if ((p1OnB == p1OnBMove) && (p2OnB == p2OnBMove)) flag = true;
-              Assert.That(flag);*/
-        }
-
-        //[Test]
-        //public void ThreeCowsFlyAnywhere()
-        /////A player with three cows on the board can move the cows to any position
-        //{
-        //    //Fix test
-        //    bool flag = false;
-        //    Assert.That(flag);
-        //}
-
-        //[Test]
-        //public void MillIsLineOfSameThreeCows()
-        /////A mills is formed by three of the same colour cows in a line (Horizontal, vertical and diagonal)
-        //{
-        //    //Fix test
-        //    bool flag = false;
-        //    Assert.That(flag);
-        //}
-
-       // [Test]
-        //public void MillIsNotLineOfThreeDiffCows()
-        /////A mills is not formed by three different colour cows in a line (Horizontal, vertical and diagonal)
-        //{
-        //    //Fix test
-        //    bool flag = false;
-        //    Assert.That(flag);
-        //}
-
-        //[Test]
-        //public void ConnectedSpaceNoInLine()
-        /////its not a mill if Connected Spaces that cows occupy do not form a line
-        //{
-        //    //Fix test
-        //    bool flag = false;
-        //    Assert.That(flag);
-        //}
-
-        //[Test]
-        //public void OnlyShootonMillCompletion()
-        /////Shooting is only possible as soon as the mill is completed (in the same turn) 
-        //{
-        //    //Fix test
-        //    bool flag = false;
-        //    Assert.That(flag);
-        //}
-
-        //[Test]
-        //public void CantShootCowsInMillunlessNoneElse()
-        /////Player cannot shoot a cow in a mill unless all cows are in a mill
-        //{
-        //    //Fix test
-        //    bool flag = false;
-        //    Assert.That(flag);
-        //}
-
-        //[Test]
-        //public void ShootCowsInMillIfAllAre()
-        /////Player can only shoot a cow in a mill if all cows are in a mill
-        //{
-        //    //Fix test
-        //    bool flag = false;
-        //    Assert.That(flag);
-        //}
-
-        //[Test]
-        //public void CantShootOwnCow()
-        /////Player is not allowed to shoot their own cow
-        //{
-        //    //Fix test
-        //    bool flag = false;
-        //    Assert.That(flag);
-        //}
-
-        //[Test]
-        //public void CantShootEmptySpace()
-        /////Player can only shoot at a Tile that is occupied by enemy's cow
-        //{
-
-        //    bool flag = false;
-        //    Assert.That(flag);
-        //}
-
-        //[Test]
-        //public void ShotCowsRemoved()
-        /////If A player shoots a cow, cow must come off board
-        //{
-        //    string pos = "a1";
-        //    Player p1 = new Player(Symbol.CW);
-        //    Player p2 = new Player(Symbol.CB);
-        //    World world = new World(p1, p2);
-        //    Board b = new Board();
-        //    //world.startPlaying(pos);
-        //    //world.turnBlank(pos);
-        //    Assert.That((b.getTile(pos).cond.Symbol == Symbol.BL));
-
-        //}
-
-
-
-        //[Test]
-        //public void YouwonIfenemyCantMove()
-        /////If one player cant move on their turn
-        //{
-        //    //Fix test
-        //    bool flag = false;
-        //    Assert.That(flag);
-        //}
-        //[Test]
-        //public void APlayerHas_N_PiecesRemaingToPlace()
-        /////If one player cant move on their turn
-        //{
-        //    //Fix test
-        //    bool flag = false;
-        //    Assert.That(flag);
-        //}
-
-        //[Test]
-        //public void APlayerHas_N_PiecesOnTheBoard()
-        /////If one player cant move on their turn
-        //{
-        //    //Fix test
-        //    bool flag = false;
-        //    Assert.That(flag);
-        //}
 
 
         [Test]
