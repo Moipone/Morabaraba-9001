@@ -7,10 +7,12 @@ namespace Morabaraba.Classes
     class CowBox : ICowBox
     {
         IBoard board;
+
         private int blackcowsBox = 12;
         private int whitecowsBox = 12;
         private int blackcowsBoard = 0;
         private int whitecowsBoard = 0;
+
         public CowBox(IBoard board)
         {
             this.board = board;

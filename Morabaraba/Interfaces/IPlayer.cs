@@ -24,7 +24,7 @@ namespace Morabaraba
         bool loses { get; set; }
         int cowLives { get; set; }
         void Shoot(IPlayer player, IReferee referee, string position);
-
+        bool flag { get; set; }
 
     }
 }

@@ -73,27 +73,49 @@ namespace Morabaraba
                     }
 
                     getPlayer(currentPlayer).playPlace(pos,getPlayer(currentPlayer),referee);
+                    referee.mill = (referee.canShoot(getPlayer(currentPlayer), pos));
+                    if(referee.mill)
+                    {
+                        clearBoard();
+                        printBoard($@"Which piece would you liket to destroy { currentPlayer}");
+
+
+                        pos = Console.ReadLine();
+                        if (!legalMoves.isValidPos(pos))
+                        {
+                            Console.WriteLine("Invalid move!!!, Please re-enter coordinate");
+                            Thread.Sleep(1500);
+                            continue;
+                        }
+                        getPlayer(currentPlayer).Shoot(getPlayer(currentPlayer), referee, pos);
+                        if (getPlayer(currentPlayer).flag) continue;
+                        referee.mill = false;
+                        getPlayer(currentPlayer).flag = false;
+                    }
                     referee.switchPlayer();
                     currentPlayer = referee.currentPlayer;
 
                     play = $@"Where would you like to play  {currentPlayer} Player? :";
                     printBoard(play);
                 }
-                if(referee.canShoot(getPlayer(currentPlayer), board))
+                else
                 {
-                    Console.WriteLine("Which piece would you liket to destroy {0}", currentPlayer);
                     clearBoard();
-                    play = $@"Where would you like to play  {currentPlayer} Player? :";
+                    printBoard($@"Which piece would you liket to destroy { currentPlayer}");
 
-                    printBoard(play);
+
                     pos = Console.ReadLine();
                     if (!legalMoves.isValidPos(pos))
                     {
                         Console.WriteLine("Invalid move!!!, Please re-enter coordinate");
+                        Thread.Sleep(1500);
+                        continue;
                     }
-                        getPlayer(currentPlayer).Shoot(getPlayer(currentPlayer), referee, pos);
+                    if (getPlayer(currentPlayer).flag) continue;
+                    getPlayer(currentPlayer).Shoot(getPlayer(currentPlayer), referee, pos);
+                    referee.mill = false;
+                    getPlayer(currentPlayer).flag = false;
                 }
-
             }
         }
         public void printBoard(string message)
