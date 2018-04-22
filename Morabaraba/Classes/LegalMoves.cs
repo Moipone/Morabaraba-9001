@@ -19,16 +19,32 @@ namespace Morabaraba.Classes
             if (isValidPos(pos))
             {
                 Tile tile = board.getTile(pos);
-                if (tile.cond.Symbol == Symbol.BL && cowBox.remainingCows(player) > 0) return true;
+                if (tile.cond.Symbol == Symbol.BL && cowBox.getcowsInBox(Symbol.BL) > 0) return true;
             }
 
             return false;
         }
+        public bool isNotAvailablePieces(IPlayer player)
+        {
+            List<string> list = cowBox.playerPiecesPositions(player);
+            bool isNotAvailable = false;
+            foreach (string str in list)
+            {
+                isNotAvailable = isInMillPos(str, player);
+                if (!isNotAvailable) return false;
+            }
+            return true;
+        }
+        //Last method added
         public bool isValidDestroy(IPlayer player, string pos)
         {
             Tile tile = board.getTile(pos);
             if (tile.cond.Symbol != player.symbol && tile.cond.Symbol != Symbol.BL)
+            {
+                bool flag = isNotAvailablePieces(player);
                 return true;
+
+            }
 
             return false;
         }
@@ -152,7 +168,7 @@ namespace Morabaraba.Classes
         public bool cowsInBox(ICowBox cowBox, IPlayer player)
         {
             //throw new NotImplementedException();
-            return cowBox.remainingCows(player) > 0;
+            return cowBox.getcowsInBox(player.symbol) > 0;
         }
 
         public bool cowsInBox(IPlayer player)
@@ -175,7 +191,9 @@ namespace Morabaraba.Classes
         public bool isnotEmpty(IPlayer player, string pos)
         {
             //throw new NotImplementedException();
-            if (board.getTile(pos).cond.Symbol != Symbol.BL ) return true; else return false; 
+
+            if (board.getTile(pos).cond.Symbol != Symbol.BL) return true; else return false; 
+
         }
     }
 }

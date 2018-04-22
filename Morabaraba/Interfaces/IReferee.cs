@@ -21,6 +21,7 @@ namespace Morabaraba
 
         bool canShoot(IPlayer player, string pos);
         bool isValidDestroy(IPlayer player, string pos);
-
+        bool isAvailablePieces(IPlayer player);
+        bool isInMillPos(string pos, IPlayer player);
     }
 }

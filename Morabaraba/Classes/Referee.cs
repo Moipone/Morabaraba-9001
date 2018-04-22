@@ -121,6 +121,14 @@ namespace Morabaraba
             throw new NotImplementedException();
         }
 
-    
+        public bool isAvailablePieces(IPlayer player)
+        {
+            return legalMoves.isNotAvailablePieces(player);
+        }
+
+        bool IReferee.isInMillPos(string pos, IPlayer player)
+        {
+            return legalMoves.isInMillPos(pos, player);
+        }
     }
 }

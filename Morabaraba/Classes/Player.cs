@@ -23,6 +23,7 @@ namespace Morabaraba
             cowLives = 12;
             this.LastPosPlayed = new List<string>();
             this.millsFormed = new List<List<string>>();
+            flag = false;
 
         }
         public void setBoard(IBoard board)
@@ -37,6 +38,7 @@ namespace Morabaraba
         //public List<IPiece> Pieces { get; }
         public bool loses { get; set ; }
         public int cowLives { get ;  set ; }
+        public bool flag { get ; set ; }
 
         public List<IPiece> Pieces(IBoard board, Symbol sym, ITile tile)
         {
@@ -119,7 +121,15 @@ namespace Morabaraba
         {
             if (referee.isValidDestroy(player, position))
             {
-                    board.updateTile(new Tile(position, new Piece(Symbol.BL, position)));
+                if (!referee.isAvailablePieces(player))
+                {
+                    if (referee.isInMillPos(position, player)){
+                        Console.WriteLine("You can't shoot a piece in a mill. There are still available pieces to shoot");
+                        flag = true;
+                    }
+
+                }
+                else board.updateTile(new Tile(position, new Piece(Symbol.BL, position)));
             }
             else Console.WriteLine("You can't remove your own player or shoot a blank spot!!!");
          
