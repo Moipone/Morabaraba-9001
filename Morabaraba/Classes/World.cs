@@ -8,15 +8,17 @@ namespace Morabaraba
 {
     public class World : IWorld
     {
-      
 
+        Symbol currentPlayer { get; set; }
         public World(IPlayer p1, IPlayer p2)
         {
             this.player1 = p1;
             this.player2 = p2;
             this.board = new Board();
-            referee = new Referee(board, Symbol.CW);
-            legalMoves = new LegalMoves();
+            referee = new Referee(board, p1.symbol);
+            cowBox = new CowBox(board);
+            legalMoves = new LegalMoves(board,cowBox);
+            currentPlayer = p1.symbol;
         }
 
        /* public World(IPlayer player1, IPlayer player2, IReferee referee)
@@ -32,6 +34,7 @@ namespace Morabaraba
         public IPlayer player2 { get ; set ; }
         public IReferee referee { get ; set ; }
         public ILegalMoves legalMoves { get; set; }
+        public ICowBox cowBox { get; set; }
         public string mapSym(int ind)
         {
             if (ind > board.board.Count || ind < 0) return "";
@@ -40,6 +43,19 @@ namespace Morabaraba
             if (symbol == Symbol.CW) return "W";
             return "B";
         }
+        public void clearBoard()
+        {
+            Console.Clear();
+        }
+        private void placingPhase()
+        {
+            string play = $@"Where would you like to play  {currentPlayer} Player? :";
+            clearBoard();
+            printBoard(play);
+            string pos = "";
+
+
+        } 
         public void printBoard(string message)
         {
             Console.Clear();
