@@ -16,6 +16,12 @@ namespace Morabaraba
                                "e3","e4","e5",
                                "f2","f4", "f6",
                                "g1", "g4","g7"};
+        
+        public Board()
+        {
+            board = generateBoard();
+            mills = allPossibleMills();
+        }
         public List<List<string>> mills { get; private set; }
 
         public List<Tile> board { get; }
