@@ -7,7 +7,11 @@ namespace Morabaraba.Classes
 {
     class LegalMoves : ILegalMoves
     {
-      
+        
+        public LegalMoves()
+        {
+
+        }
         public bool isValidPlace(string pos, IBoard board)
         {
             //throw new NotImplementedException();
