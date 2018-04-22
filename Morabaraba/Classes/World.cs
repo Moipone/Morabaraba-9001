@@ -8,6 +8,9 @@ namespace Morabaraba
 {
     public class World : IWorld
     {
+        private bool shift;
+        private int k;
+        private int z;
 
         Symbol currentPlayer { get; set; }
         public World(IPlayer p1, IPlayer p2)
@@ -61,7 +64,7 @@ namespace Morabaraba
             clearBoard();
             printBoard(play);
             string pos = "";
-            while (player1.cowLives > 0 || player2.cowLives > 0 || referee.mill)
+            while (cowBox.getcowsInBox(Symbol.CB) > 0 || cowBox.getcowsInBox(Symbol.CW) > 0 || referee.mill)
             {
                 if (!referee.mill)
                 {
@@ -88,6 +91,8 @@ namespace Morabaraba
                             continue;
                         }
                         getPlayer(currentPlayer).Shoot(getPlayer(currentPlayer), referee, pos);
+                        referee.RemoveBrokenMill(pos, getPlayer(currentPlayer));
+
                         if (getPlayer(currentPlayer).flag) continue;
                         referee.mill = false;
                         getPlayer(currentPlayer).flag = false;
@@ -101,6 +106,86 @@ namespace Morabaraba
                 else
                 {
                     clearBoard();
+                    printBoard($@"Which piece would you like to destroy { currentPlayer}");
+
+
+                    pos = Console.ReadLine();
+                    if (!legalMoves.isValidPos(pos))
+                    {
+                        Console.WriteLine("Invalid move!!!, Please re-enter coordinate");
+                        Thread.Sleep(1500);
+                        continue;
+                    }
+                    getPlayer(currentPlayer).Shoot(getPlayer(currentPlayer), referee, pos);
+                    referee.RemoveBrokenMill(pos, getPlayer(currentPlayer));
+
+                    if (getPlayer(currentPlayer).flag) continue;
+                    referee.mill = false;
+                    getPlayer(currentPlayer).flag = false;
+
+                    clearBoard();
+                    referee.switchPlayer();
+                    currentPlayer = referee.currentPlayer;
+                    play = $@"Where would you like to play  {currentPlayer} Player? :";
+                    printBoard(play);
+                }
+            }
+        }
+        public void flyingHelper()
+        {
+
+            if (k == 0 && currentPlayer == Symbol.CB && getPlayer(Symbol.CB).Phase == Phase.flying)
+            {
+                Console.WriteLine("{0} Cows can now fly!, please select the cow you'd like to move", currentPlayer);
+                Thread.Sleep(1500);
+                shift = true;
+                k++;
+                return;
+            }
+            if (z == 0 && currentPlayer == Symbol.CW && getPlayer(Symbol.CW).Phase == Phase.flying)
+            {
+                Console.WriteLine("{0} Cows can now fly!, please select the cow you'd like to move", currentPlayer);
+                shift = true;
+                Thread.Sleep(1500);
+                z++;
+                //fly = true;
+                return;
+            }
+            if (getPlayer(Symbol.CW).Phase == Phase.flying && getPlayer(Symbol.CB).Phase == Phase.flying)
+            {
+                shift = true;
+            }
+        }
+        public void flyingPhase(string from, string to)
+        {
+            string play = $@"Which piece would you like to move ? {currentPlayer}";
+            int wP = cowBox.getcowsInBox(Symbol.CW);
+            int bP = cowBox.getcowsInBox(Symbol.CB);
+
+            while (true)
+            {
+                flyingHelper();
+                clearBoard();
+                printBoard(play);
+
+                string pos = Console.ReadLine();
+                
+                if (referee.isValidFly(to, from, getPlayer(currentPlayer)))
+                {
+                    getPlayer(currentPlayer).playFly(to, from, getPlayer(currentPlayer), referee);
+                    clearBoard();
+                    printBoard(play);
+                }
+                else
+                {
+                    Console.WriteLine($@"Invalid move!!! {currentPlayer}, Please make a valid move");
+                    Thread.Sleep(1500);
+                    continue;
+                }
+                referee.mill = (referee.canShoot(getPlayer(currentPlayer), to));
+                if (referee.mill)
+                {
+                    clearBoard();
                     printBoard($@"Which piece would you liket to destroy { currentPlayer}");
 
 
@@ -111,13 +196,131 @@ namespace Morabaraba
                         Thread.Sleep(1500);
                         continue;
                     }
+                    getPlayer(currentPlayer).Shoot(getPlayer(currentPlayer), referee, to);
+                    referee.RemoveBrokenMill(to, getPlayer(currentPlayer));
+
                     if (getPlayer(currentPlayer).flag) continue;
-                    getPlayer(currentPlayer).Shoot(getPlayer(currentPlayer), referee, pos);
                     referee.mill = false;
                     getPlayer(currentPlayer).flag = false;
+                    referee.switchPlayer();
+                    currentPlayer = referee.currentPlayer;
+
+                    play = $@"Where would you like to play  {currentPlayer} Player? :";
+                    printBoard(play);
                 }
             }
+
+
         }
+        
+        private void checkPhases(IPlayer player1, IPlayer player2)
+        {
+            //Check if there's no cows left to place, check if there's still more than 3 cows on each side to be on moving phase
+            int blackPieces = cowBox.getcowsOnBoard(player1.symbol);
+            int whitePieces = cowBox.getcowsOnBoard(player2.symbol) ;
+
+            if ((cowBox.getcowsInBox(Symbol.CW) == 0 && (cowBox.getcowsInBox(Symbol.CB) ==0) && (whitePieces > 3) && (blackPieces > 3)))
+            {
+                if (currentPlayer == Symbol.CW) movingPhase();
+                else movingPhase();
+            }
+            if ((cowBox.getcowsInBox(Symbol.CW) == 0 && (cowBox.getcowsInBox(Symbol.CB) == 0) && (whitePieces == 3) && (blackPieces > 3)))
+            {
+                player2.Phase = Phase.flying;
+                if (currentPlayer == Symbol.CW) return;
+                else movingPhase();
+            }
+            if ((cowBox.getcowsInBox(Symbol.CW) == 0 && (cowBox.getcowsInBox(Symbol.CB) == 0) && (blackPieces == 3) && (whitePieces > 3)))
+            {
+                player1.Phase = Phase.flying;
+                if (currentPlayer == Symbol.CB) return;
+                else movingPhase();
+            }
+
+            //Both players are now flying.......................................................
+            if ((cowBox.getcowsInBox(Symbol.CW) == 0 && (cowBox.getcowsInBox(Symbol.CB) == 0) && (whitePieces == 3) && (blackPieces == 3)))
+            {
+                player1.Phase = Phase.flying;
+                player2.Phase = Phase.flying;
+                return;
+
+            }
+        }
+
+        private void movingPhase()
+        {
+            string play = $@"Which piece would you like to move ? {currentPlayer}";
+            int wP = cowBox.getcowsInBox(Symbol.CW);
+            int bP = cowBox.getcowsInBox(Symbol.CB);
+
+            while (true)
+            {
+                flyingHelper();
+                clearBoard();
+                printBoard(play);
+
+                string from = Console.ReadLine();
+                string to = "";
+                if (legalMoves.isValidPos(from))
+                {
+                    Console.WriteLine("Where you would you like to move ? {0}", currentPlayer);
+                    to = Console.ReadLine();
+                    if (!legalMoves.isValidPos(to))
+                    {
+                        Console.WriteLine("Invalid move please, select a valid cow");
+                        continue;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Invalid movve please, select a valid cow");
+                    continue;
+                }
+                
+                if (referee.isValidFly(to, from, getPlayer(currentPlayer)))
+                {
+                    getPlayer(currentPlayer).playFly(to, from, getPlayer(currentPlayer), referee);
+                    clearBoard();
+                    printBoard(play);
+                    referee.switchPlayer();
+                    currentPlayer = referee.currentPlayer;
+                }
+                else
+                {
+                    Console.WriteLine($@"Invalid move!!! {currentPlayer}, Please make a valid move");
+                    Thread.Sleep(1500);
+                    continue;
+                }
+                referee.mill = (referee.canShoot(getPlayer(currentPlayer), to));
+                if (referee.mill)
+                {
+                    clearBoard();
+                    printBoard($@"Which piece would you liket to destroy { currentPlayer}");
+
+
+                    string pos = Console.ReadLine();
+                    if (!legalMoves.isValidPos(pos))
+                    {
+                        Console.WriteLine("Invalid move!!!, Please re-enter coordinate");
+                        Thread.Sleep(1500);
+                        continue;
+                    }
+                    getPlayer(currentPlayer).Shoot(getPlayer(currentPlayer), referee, to);
+                    referee.RemoveBrokenMill(to, getPlayer(currentPlayer));
+
+                    if (getPlayer(currentPlayer).flag) continue;
+                    referee.mill = false;
+                    getPlayer(currentPlayer).flag = false;
+                    referee.switchPlayer();
+                    currentPlayer = referee.currentPlayer;
+
+                    play = $@"Where would you like to play  {currentPlayer} Player? :";
+                    printBoard(play);
+                }
+            }
+
+        }
+
         public void printBoard(string message)
         {
             Console.Clear();
@@ -139,8 +342,9 @@ namespace Morabaraba
   |   |.'        |       '. |
   G   {mapSym(21)}----------{mapSym(22)}----------{mapSym(23)} ";
 
-            string wLives = "" + (player1.cowLives);
-            string bLives = "" + player2.cowLives;
+            string wLives = "" + (cowBox.getcowsInBox(Symbol.CW));
+            string bLives = "" + (cowBox.getcowsInBox(Symbol.CB));
+
             Console.WriteLine("White player has {0} pieces to place.\nBlack player has {1} pieces to place\n", wLives, bLives);
             Console.WriteLine(dis);
             Console.WriteLine("\n" + message);
