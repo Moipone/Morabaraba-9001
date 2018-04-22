@@ -206,7 +206,7 @@ namespace Morabaraba
 
         public bool canShoot(IPlayer player, ILegalMoves move, IBoard board)
         {
-            return move.canShoot(player, board);
+            return move.ismill(board, player);
         }
     }
 }

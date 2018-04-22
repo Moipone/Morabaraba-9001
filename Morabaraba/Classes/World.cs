@@ -28,6 +28,8 @@ namespace Morabaraba
         public IPlayer player1 { get; set ; }
         public IPlayer player2 { get ; set ; }
         public IReferee referee { get ; set ; }
+
+
     }
 }
 
