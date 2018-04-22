@@ -79,7 +79,7 @@ namespace Morabaraba
                     play = $@"Where would you like to play  {currentPlayer} Player? :";
                     printBoard(play);
                 }
-                if(referee.canShoot(getPlayer(currentPlayer), legalMoves, board))
+                if(referee.canShoot(getPlayer(currentPlayer), board))
                 {
                     Console.WriteLine("Which piece would you liket to destroy {0}", currentPlayer);
                     clearBoard();
@@ -87,7 +87,7 @@ namespace Morabaraba
 
                     printBoard(play);
                     pos = Console.ReadLine();
-                    getPlayer(currentPlayer).
+                     //getPlayer(currentPlayer).s
                 }
 
             }

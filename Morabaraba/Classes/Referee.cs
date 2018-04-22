@@ -14,8 +14,7 @@ namespace Morabaraba
 
 
         public ICowBox cowBox { get; set; }
-    ;
-
+    
         ILegalMoves legalMoves;
         public bool mill { get; set; }
 
