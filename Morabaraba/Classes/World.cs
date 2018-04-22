@@ -87,7 +87,11 @@ namespace Morabaraba
 
                     printBoard(play);
                     pos = Console.ReadLine();
-                     //getPlayer(currentPlayer).s
+                    if (!legalMoves.isValidPos(pos))
+                    {
+                        Console.WriteLine("Invalid move!!!, Please re-enter coordinate");
+                    }
+                        getPlayer(currentPlayer).Shoot(getPlayer(currentPlayer), referee, pos);
                 }
 
             }
