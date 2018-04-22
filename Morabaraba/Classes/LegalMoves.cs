@@ -164,6 +164,10 @@ namespace Morabaraba.Classes
             
         }
 
-       
+        public bool isnotEmpty(IPlayer player, string pos)
+        {
+            //throw new NotImplementedException();
+            if (board.getTile(pos).cond != null) return true; else return false; 
+        }
     }
 }

@@ -18,6 +18,36 @@ namespace Morabaraba.Test
         //                       "f2","f4", "f6",
         //                       "g1", "g4","g7"};
 
+
+        static public object[] userInput =
+        {
+            new object [] {1, new string[] { "a1" }     },
+            new object [] {2, new string[] { "b4" }     },
+            new object [] {3, new string[] { "b6" }     },
+            new object [] {4, new string[] { "c3" }     },
+            new object [] {5, new string[] { "c4" }     },
+            new object [] {6, new string[] { "c5" }     },
+            new object [] {7, new string[] { "d1" }     },
+            new object [] {8, new string[] { "d2" }     },
+            new object [] {9, new string[] { "d3" }     },
+            new object [] {10, new string[] { "d5" }     },
+            new object [] {11, new string[] { "d6" }     },
+            new object [] {12, new string[] { "d7" }     },
+            new object [] {13, new string[] { "e3" }     },
+            new object [] {14, new string[] { "e4" }     },
+            new object [] {15, new string[] { "e5" }     },
+            new object [] {16, new string[] { "f2" }     },
+            new object [] {17, new string[] { "f4" }     },
+            new object [] {18, new string[] { "f6" }     },
+            new object [] {19, new string[] { "g1" }     },
+            new object [] {20, new string[] { "g4" }     },
+            new object [] {21, new string[] { "g7" }     },
+            new object [] {22, new string[] { "b2" }     },
+            new object [] {23, new string[] { "a4" }     },
+            new object [] {24, new string[] { "a7" }     },
+
+        };
+
         static public object[] lineOfThree =
         {
             new object [] { new string[] { "a1", "a4", "a7" } },
@@ -42,14 +72,56 @@ namespace Morabaraba.Test
             new object [] { new string[] { "c5", "d5", "e5" } },
         };
 
+
+        static public object[] neighBours =
+       {
+            new object [] {"a1", new string[] { "d1", "b2", "a4" }     },
+            new object [] {"a4", new string[] { "a1", "a7", "b4" }     },
+            new object [] {"a7", new string[] { "d7", "a4", "b6" }     },
+
+            new object [] {"b2", new string[] { "a1", "b4", "c3", "d2" }     },
+            new object [] {"b4", new string[] { "b2", "b6", "a4", "c4" }    },
+            new object [] {"b6", new string[] { "b4", "c5", "d6", "a7" }    },
+
+            new object [] {"c3", new string[] { "b2", "c4", "d3"       }    },
+            new object [] {"c4", new string[] { "c3", "b4", "c5"       }    },
+            new object [] {"c5", new string[] { "c4", "d5", "b6"       }    },
+
+            new object [] {"d1", new string[] { "a1", "g1", "d2"       }    },
+            new object [] {"d2", new string[] { "d1", "f2", "d3", "b2" }    },
+            new object [] {"d3", new string[] { "d2", "e3", "c3"       }    },
+
+            new object [] {"d5", new string[] { "e5", "d6", "c5"       }    },
+            new object [] {"d6", new string[] { "d5", "f6", "b6", "d7" }    },
+            new object [] {"d7", new string[] { "d6", "g7", "a7"       }    },
+
+            new object [] {"e3", new string[] { "d3", "f2", "e4"       }    },
+            new object [] {"e4", new string[] { "e3", "f4", "e5"       }    },
+            new object [] {"e5", new string[] { "e4", "f6", "d5"       }    },
+
+            new object [] {"f2", new string[] { "g1", "f4", "e3", "d2" }    },
+            new object [] {"f4", new string[] { "f2", "g4", "f6", "e4" }    },
+            new object [] {"f6", new string[] { "f4", "g7", "d6", "e5" }    },
+
+            new object [] {"g1", new string[] { "d1", "g4", "f2"       }    },
+            new object [] {"g4", new string[] { "g1", "f4", "g7"       }    },
+            new object [] {"g7", new string[] { "g4", "f6", "d7"       }    },
+
+            new object [] {"", new string [] {}}
+        };
+
+
         [Test]
         [TestCaseSource(nameof(lineOfThree))]
         public void AMillIsLineOfSameThree(string pos, string[] MillOfPos)
         {
-            //Arrange
-            IBoard board = new Board();
-            IPlayer currentPayer = new Player(Symbol.CB);
-            List<List<string>> allmills = board.allPossibleMills();
+
+            //IBoard board = new Board();
+            IBoard b = Substitute.For<IBoard>();
+            IPlayer currentPayer = Substitute.For<IPlayer>();
+            //if ((b.getTile().cond.Symbol == currentPayer.symbol)) { };
+            List<List<string>> allmills = b.allPossibleMills();
+
             //ITile tile = new Tile();
 
             //Act 
@@ -137,7 +209,11 @@ namespace Morabaraba.Test
         public void MaxPlacementOf12()
         ///Each player is allowed to place up to 12 cows
         {
+
+            //Board b = new Board();
+
             Board b = new Board();
+
             bool flag = false;
             Player p1 = new Player(Symbol.CW);
             Player p2 = new Player(Symbol.CB);
@@ -307,7 +383,7 @@ namespace Morabaraba.Test
         public void CantShootEmptySpace()
         ///Player can only shoot at a Tile that is occupied by enemy's cow
         {
-           
+
             bool flag = false;
             Assert.That(flag);
         }
@@ -354,44 +430,6 @@ namespace Morabaraba.Test
             Assert.That(flag);
         }
 
-
-
-        static public object[] neighBours =
-        {
-            new object [] {"a1", new string[] { "d1", "b2", "a4" }     },
-            new object [] {"a4", new string[] { "a1", "a7", "b4" }     },
-            new object [] {"a7", new string[] { "d7", "a4", "b6" }     },
-
-            new object [] {"b2", new string[] { "a1", "b4", "c3", "d2" }     },
-            new object [] {"b4", new string[] { "b2", "b6", "a4", "c4" }    },
-            new object [] {"b6", new string[] { "b4", "c5", "d6", "a7" }    },
-
-            new object [] {"c3", new string[] { "b2", "c4", "d3"       }    },
-            new object [] {"c4", new string[] { "c3", "b4", "c5"       }    },
-            new object [] {"c5", new string[] { "c4", "d5", "b6"       }    },
-
-            new object [] {"d1", new string[] { "a1", "g1", "d2"       }    },
-            new object [] {"d2", new string[] { "d1", "f2", "d3", "b2" }    },
-            new object [] {"d3", new string[] { "d2", "e3", "c3"       }    },
-
-            new object [] {"d5", new string[] { "e5", "d6", "c5"       }    },
-            new object [] {"d6", new string[] { "d5", "f6", "b6", "d7" }    },
-            new object [] {"d7", new string[] { "d6", "g7", "a7"       }    },
-
-            new object [] {"e3", new string[] { "d3", "f2", "e4"       }    },
-            new object [] {"e4", new string[] { "e3", "f4", "e5"       }    },
-            new object [] {"e5", new string[] { "e4", "f6", "d5"       }    },
-
-            new object [] {"f2", new string[] { "g1", "f4", "e3", "d2" }    },
-            new object [] {"f4", new string[] { "f2", "g4", "f6", "e4" }    },
-            new object [] {"f6", new string[] { "f4", "g7", "d6", "e5" }    },
-
-            new object [] {"g1", new string[] { "d1", "g4", "f2"       }    },
-            new object [] {"g4", new string[] { "g1", "f4", "g7"       }    },
-            new object [] {"g7", new string[] { "g4", "f6", "d7"       }    },
-
-            new object [] {"", new string [] {}}
-        };
 
         [Test]
         [TestCaseSource(nameof(neighBours))]
