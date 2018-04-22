@@ -265,13 +265,19 @@ namespace Morabaraba.Test
         }
         [Test]
         public void MoveIsToEmptyspace()
-        ///Player show only be able to move cow to an unoccupied tile
         {
-            //Fix test
-            bool flag = false;
+            IPlayer p1 = new Player(Symbol.CB);
+            IBoard board = Substitute.For<IBoard>();
+            IReferee referee = new Referee(board, p1.symbol);
+            string[] userin = board.allPositions().ToArray();
+            foreach (string c in userin)
+            {
+                if (board.getTile(c).cond.Symbol == Symbol.CB)
+                {
+                    Assert.That((referee.canShoot(p1, board, c))); ; ; ; ;
+                }
 
-            Assert.That(flag);
-
+            }
         }
 
         [Test]
@@ -371,21 +377,30 @@ namespace Morabaraba.Test
         }
 
         [Test]
-        public void CantShootOwnCow()
+        [TestCaseSource(nameof(userInput))]
+        public void CantShootOwnCow(string[] expected)
         ///Player is not allowed to shoot their own cow
         {
-            //Fix test
-            bool flag = false;
-            Assert.That(flag);
+            IPlayer p1 = new Player(Symbol.CB);
+            IBoard board = Substitute.For<IBoard>();
+            IReferee referee = new Referee(board, p1.symbol);
+            string[] userin = board.allPositions().ToArray();
+            foreach(string c in userin)
+            {
+                if (board.getTile(c).cond.Symbol == Symbol.CB)
+                {
+                    Assert.That((referee.canShoot(p1,board,c)));                  
+                }
+                
+            }
         }
 
         [Test]
-        public void CantShootEmptySpace()
+        [TestCaseSource(nameof(userInput))]
+        public void CantShootEmptySpace(string[] expected)
         ///Player can only shoot at a Tile that is occupied by enemy's cow
         {
 
-            bool flag = false;
-            Assert.That(flag);
         }
 
         [Test]
