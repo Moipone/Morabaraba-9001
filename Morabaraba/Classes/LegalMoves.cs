@@ -7,62 +7,71 @@ namespace Morabaraba.Classes
 {
     class LegalMoves : ILegalMoves
     {
-        
-        public LegalMoves()
+        IBoard board;
+        ICowBox cowBox;
+        public LegalMoves(IBoard board, ICowBox cowBox)
         {
-
+            this.board = board;
+            this.cowBox = cowBox;
         }
-        public bool isValidPlace(string pos, IBoard board)
+        public bool isValidPlace(string pos, IPlayer player)
         {
-            //throw new NotImplementedException();
-            if (isValidPos(pos, board))
+            if (isValidPos(pos))
             {
-                if (board.getTile(pos).cond == null)
-                {
-                    return true;
-                }
+                Tile tile = board.getTile(pos);
+                if (tile.cond.Symbol == Symbol.BL && cowBox.remainingCows(player) > 0) return true;
             }
+
             return false;
         }
 
-        public bool isValidMove(string currPos, string posMoveTo, IBoard board, IPlayer player)
+        public bool isValidMove(string to, string from, IPlayer player)
         {
-            //throw new NotImplementedException();
-            if (isValidPos(currPos, board) && isValidPos(posMoveTo, board))
+            bool flagTo = isValidPos(to);
+            bool flagFrom = isValidPos(from);
+
+            if (flagTo && flagFrom && player.Phase == Phase.moving)
             {
-                if (isOwnTile(currPos,player, board.getTile(currPos) ))
+
+                int cowPieces = cowBox.playerPiecesPositions(player).Count;
+                if (cowPieces > 3 && player.cowLives == 0)
                 {
-                    if (board.getNeighbourCells(currPos).Contains(posMoveTo))
-                    {
-                        if (board.getTile(posMoveTo).cond == null)
-                        {
+                    Tile tTo = board.getTile(to);
+                    Tile tFrom = board.getTile(from);
+                    List<string> neighBours = board.getNeighbourCells(from);
+                    // The position you going to must be blank and the position going to must say its the current player
+                    if (neighBours.Contains(tTo.pos))
+                        if (tTo.cond.Symbol == Symbol.BL && tFrom.cond.Symbol == player.symbol)
                             return true;
-                        }
-                    }
                 }
-                
             }
             return false;
         }
 
-        public bool isValidFly(string currPos, string posMoveTo, IBoard board, IPlayer player)
+        public bool isValidFly(string to, string from, IPlayer player)
         {
-            //throw new NotImplementedException();
-            if (isValidPos(currPos, board) && isValidPos(posMoveTo,board))
+            bool flagTo = isValidPos(to);
+            bool flagFrom = isValidPos(from);
+
+            if (flagTo && flagFrom && player.Phase == Phase.flying)
             {
-                if (isOwnTile(currPos, player, board.getTile(currPos)))
+
+                int cowPieces = cowBox.playerPiecesPositions(player).Count;
+                if (cowPieces == 3)
                 {
-                    if (board.getTile(posMoveTo).cond == null)
+                    Tile tTo = board.getTile(to);
+                    Tile tFrom = board.getTile(from);
+                    // The position you going to must be blank and the position going to must say its the current player
+                    if (tTo.cond.Symbol == Symbol.BL && tFrom.cond.Symbol == player.symbol)
                     {
                         return true;
                     }
                 }
-            }   
-            
+            }
             return false;
-        }
 
-        public bool isValidPos(string pos, IBoard board)
+        }
+        public bool isValidPos(string pos)
         {
             //throw new NotImplementedException();
             pos = pos.ToLower();
@@ -74,8 +83,9 @@ namespace Morabaraba.Classes
 
         }
 
-        public bool isOwnTile(string pos, IPlayer player, ITile tile)
+        public bool isOwnTile(string pos, IPlayer player)
         {
+            Tile tile = board.getTile(pos);
             //throw new NotImplementedException();
             if (tile.cond.Symbol == player.symbol)
             {
@@ -91,12 +101,7 @@ namespace Morabaraba.Classes
         {
             throw new NotImplementedException();
         }
-
-        public bool isValidFly(string currPos, string posMoveTo, IBoard board)
-        {
-            throw new NotImplementedException();
-        }
-
+  
         public bool ismill(IBoard board, IPlayer player)
         {
             for (int i = 0; i < board.mills.Count; i++)
@@ -127,6 +132,15 @@ namespace Morabaraba.Classes
             }
             return false;
         }
+        public bool isInMillPos(string pos, IPlayer player)
+        {
+            for (int i = 0; i < player.millsFormed.Count; i++)
+            {
+                if (player.millsFormed[i].Contains(pos)) return true;
+            }
+            return false;
+        }
+
 
     }
 }

@@ -11,7 +11,7 @@ namespace Morabaraba
 
         ICowBox cowBox;
         Symbol currentPlayer;
-
+        ILegalMoves legalMoves;
         public bool mill { get; set; }
 
         public Referee(IBoard board, Symbol player)
@@ -20,6 +20,7 @@ namespace Morabaraba
             this.currentPlayer = player;
             mill = false;
             cowBox = new CowBox(board);
+            legalMoves = new LegalMoves(board, cowBox);
         }
 
         public bool IsDraw(IBoard board)
@@ -52,36 +53,7 @@ namespace Morabaraba
             }
 
         }
-        public bool isMill(IPlayer player)
-        {
-            for (int i = 0; i < board.mills.Count; i++)
-            {
-                int millCount = 0;
-                for (int j = 0; j < player.LastPosPlayed.Count; j++)
-                {
-                    Tile one = board.getTile(player.LastPosPlayed[j]);
-
-                    if (board.mills[i].Contains(player.LastPosPlayed[j]) && one.cond.Symbol == Symbol.CW)
-                    {
-                        millCount++;
-                        if (millCount == 3 && !player.millsFormed.Contains(board.mills[i]))
-                        {
-                            // player1.millsFormed.Add(board.mills[i]);
-                            mill = true;
-                            return mill;
-                        }
-                    }
-                }
-                if (millCount == 3 && !player.millsFormed.Contains(board.mills[i]))
-                {
-                    player.millsFormed.Add(board.mills[i]);
-                    mill = true;
-                    return mill;
-                }
-            }
-            return false;
-
-        }
+        
 
         public bool isvalidenemy(IPlayer player, string pos)
         {
@@ -89,65 +61,20 @@ namespace Morabaraba
         }
         private bool isInMillPos(string pos, IPlayer player)
         {
-            for (int i = 0; i < player.millsFormed.Count; i++)
-            {
-                if (player.millsFormed[i].Contains(pos)) return true;
-            }
-            return false;
+             return  legalMoves.isInMillPos(pos, player);
         }
-
         public bool isValidFly(string to, string from, IPlayer player)
         {
-            bool flagTo = board.allPositions().Contains(to);
-            bool flagFrom = board.allPositions().Contains(from);
-
-            if (flagTo && flagFrom && player.Phase == Phase.flying)
-            {
-
-                int cowPieces = cowBox.playerPiecesPositions(player).Count;
-                if (cowPieces == 3)
-                {
-                    Tile tTo = board.getTile(to);
-                    Tile tFrom = board.getTile(from);
-                    // The position you going to must be blank and the position going to must say its the current player
-                    if (tTo.cond.Symbol == Symbol.BL && tFrom.cond.Symbol == player.symbol)
-                    {
-                        return true;
-                    }
-                }
-            }
-            return false;
-
+            return legalMoves.isValidFly(from, to, player);
         }
 
         public bool isValidMove(string to, string from, IPlayer player)
         {
-            bool flagTo = board.allPositions().Contains(to);
-            bool flagFrom = board.allPositions().Contains(from);
-
-            if (flagTo && flagFrom && player.Phase == Phase.moving)
-            {
-
-                int cowPieces = cowBox.playerPiecesPositions(player).Count;
-                if (cowPieces > 3 && player.cowLives == 0)
-                {
-                    Tile tTo = board.getTile(to);
-                    Tile tFrom = board.getTile(from);
-                    List<string> neighBours = board.getNeighbourCells(from);
-                    // The position you going to must be blank and the position going to must say its the current player
-                    if (neighBours.Contains(tTo.pos))
-                        if (tTo.cond.Symbol == Symbol.BL && tFrom.cond.Symbol == player.symbol)
-                            return true;
-                }
-            }
-            return false;
+            return legalMoves.isValidMove(from, to, player);
         }
         public bool isValidPlace(string position, IPlayer player)
         {
-            Tile tile = board.getTile(position);
-            if (tile.cond.Symbol == Symbol.BL && cowBox.remainingCows(player) > 0) return true;
-
-            return false;
+          return legalMoves.isValidPlace(position,)
         }
 
         public void playPlace(string pos, IPlayer player)
