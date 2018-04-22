@@ -8,9 +8,11 @@ namespace Morabaraba
 {
     public class World : IWorld
     {
-        private bool shift;
-        private int k;
-        private int z;
+        private bool shift = false;
+        private int k =0;
+        private int z = 0;
+        private int b = 0;
+        private int w = 0;
 
         Symbol currentPlayer { get; set; }
         public World(IPlayer p1, IPlayer p2)
@@ -57,6 +59,12 @@ namespace Morabaraba
         public void clearBoard()
         {
             Console.Clear();
+        }
+        public void RunAllPhases()
+        {
+            placingPhase();
+            movingPhase();
+            flyingPhase();
         }
         public void placingPhase()
         {
@@ -156,7 +164,7 @@ namespace Morabaraba
                 shift = true;
             }
         }
-        public void flyingPhase(string from, string to)
+        public void flyingPhase()
         {
             string play = $@"Which piece would you like to move ? {currentPlayer}";
             int wP = cowBox.getcowsInBox(Symbol.CW);
@@ -167,14 +175,33 @@ namespace Morabaraba
                 flyingHelper();
                 clearBoard();
                 printBoard(play);
-
-                string pos = Console.ReadLine();
                 
+
+                string from = Console.ReadLine();
+                string to = "";
+                if (legalMoves.isValidPos(from))
+                {
+                    Console.WriteLine("Where you would you like to move ? {0}", currentPlayer);
+                    to = Console.ReadLine();
+                    if (!legalMoves.isValidPos(to))
+                    {
+                        Console.WriteLine("Invalid move please, select a valid cow");
+                        continue;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Invalid movve please, select a valid cow");
+                    continue;
+                }
+
                 if (referee.isValidFly(to, from, getPlayer(currentPlayer)))
                 {
                     getPlayer(currentPlayer).playFly(to, from, getPlayer(currentPlayer), referee);
                     clearBoard();
                     printBoard(play);
+                    referee.switchPlayer();
+                    currentPlayer = referee.currentPlayer;
                 }
                 else
                 {
@@ -189,7 +216,7 @@ namespace Morabaraba
                     printBoard($@"Which piece would you liket to destroy { currentPlayer}");
 
 
-                    pos = Console.ReadLine();
+                    string pos = Console.ReadLine();
                     if (!legalMoves.isValidPos(pos))
                     {
                         Console.WriteLine("Invalid move!!!, Please re-enter coordinate");
@@ -207,6 +234,7 @@ namespace Morabaraba
 
                     play = $@"Where would you like to play  {currentPlayer} Player? :";
                     printBoard(play);
+                
                 }
             }
 
@@ -246,7 +274,34 @@ namespace Morabaraba
 
             }
         }
+        private void movingHelper()
+        {
+            if (b == 0 && currentPlayer == Symbol.CB)
+            {
+                Console.WriteLine("{0} has no more cows to place!, please select the cow you'd like to move", currentPlayer);
+                Thread.Sleep(1500);
+                getPlayer(currentPlayer).Phase = Phase.moving;
+                shift = true;
+                b++;
+                return;
+            }
+            if (w == 0 && currentPlayer == Symbol.CW)
+            {
+                Console.WriteLine("{0} has no more cows to place!, please select the cow you'd like to move", currentPlayer);
+                getPlayer(currentPlayer).Phase = Phase.moving;
+                shift = true;
+                Thread.Sleep(1500);
+                w++;
+                //fly = true;
+                return;
+            }
+            if (getPlayer(Symbol.CW).Phase == Phase.moving && getPlayer(Symbol.CB).Phase == Phase.moving)
+            {
+                shift = true;
+                return;
+            }
 
+        }
         private void movingPhase()
         {
             string play = $@"Which piece would you like to move ? {currentPlayer}";
@@ -255,7 +310,8 @@ namespace Morabaraba
 
             while (true)
             {
-                flyingHelper();
+
+                movingHelper();
                 clearBoard();
                 printBoard(play);
 
@@ -264,6 +320,21 @@ namespace Morabaraba
                 if (legalMoves.isValidPos(from))
                 {
                     Console.WriteLine("Where you would you like to move ? {0}", currentPlayer);
+                    checkPhases(player1, player2);
+                    if (currentPlayer == Symbol.CW && getPlayer(Symbol.CW).Phase == Phase.moving)
+                    {
+                        referee.switchPlayer();
+                        currentPlayer = referee.currentPlayer;
+                        continue;
+                    }
+
+                    if (currentPlayer == Symbol.CB && getPlayer(Symbol.CB).Phase == Phase.moving)
+                    {
+
+                        referee.switchPlayer();
+                        currentPlayer = referee.currentPlayer;
+                        continue;
+                    }
                     to = Console.ReadLine();
                     if (!legalMoves.isValidPos(to))
                     {
@@ -277,9 +348,9 @@ namespace Morabaraba
                     continue;
                 }
                 
-                if (referee.isValidFly(to, from, getPlayer(currentPlayer)))
+                if (referee.isValidMove(to, from, getPlayer(currentPlayer)))
                 {
-                    getPlayer(currentPlayer).playFly(to, from, getPlayer(currentPlayer), referee);
+                    getPlayer(currentPlayer).playMove(to, from, getPlayer(currentPlayer), referee);
                     clearBoard();
                     printBoard(play);
                     referee.switchPlayer();
