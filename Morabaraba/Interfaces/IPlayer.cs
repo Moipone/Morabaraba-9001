@@ -20,6 +20,8 @@ namespace Morabaraba
         bool fly(string from, string to, IBoard board, IReferee referee);
         bool loses { get; set; }
         int cowLives { get; set; }
-        
+        void Shoot(IPlayer player, IReferee referee, string position);
+
+
     }
 }

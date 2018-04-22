@@ -307,7 +307,7 @@ namespace Morabaraba.Test
         public void CantShootEmptySpace()
         ///Player can only shoot at a Tile that is occupied by enemy's cow
         {
-            //Fix test
+           
             bool flag = false;
             Assert.That(flag);
         }
