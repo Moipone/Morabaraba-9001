@@ -109,7 +109,7 @@ namespace Morabaraba
         }
         public void Shoot(IPlayer player, IReferee referee, string position)
         {
-            if(referee.canShoot(player, board))
+            if(referee.canShoot(player, board, position))
             {
                 board.updateTile(new Tile(position, new Piece(Symbol.BL, position)));
             }
