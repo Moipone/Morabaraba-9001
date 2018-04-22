@@ -124,5 +124,28 @@ namespace Morabaraba.Classes
             return false;
         }
 
+        public bool cowsInBox(ICowBox cowBox, IPlayer player)
+        {
+            //throw new NotImplementedException();
+            return cowBox.remainingCows(player) > 0;
+        }
+
+        public bool cowsInBox(IPlayer player)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool isvalidenemy(IPlayer player, string pos, ITile tile, IBoard board)
+        {
+            //throw new NotImplementedException();
+            if (!isValidPlace(pos, board)) //takes in player not enemy
+            {
+                if (player.symbol != tile.cond.Symbol) return true; else return false;
+            }
+            return false;
+            
+        }
+
+       
     }
 }
