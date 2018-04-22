@@ -8,13 +8,13 @@ namespace Morabaraba
     public class Referee : IReferee
     {
         IBoard board;
-        
+
         ICowBox cowBox;
         Symbol currentPlayer;
 
-        public bool mill { get ; set ; }
+        public bool mill { get; set; }
 
-        public Referee (IBoard board, Symbol player)
+        public Referee(IBoard board, Symbol player)
         {
             this.board = board;
             this.currentPlayer = player;
@@ -24,8 +24,8 @@ namespace Morabaraba
 
         public bool IsDraw(IBoard board)
         {
-           bool flag = true;
-           foreach (Tile t in board.board)
+            bool flag = true;
+            foreach (Tile t in board.board)
             {
                 if (t.cond.Symbol == Symbol.BL) return !flag;
             }
@@ -34,7 +34,7 @@ namespace Morabaraba
         public void switchPlayer()
         {
             if (currentPlayer == Symbol.CW) currentPlayer = Symbol.CB;
-            else currentPlayer = Symbol.CW;   
+            else currentPlayer = Symbol.CW;
         }
         // Fix the broken mill
         // Fix the a
@@ -66,7 +66,7 @@ namespace Morabaraba
                         millCount++;
                         if (millCount == 3 && !player.millsFormed.Contains(board.mills[i]))
                         {
-                           // player1.millsFormed.Add(board.mills[i]);
+                            // player1.millsFormed.Add(board.mills[i]);
                             mill = true;
                             return mill;
                         }
@@ -80,7 +80,7 @@ namespace Morabaraba
                 }
             }
             return false;
-            
+
         }
 
         public bool isvalidenemy(IPlayer player, string pos)
@@ -101,23 +101,23 @@ namespace Morabaraba
             bool flagTo = board.allPositions().Contains(to);
             bool flagFrom = board.allPositions().Contains(from);
 
-            if(flagTo && flagFrom && player.Phase == Phase.flying)
+            if (flagTo && flagFrom && player.Phase == Phase.flying)
             {
-                
+
                 int cowPieces = cowBox.playerPiecesPositions(player).Count;
-                if(cowPieces == 3)
+                if (cowPieces == 3)
                 {
                     Tile tTo = board.getTile(to);
                     Tile tFrom = board.getTile(from);
                     // The position you going to must be blank and the position going to must say its the current player
-                    if(tTo.cond.Symbol == Symbol.BL && tFrom.cond.Symbol == player.symbol)
+                    if (tTo.cond.Symbol == Symbol.BL && tFrom.cond.Symbol == player.symbol)
                     {
                         return true;
                     }
                 }
             }
             return false;
-            
+
         }
 
         public bool isValidMove(string to, string from, IPlayer player)
@@ -157,7 +157,7 @@ namespace Morabaraba
                 Tile t = new Tile(pos, new Piece(player.symbol, pos));
                 board.updateTile(t);
             }
-            else Console.WriteLine("Invalid move, please make a valid move"); 
+            else Console.WriteLine("Invalid move, please make a valid move");
         }
         public void playMove(string to, string from, IPlayer player)
         {
@@ -204,22 +204,9 @@ namespace Morabaraba
             throw new NotImplementedException();
         }
 
-        public bool isValidMove(string to, string from, IPlayer player)
-        {
-            throw new NotImplementedException();
-        }
-<<<<<<< HEAD
-=======
-
-        public bool isValidFly(string to, string from, IPlayer player)
-        {
-            throw new NotImplementedException();
-        }
-
         public bool canShoot(IPlayer player, ILegalMoves move, IBoard board)
         {
             return move.canShoot(player, board);
         }
->>>>>>> 2f1876025130edb6c4396c8a74c01cca82891a00
     }
 }
