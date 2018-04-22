@@ -7,6 +7,7 @@ namespace Morabaraba.Classes
 {
     class LegalMoves : ILegalMoves
     {
+      
         public bool isValidPlace(string pos, IBoard board)
         {
             //throw new NotImplementedException();
@@ -78,7 +79,10 @@ namespace Morabaraba.Classes
             }
             return false;
         }
-
+        public bool canShoot(IPlayer player, IBoard booard)
+        {
+            throw new NotImplementedException();
+        }
         public bool isValidMove(string currPos, string posMoveTo, IBoard board)
         {
             throw new NotImplementedException();
@@ -89,9 +93,36 @@ namespace Morabaraba.Classes
             throw new NotImplementedException();
         }
 
-        public bool canShoot(IPlayer player, IBoard booard)
+        public bool ismill(IBoard board, IPlayer player)
         {
-            throw new NotImplementedException();
+            for (int i = 0; i < board.mills.Count; i++)
+            {
+                int millCount = 0;
+                for (int j = 0; j < player.LastPosPlayed.Count; j++)
+                {
+                    Tile one = board.getTile(player.LastPosPlayed[j]);
+
+                    if (board.mills[i].Contains(player.LastPosPlayed[j]) && one.cond.Symbol == Symbol.CW)
+                    {
+                        millCount++;
+                        if (millCount == 3 && !player.millsFormed.Contains(board.mills[i]))
+                        {
+                            player.millsFormed.Add(board.mills[i]);
+                            return true;
+
+                        }
+                    }
+                }
+                if (millCount == 3 && !player.millsFormed.Contains(board.mills[i]))
+                {
+                    player.millsFormed.Add(board.mills[i]);
+                    return true;
+                    
+                }
+   
+            }
+            return false;
         }
+
     }
 }
