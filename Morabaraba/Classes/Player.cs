@@ -119,11 +119,11 @@ namespace Morabaraba
         }
         public void Shoot(IPlayer player, IReferee referee, string position)
         {
-<<<<<<< HEAD
+
             if(referee.canShoot(player, board, position))
-=======
+
             if (referee.isValidDestroy(player, position))
->>>>>>> c8516901157ffab8d4cbced90b212c157ad9941f
+
             {
                 if (!referee.isAvailablePieces(player))
                 {
