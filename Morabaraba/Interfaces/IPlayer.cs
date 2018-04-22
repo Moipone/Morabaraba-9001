@@ -14,6 +14,7 @@ namespace Morabaraba
         List<IPiece> Pieces(IBoard board, Symbol sym, ITile tile);
         List<List<string>> millsFormed { get; set; }
 
+        void setBoard(IBoard board);
         bool place(string pos, IBoard board, IReferee referee);
         bool move(string from, string to, IBoard board, IReferee referee);
         bool fly(string from, string to, IBoard board, IReferee referee);

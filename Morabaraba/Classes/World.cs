@@ -15,8 +15,10 @@ namespace Morabaraba
             this.player1 = p1;
             this.player2 = p2;
             this.board = new Board();
+            p1.setBoard(board);
+            p2.setBoard(board);
             referee = new Referee(board, Symbol.CW);
-            legalMoves = new LegalMoves();
+            //legalMoves = new LegalMoves();
         }
 
        /* public World(IPlayer player1, IPlayer player2, IReferee referee)

@@ -6,11 +6,23 @@ namespace Morabaraba
 {
     public class Player : IPlayer
     {
-      
 
+        IBoard board;
+        public Player(Symbol sym, IBoard board)
+        {
+            this.symbol = sym;
+           // this.board = board;
+
+        }
         public Player(Symbol sym)
         {
             this.symbol = sym;
+
+
+        }
+        public void setBoard(IBoard board)
+        {
+            this.board = board;
         }
 
         public Symbol symbol { get ; set; }
@@ -59,6 +71,40 @@ namespace Morabaraba
         public bool fly(string from, string to, IBoard board, IReferee referee)
         {
             throw new NotImplementedException();
+        }
+
+        public void playPlace(string pos, IPlayer player, IReferee referee)
+        {
+            if (referee.isValidPlace(pos))
+            {
+                Tile t = new Tile(pos, new Piece(player.symbol, pos));
+                board.updateTile(t);
+            }
+            else Console.WriteLine("Invalid move, please make a valid move");
+        }
+        public void playMove(string to, string from, IPlayer player, IReferee referee)
+        {
+            if (referee.isValidMove(to, from, player))
+            {
+                Tile tileTo = new Tile(to, new Piece(player.symbol, to));
+                Tile tileFrom = new Tile(from, new Piece(Symbol.BL, from));
+
+                board.updateTile(tileTo);
+                board.updateTile(tileFrom);
+            }
+            else Console.WriteLine("Invalid move, please make a valid move");
+        }
+        public void playFly(string to, string from, IPlayer player, IReferee referee)
+        {
+            if (referee.isValidFly(to, from, player))
+            {
+                Tile tileTo = new Tile(to, new Piece(player.symbol, to));
+                Tile tileFrom = new Tile(from, new Piece(Symbol.BL, from));
+
+                board.updateTile(tileTo);
+                board.updateTile(tileFrom);
+            }
+            else Console.WriteLine("Invalid move, please make a valid move");
         }
     }
 }

@@ -7,7 +7,7 @@ namespace Morabaraba
     {
         static void Main(string[] args)
         {
-            World world = new World(new Player(Symbol.CW), new Player(Symbol.CB));
+            World world = new World(new Player(Symbol.CW ), new Player(Symbol.CB));
 
           
       
