@@ -15,6 +15,7 @@ namespace Morabaraba
         bool ismill(IBoard board, IPlayer player);
         bool cowsInBox(IPlayer player);
         bool isvalidenemy(IPlayer player, string pos, ITile tile, IBoard board);
+        bool isnotEmpty(IPlayer player, string pos);
        
     }
 }
