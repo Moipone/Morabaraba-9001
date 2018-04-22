@@ -8,8 +8,8 @@ namespace Morabaraba.Classes
     {
         IBoard board;
 
-        private int blackcowsBox = 12;
-        private int whitecowsBox = 12;
+        private int blackcowsBox = 4;
+        private int whitecowsBox = 4;
         private int blackcowsBoard = 0;
         private int whitecowsBoard = 0;
 
@@ -50,15 +50,15 @@ namespace Morabaraba.Classes
 
         public void takeCow(Symbol sym)
         {
-            if (sym == Symbol.CB) { blackcowsBox--; }
-            else if (sym == Symbol.CW) { whitecowsBox--; }
+            if (sym == Symbol.CB) { blackcowsBox = blackcowsBox-1; }
+            else if (sym == Symbol.CW) { whitecowsBox = whitecowsBox-1; }
             //throw new NotImplementedException();
         }
 
         public void placeCow(Symbol sym)
         {
-            if (sym == Symbol.CB) { blackcowsBoard++; }
-            else if (sym == Symbol.CW) { whitecowsBoard++; }
+            if (sym == Symbol.CB) { blackcowsBoard = blackcowsBoard+1; }
+            else if (sym == Symbol.CW) { whitecowsBoard = whitecowsBoard+1; }
             //throw new NotImplementedException();
         }
 

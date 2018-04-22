@@ -32,7 +32,11 @@ namespace Morabaraba
         public void setBoard(IBoard board)
         {
             this.board = board;
-            cowBox = new CowBox(board);
+      
+        }
+        public void setCowBox(ICowBox box)
+        {
+            this.cowBox = box;
         }
 
         public Symbol symbol { get ; set; }
@@ -153,7 +157,6 @@ namespace Morabaraba
         public void Shoot(IPlayer player, IReferee referee, string position)
         {
 
-            if(referee.canShoot(player, position))
 
             if (referee.isValidDestroy(player, position))
 
@@ -172,7 +175,7 @@ namespace Morabaraba
                 else
                 {
                     board.updateTile(new Tile(position, new Piece(Symbol.BL, position)));
-                    cowBox.takeCow(switchPlayer(player.symbol));
+                    cowBox.placeCow(switchPlayer(player.symbol));
                     flag = false;
                 }
             }

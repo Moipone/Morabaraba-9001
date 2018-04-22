@@ -22,8 +22,10 @@ namespace Morabaraba
             this.board = new Board();
             p1.setBoard(board);
             p2.setBoard(board);
-            referee = new Referee(board, p1.symbol);
             cowBox = new CowBox(board);
+            p1.setCowBox(cowBox);
+            p2.setCowBox(cowBox);
+            referee = new Referee(board, p1.symbol);
             legalMoves = new LegalMoves(board, cowBox);
             referee.currentPlayer = p1.symbol;
         }
@@ -72,6 +74,7 @@ namespace Morabaraba
             clearBoard();
             printBoard(play);
             string pos = "";
+
             while (cowBox.getcowsInBox(Symbol.CB) > 0 || cowBox.getcowsInBox(Symbol.CW) > 0 || referee.mill)
             {
                 if (!referee.mill)
@@ -88,7 +91,7 @@ namespace Morabaraba
                     if(referee.mill)
                     {
                         clearBoard();
-                        printBoard($@"Which piece would you liket to destroy { currentPlayer}");
+                        printBoard($@"Which piece would you like to destroy { currentPlayer}");
 
 
                         pos = Console.ReadLine();
@@ -305,12 +308,12 @@ namespace Morabaraba
         private void movingPhase()
         {
             string play = $@"Which piece would you like to move ? {currentPlayer}";
-            int wP = cowBox.getcowsInBox(Symbol.CW);
-            int bP = cowBox.getcowsInBox(Symbol.CB);
+            int wP = cowBox.getcowsOnBoard(Symbol.CW);
+            int bP = cowBox.getcowsOnBoard(Symbol.CB);
 
             while (true)
             {
-
+                if (wP == 3 || bP == 3) break;
                 movingHelper();
                 clearBoard();
                 printBoard(play);
@@ -388,6 +391,7 @@ namespace Morabaraba
                     play = $@"Where would you like to play  {currentPlayer} Player? :";
                     printBoard(play);
                 }
+
             }
 
         }
