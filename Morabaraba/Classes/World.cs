@@ -87,6 +87,7 @@ namespace Morabaraba
                     }
 
                     getPlayer(currentPlayer).playPlace(pos,getPlayer(currentPlayer),referee);
+                    cowBox.placeCow(currentPlayer);
                     referee.mill = (referee.canShoot(getPlayer(currentPlayer), pos));
                     if(referee.mill)
                     {
@@ -102,8 +103,9 @@ namespace Morabaraba
                             continue;
                         }
                         getPlayer(currentPlayer).Shoot(getPlayer(currentPlayer), referee, pos);
-                        referee.RemoveBrokenMill(pos, getPlayer(currentPlayer));
 
+                        referee.RemoveBrokenMill(pos, getPlayer(currentPlayer));
+                        cowBox.removeCowsFromBoard(currentPlayer);
                         if (getPlayer(currentPlayer).flag) continue;
                         referee.mill = false;
                         getPlayer(currentPlayer).flag = false;
@@ -129,7 +131,7 @@ namespace Morabaraba
                     }
                     getPlayer(currentPlayer).Shoot(getPlayer(currentPlayer), referee, pos);
                     referee.RemoveBrokenMill(pos, getPlayer(currentPlayer));
-
+                    cowBox.removeCowsFromBoard(currentPlayer);
                     if (getPlayer(currentPlayer).flag) continue;
                     referee.mill = false;
                     getPlayer(currentPlayer).flag = false;
