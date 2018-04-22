@@ -18,6 +18,7 @@ namespace Morabaraba.Test
         //                       "f2","f4", "f6",
         //                       "g1", "g4","g7"};
 
+
         static public object[] userInput =
         {
             new object [] {1, new string[] { "a1" }     },
@@ -46,6 +47,7 @@ namespace Morabaraba.Test
             new object [] {24, new string[] { "a7" }     },
 
         };
+
         static public object[] lineOfThree =
         {
             new object [] { new string[] { "a1", "a4", "a7" } },
@@ -69,6 +71,7 @@ namespace Morabaraba.Test
             new object [] { new string[] { "e3", "e4", "e5" } },
             new object [] { new string[] { "c5", "d5", "e5" } },
         };
+
 
         static public object[] neighBours =
        {
@@ -107,16 +110,18 @@ namespace Morabaraba.Test
             new object [] {"", new string [] {}}
         };
 
+
         [Test]
         [TestCaseSource(nameof(lineOfThree))]
         public void AMillIsLineOfSameThree(string pos, string[] MillOfPos)
         {
-            //Arrange
+
             //IBoard board = new Board();
             IBoard b = Substitute.For<IBoard>();
             IPlayer currentPayer = Substitute.For<IPlayer>();
             //if ((b.getTile().cond.Symbol == currentPayer.symbol)) { };
             List<List<string>> allmills = b.allPossibleMills();
+
             //ITile tile = new Tile();
 
             //Act 
@@ -204,7 +209,11 @@ namespace Morabaraba.Test
         public void MaxPlacementOf12()
         ///Each player is allowed to place up to 12 cows
         {
+
             //Board b = new Board();
+
+            Board b = new Board();
+
             bool flag = false;
             Player p1 = new Player(Symbol.CW);
             Player p2 = new Player(Symbol.CB);
@@ -374,7 +383,7 @@ namespace Morabaraba.Test
         public void CantShootEmptySpace()
         ///Player can only shoot at a Tile that is occupied by enemy's cow
         {
-            //Fix test
+
             bool flag = false;
             Assert.That(flag);
         }
