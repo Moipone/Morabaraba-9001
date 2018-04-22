@@ -138,35 +138,37 @@ namespace Morabaraba.Test
         {
             Player p1 = new Player(Symbol.CB);
             Player p2 = new Player(Symbol.CW);
+            ICowBox cowBox = Substitute.For<ICowBox>();
             //int blackCount = b., whiteCount = p1.cowLives;
-            //Assert.That(blackCount == 12);
-            //Assert.That(whiteCount == 12);
+            Assert.That(cowBox.getcowsInBox(p1.symbol) == 12);
+            Assert.That(cowBox.getcowsInBox(p2.symbol) == 12);
         }
         [Test]
         public void ABoardAlwaysStartsBlank()
         {
             //Start implementing this.
-            Board b = new Board();
-            bool flag = false;
-            foreach (Tile t in b.board)
-            {
-                if (t.cond != null) flag = true;
-            }
-            Assert.That(flag);
+            Player p1 = new Player(Symbol.CB);
+            Player p2 = new Player(Symbol.CW);
+            ICowBox cowBox = Substitute.For<ICowBox>();
+            //int blackCount = b., whiteCount = p1.cowLives;
+            Assert.That(cowBox.getcowsOnBoard(p1.symbol) == 0);
+            Assert.That(cowBox.getcowsOnBoard(p2.symbol) == 0);
         }
         [Test]
         public void GameEndsWhenP1orP2Has2Cows()
         {
             //Start implementing this.
             Board b = new Board();
-            bool flag = false;
+            bool flag1 = false;
+            bool flag2 = false;
             Player p1 = new Player(Symbol.CW);
             Player p2 = new Player(Symbol.CB);
-            if (p1.cowLives == 2 || p2.cowLives == 2)
-            {
-                flag = true;
-            }
-            Assert.That(flag);
+            ICowBox cowBox = Substitute.For<ICowBox>();
+            //int blackCount = b., whiteCount = p1.cowLives;
+            flag1 = ((cowBox.getcowsOnBoard(p1.symbol) < 3) && (((cowBox.getcowsOnBoard(p2.symbol) > 3))));
+            flag2 = ((cowBox.getcowsOnBoard(p2.symbol) < 3) && (((cowBox.getcowsOnBoard(p1.symbol) > 3))));
+            Assert.That(flag1);
+            Assert.That(flag2);
         }
 
         [Test]
@@ -176,11 +178,12 @@ namespace Morabaraba.Test
             //Fix test
             bool flag = false;
 
-            Player p1 = new Player(Symbol.CW);
-            Player p2 = new Player(Symbol.CB);
+            Player p1 = new Player(Symbol.CB);
+            Player p2 = new Player(Symbol.CW);
             Board b = new Board();
             World world = new World(p1, p2);
-
+            //play once 
+            //check taken tile
             Assert.That(flag);
         }
 
@@ -216,13 +219,8 @@ namespace Morabaraba.Test
             Board b = new Board();
 
             bool flag = false;
-            Player p1 = new Player(Symbol.CW);
-            Player p2 = new Player(Symbol.CB);
-            if (p1.cowLives == 12 && p2.cowLives == 12)
-            {
-                flag = true;
-            }
-            //Fix test
+
+            
             Assert.That(flag);
         }
 
