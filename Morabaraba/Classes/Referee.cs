@@ -9,8 +9,12 @@ namespace Morabaraba
     {
         IBoard board;
 
-        ICowBox cowBox;
+
         public Symbol currentPlayer { get; set; }
+
+
+        public ICowBox cowBox { get; set; }
+    ;
 
         ILegalMoves legalMoves;
         public bool mill { get; set; }
@@ -96,10 +100,14 @@ namespace Morabaraba
         //    throw new NotImplementedException();
         //}
 
-      
-        public bool canShoot(IPlayer player, ILegalMoves move, IBoard board)
+        public bool isValidPlace(string position)
         {
-            return move.ismill(board, player);
+            throw new NotImplementedException();
+        }
+
+        public bool canShoot(IPlayer player, IBoard board)
+        {
+            return legalMoves.ismill(board, player);
         }
 
         public bool isvalidenemy(IPlayer player, string pos)

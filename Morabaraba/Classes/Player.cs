@@ -8,6 +8,7 @@ namespace Morabaraba
     {
 
         IBoard board;
+        public ICowBox cowBox { get; set; }
         public Player(Symbol sym, IBoard board)
         {
             this.symbol = sym;
@@ -52,7 +53,7 @@ namespace Morabaraba
 
         }
 
-        public bool move(string from, string to, IBoard board, IReferee referee, IPlayer player)
+        public bool canmove(string from, string to, IBoard board, IReferee referee, IPlayer player)
         {
             return referee.isValidMove(from, to, player);
 
@@ -64,7 +65,7 @@ namespace Morabaraba
 
         }
 
-        public bool move(string from, string to, IBoard board, IReferee referee)
+        public bool canmove(string from, string to, IBoard board, IReferee referee)
         {
             throw new NotImplementedException();
         }
@@ -107,6 +108,18 @@ namespace Morabaraba
                 board.updateTile(tileFrom);
             }
             else Console.WriteLine("Invalid move, please make a valid move");
+        }
+        public void Shoot(IPlayer player, IReferee referee, string position)
+        {
+            if(referee.canShoot(player, board))
+            {
+                board.updateTile(new Tile(position, new Piece(Symbol.BL, position)));
+            }
+        }
+
+        public bool move(string from, string to, IBoard board, IReferee referee)
+        {
+            throw new NotImplementedException();
         }
     }
 }
