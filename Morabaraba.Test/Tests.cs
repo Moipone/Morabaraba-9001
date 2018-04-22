@@ -400,7 +400,18 @@ namespace Morabaraba.Test
         public void CantShootEmptySpace(string[] expected)
         ///Player can only shoot at a Tile that is occupied by enemy's cow
         {
+            IPlayer p1 = new Player(Symbol.CB);
+            IBoard board = Substitute.For<IBoard>();
+            IReferee referee = new Referee(board, p1.symbol);
+            string[] neighb = board.allPositions().ToArray();
+            foreach (string c in neighb)
+            {
+                if (board.getTile(c).cond.Symbol == Symbol.BL)
+                {
+                    Assert.That(!(referee.canShoot(p1, board, c)));
+                }
 
+            }
         }
 
         [Test]
