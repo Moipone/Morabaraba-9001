@@ -18,6 +18,7 @@ namespace Morabaraba
         public Player(Symbol sym)
         {
             this.symbol = sym;
+            cowLives = 12;
 
 
         }
@@ -48,7 +49,7 @@ namespace Morabaraba
 
         public bool place(string pos, IBoard board, IReferee referee)
         {
-            return referee.isValidPlace(pos);
+            return referee.isValidPlace(pos,this);
 
         }
 
@@ -76,13 +77,14 @@ namespace Morabaraba
 
         public void playPlace(string pos, IPlayer player, IReferee referee)
         {
-            if (referee.isValidPlace(pos))
+            if (referee.isValidPlace(pos,this))
             {
                 Tile t = new Tile(pos, new Piece(player.symbol, pos));
                 board.updateTile(t);
             }
             else Console.WriteLine("Invalid move, please make a valid move");
         }
+        
         public void playMove(string to, string from, IPlayer player, IReferee referee)
         {
             if (referee.isValidMove(to, from, player))
@@ -111,7 +113,11 @@ namespace Morabaraba
         {
             if(referee.canShoot(player, board))
             {
-                board.updateTile(new Tile(position, new Piece(Symbol.BL, position)));
+                Tile tile = board.getTile(position);
+                if (tile.cond.Symbol != this.symbol && tile.cond.Symbol != Symbol.BL)
+                    board.updateTile(new Tile(position, new Piece(Symbol.BL, position)));
+
+                else Console.WriteLine("You can't remove your own player or shoot a blank spot!!!");
             }
         }
 

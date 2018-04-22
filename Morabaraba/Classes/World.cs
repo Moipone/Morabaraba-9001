@@ -15,10 +15,12 @@ namespace Morabaraba
             this.player1 = p1;
             this.player2 = p2;
             this.board = new Board();
+            p1.setBoard(board);
+            p2.setBoard(board);
             referee = new Referee(board, p1.symbol);
             cowBox = new CowBox(board);
             legalMoves = new LegalMoves(board, cowBox);
-            currentPlayer = p1.symbol;
+            referee.currentPlayer = p1.symbol;
         }
 
         /* public World(IPlayer player1, IPlayer player2, IReferee referee)
@@ -28,7 +30,7 @@ namespace Morabaraba
              this.player2 = player2;
              this.referee = referee;
          }*/
-
+        
         public IBoard board { get; set; }
         public IPlayer player1 { get; set; }
         public IPlayer player2 { get; set; }
@@ -43,11 +45,17 @@ namespace Morabaraba
             if (symbol == Symbol.CW) return "W";
             return "B";
         }
+        public IPlayer getPlayer (Symbol symbol)
+        {
+            if (symbol == Symbol.CB) return player1;
+
+            return player2;
+        }
         public void clearBoard()
         {
             Console.Clear();
         }
-        private void placingPhase()
+        public void placingPhase()
         {
             string play = $@"Where would you like to play  {currentPlayer} Player? :";
             clearBoard();
@@ -58,14 +66,35 @@ namespace Morabaraba
                 if (!referee.mill)
                 {
                     pos = Console.ReadLine();
-                    if (!legalMoves.isValidPos(pos)) continue;
+                    if (!legalMoves.isValidPos(pos) || !legalMoves.isValidPlace(pos,getPlayer(currentPlayer))) {
+                        Console.WriteLine("Invalid move!!!, please place a cow on a free space");
+                        Thread.Sleep(1500);
+                        continue;
+                    }
+
+                    getPlayer(currentPlayer).playPlace(pos,getPlayer(currentPlayer),referee);
+                    referee.switchPlayer();
+                    currentPlayer = referee.currentPlayer;
+
+                    play = $@"Where would you like to play  {currentPlayer} Player? :";
+                    printBoard(play);
                 }
-                if (referee.isValidPlace(pos))
+                if(referee.canShoot(getPlayer(currentPlayer), board))
                 {
+                    Console.WriteLine("Which piece would you liket to destroy {0}", currentPlayer);
+                    clearBoard();
+                    play = $@"Where would you like to play  {currentPlayer} Player? :";
 
+                    printBoard(play);
+                    pos = Console.ReadLine();
+                    if (!legalMoves.isValidPos(pos))
+                    {
+                        Console.WriteLine("Invalid move!!!, Please re-enter coordinate");
+                    }
+                        getPlayer(currentPlayer).Shoot(getPlayer(currentPlayer), referee, pos);
                 }
-            }
 
+            }
         }
         public void printBoard(string message)
         {

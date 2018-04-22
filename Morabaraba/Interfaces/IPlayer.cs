@@ -18,6 +18,9 @@ namespace Morabaraba
         bool place(string pos, IBoard board, IReferee referee);
         bool move(string from, string to, IBoard board, IReferee referee);
         bool fly(string from, string to, IBoard board, IReferee referee);
+        void playPlace(string pos, IPlayer player, IReferee referee);
+        void playMove(string to, string from, IPlayer player, IReferee referee);
+        void playFly(string to, string from, IPlayer player, IReferee referee);
         bool loses { get; set; }
         int cowLives { get; set; }
         void Shoot(IPlayer player, IReferee referee, string position);
