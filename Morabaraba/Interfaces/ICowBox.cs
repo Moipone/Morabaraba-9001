@@ -6,8 +6,9 @@ namespace Morabaraba
     {
         void takeCow(Symbol sym);
         void placeCow(Symbol sym);
-        int remainingCows(IPlayer sym);
+        int getcowsInBox(Symbol sym);
+        int getcowsOnBoard(Symbol sym);
         List<string> playerPiecesPositions(IPlayer player);
-        int cowsRemainingOnBoard(Symbol sym);
+        
     }
 }

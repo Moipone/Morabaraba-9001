@@ -19,7 +19,7 @@ namespace Morabaraba.Classes
             if (isValidPos(pos))
             {
                 Tile tile = board.getTile(pos);
-                if (tile.cond.Symbol == Symbol.BL && cowBox.remainingCows(player) > 0) return true;
+                if (tile.cond.Symbol == Symbol.BL && cowBox.getcowsInBox(Symbol.BL) > 0) return true;
             }
 
             return false;
@@ -145,7 +145,7 @@ namespace Morabaraba.Classes
         public bool cowsInBox(ICowBox cowBox, IPlayer player)
         {
             //throw new NotImplementedException();
-            return cowBox.remainingCows(player) > 0;
+            return cowBox.getcowsInBox(player.symbol) > 0;
         }
 
         public bool cowsInBox(IPlayer player)
