@@ -8,9 +8,7 @@ namespace Morabaraba
         static void Main(string[] args)
         {
             World world = new World(new Player(Symbol.CB ), new Player(Symbol.CW));
-            world.placingPhase();
-          
-      
+            world.RunAllPhases();
             //world.PlayAllPhases();
             //world.printBoard("Where would you like to play");
             Console.Read();

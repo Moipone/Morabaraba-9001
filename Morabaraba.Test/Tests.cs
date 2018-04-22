@@ -301,8 +301,11 @@ namespace Morabaraba.Test
             {
                 if (board.getTile(c).cond.Symbol == Symbol.BL)
                 {
-                    flag = false;
-                    //Assert.That((referee.canShoot(p1, c))); 
+
+                     
+
+                    Assert.That((referee.canShoot(p1, c))); ; ; ; ;
+
                 }
 
             }
@@ -422,7 +425,10 @@ namespace Morabaraba.Test
             {
                 if (board.getTile(c).cond.Symbol == Symbol.CB)
                 {
+
                     Assert.That(!(referee1.canShoot(p1,c)));                  
+                  
+
                 }
                 
             }
@@ -445,7 +451,10 @@ namespace Morabaraba.Test
             {
                 if (world.board.getTile(c).cond.Symbol == Symbol.BL)
                 {
-                    Assert.That(!(referee.canShoot(p2, c)));
+
+
+                    Assert.That(!(referee.canShoot(p1,  c)));
+
                 }
 
             }

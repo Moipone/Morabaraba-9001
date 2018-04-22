@@ -9,6 +9,8 @@ namespace Morabaraba
         int getcowsInBox(Symbol sym);
         int getcowsOnBoard(Symbol sym);
         List<string> playerPiecesPositions(IPlayer player);
-        
+        void removeCowsFromBoard(Symbol sym);
+
+
     }
 }

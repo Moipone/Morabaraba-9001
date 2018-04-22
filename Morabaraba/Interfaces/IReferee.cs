@@ -16,7 +16,15 @@ namespace Morabaraba
         bool isValidFly(string to, string from, IPlayer player);
         bool isvalidenemy(IPlayer player, string pos);
 
+
         bool canShoot(IPlayer player, string position);
+
+
+
+        void RemoveBrokenMill(string pos, IPlayer player);
+
+  
+
 
         void switchPlayer();
 
